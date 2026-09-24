@@ -3,32 +3,32 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>SeaArt AI - Clone Interface</title>
-    <!-- Fonte Inter -->
+    <title>SeaArt AI - All-in-One AI Creation Platform</title>
+    <!-- Fonte Oficial Sans Google -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg-main: #0c0d14;
-            --bg-surface: #141622;
-            --bg-elevated: #1a1d2e;
-            --bg-card: #202438;
-            --bg-sheet: #171926;
-            --primary-accent: #9333ea;
-            --primary-gradient: linear-gradient(135deg, #a855f7, #6366f1);
-            --cyan-accent: #00d2ff;
-            --text-main: #f8fafc;
+            --bg-body: #07080c;
+            --bg-navbar: #0e0f18;
+            --bg-surface: #131522;
+            --bg-card: #1a1d2e;
+            --bg-elevated: #22263d;
+            --bg-sheet: #151726;
+            --primary-purple: #8b5cf6;
+            --primary-hover: #7c3aed;
+            --primary-gradient: linear-gradient(135deg, #a855f7 0%, #6366f1 100%);
+            --seaart-blue-gradient: linear-gradient(135deg, #06b6d4 0%, #3b82f6 100%);
+            --gold-gradient: linear-gradient(90deg, #f59e0b, #fbbf24);
+            --text-primary: #ffffff;
             --text-secondary: #94a3b8;
-            --text-dim: #64748b;
-            --border-color: #272c45;
-            --border-active: #a855f7;
-            --gold-accent: #f59e0b;
-            --danger: #ef4444;
-            --success: #10b981;
-            --bottom-nav-height: 58px;
-            --header-height: 52px;
-            --font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            --text-muted: #64748b;
+            --border-subtle: #242942;
+            --border-focus: #8b5cf6;
+            --bottom-nav-height: 56px;
+            --header-height: 50px;
+            --font-main: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
         }
 
         * {
@@ -40,43 +40,34 @@
         }
 
         body {
-            font-family: var(--font-family);
-            background-color: var(--bg-main);
-            color: var(--text-main);
-            overflow-x: hidden;
+            font-family: var(--font-main);
+            background-color: var(--bg-body);
+            color: var(--text-primary);
+            overflow: hidden;
             height: 100vh;
             width: 100vw;
             display: flex;
             flex-direction: column;
         }
 
-        /* Utilitários e Scroll */
-        ::-webkit-scrollbar {
-            display: none;
-        }
-        * {
-            -ms-overflow-style: none;
-            scrollbar-width: none;
-        }
+        /* Rolagem sem barras visíveis */
+        ::-webkit-scrollbar { display: none; }
+        * { -ms-overflow-style: none; scrollbar-width: none; }
 
-        /* Top Banner */
-        .top-event-banner {
-            background: linear-gradient(90deg, #6d28d9, #d946ef, #f59e0b);
-            padding: 6px 12px;
+        /* Top Bar de Promoção / Outono */
+        .top-promo-banner {
+            background: linear-gradient(90deg, #581c87 0%, #9333ea 50%, #f59e0b 100%);
+            height: 30px;
             display: flex;
-            justify-content: space-between;
             align-items: center;
+            justify-content: space-between;
+            padding: 0 12px;
             font-size: 11px;
             font-weight: 600;
-            z-index: 50;
+            z-index: 60;
         }
-        .top-event-banner span {
-            display: flex;
-            align-items: center;
-            gap: 6px;
-        }
-        .btn-banner-action {
-            background: #facc15;
+        .btn-banner-tag {
+            background: #fef08a;
             color: #000;
             border: none;
             padding: 2px 8px;
@@ -86,402 +77,370 @@
             cursor: pointer;
         }
 
-        /* Barra Superior Padrão */
-        header.app-header {
+        /* Top Header Principal */
+        header.seaart-header {
             height: var(--header-height);
-            background: var(--bg-surface);
+            background: var(--bg-navbar);
             display: flex;
             align-items: center;
             justify-content: space-between;
             padding: 0 12px;
-            position: relative;
-            z-index: 40;
-            border-bottom: 1px solid var(--border-color);
+            border-bottom: 1px solid var(--border-subtle);
+            z-index: 50;
         }
-        .header-left {
+        .header-brand-wrap {
             display: flex;
             align-items: center;
             gap: 12px;
         }
-        .menu-toggle-btn {
+        .btn-hamburger {
             background: none;
             border: none;
-            color: var(--text-main);
-            font-size: 20px;
-            display: flex;
-            cursor: pointer;
-        }
-        .brand-logo {
-            font-weight: 800;
-            letter-spacing: -0.5px;
-            font-size: 17px;
-            background: linear-gradient(90deg, #fff, #a855f7);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-        .header-search-bar {
-            flex: 1;
-            margin: 0 10px;
-            background: var(--bg-main);
-            height: 34px;
-            border-radius: 17px;
-            display: flex;
-            align-items: center;
-            padding: 0 12px;
-            gap: 8px;
-            border: 1px solid var(--border-color);
-            cursor: pointer;
-        }
-        .header-search-bar span {
-            color: var(--text-dim);
-            font-size: 12px;
-        }
-        .header-right {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-        .btn-vip-tag {
-            background: linear-gradient(90deg, #d97706, #f59e0b);
             color: #fff;
-            border: none;
-            border-radius: 14px;
-            font-size: 10px;
-            font-weight: 700;
-            padding: 3px 8px;
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+        }
+        .seaart-logo {
+            font-weight: 800;
+            font-size: 17px;
+            letter-spacing: -0.5px;
+            color: #fff;
             display: flex;
             align-items: center;
             gap: 4px;
         }
-        .btn-primary-login {
-            background: var(--primary-accent);
+        .search-pill {
+            flex: 1;
+            margin: 0 10px;
+            height: 32px;
+            background: #090a10;
+            border: 1px solid var(--border-subtle);
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            padding: 0 10px;
+            gap: 8px;
+            color: var(--text-muted);
+            font-size: 12px;
+            cursor: pointer;
+        }
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .vip-discount-badge {
+            background: #1e1b2e;
+            border: 1px solid #d97706;
+            color: #fbbf24;
+            padding: 3px 6px;
+            border-radius: 12px;
+            font-size: 10px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 2px;
+        }
+        .btn-auth-top {
+            background: var(--primary-purple);
             color: #fff;
             border: none;
             padding: 5px 12px;
-            border-radius: 16px;
+            border-radius: 14px;
             font-size: 12px;
             font-weight: 600;
             cursor: pointer;
         }
 
-        /* Container Principal com Viewports */
-        main.app-viewport {
+        /* Layout Switcher (Views) */
+        main.seaart-viewport {
             flex: 1;
             position: relative;
             overflow: hidden;
-            background: var(--bg-main);
         }
-
-        .view-page {
+        .spa-view {
             position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+            inset: 0;
             overflow-y: auto;
             display: none;
             flex-direction: column;
-            padding-bottom: calc(var(--bottom-nav-height) + 20px);
+            padding-bottom: calc(var(--bottom-nav-height) + 16px);
         }
-        .view-page.active-page {
+        .spa-view.active-view {
             display: flex;
         }
 
-        /* 1. VIEW INÍCIO (HOME) */
-        .home-hero-card {
-            background: linear-gradient(180deg, #1b1335 0%, var(--bg-main) 100%);
-            padding: 24px 16px;
+        /* Hero do Início */
+        .home-hero {
+            padding: 24px 16px 16px;
+            background: radial-gradient(circle at 50% 10%, #2e1065 0%, var(--bg-body) 70%);
             text-align: center;
         }
         .hero-title {
-            font-size: 24px;
+            font-size: 22px;
             font-weight: 800;
-            margin-bottom: 8px;
-            line-height: 1.2;
+            line-height: 1.25;
+            margin-bottom: 6px;
         }
-        .hero-subtitle {
+        .hero-desc {
             font-size: 12px;
             color: var(--text-secondary);
-            margin-bottom: 20px;
+            margin-bottom: 18px;
+            line-height: 1.4;
         }
-        .quick-generator-box {
+
+        /* Box de Geração Rápida */
+        .quick-box {
             background: var(--bg-surface);
-            border: 1px solid var(--border-color);
-            border-radius: 12px;
+            border: 1px solid var(--border-subtle);
+            border-radius: 14px;
             padding: 12px;
             text-align: left;
         }
-        .gen-type-tabs {
+        .quick-nav-modes {
             display: flex;
             gap: 16px;
-            margin-bottom: 12px;
-            border-bottom: 1px solid var(--border-color);
+            border-bottom: 1px solid var(--border-subtle);
             padding-bottom: 8px;
+            margin-bottom: 10px;
         }
-        .gen-tab {
+        .mode-tab {
             font-size: 13px;
             font-weight: 600;
-            color: var(--text-dim);
+            color: var(--text-muted);
             cursor: pointer;
             position: relative;
         }
-        .gen-tab.active {
-            color: var(--text-main);
+        .mode-tab.active {
+            color: #fff;
         }
-        .gen-tab.active::after {
+        .mode-tab.active::after {
             content: '';
             position: absolute;
             bottom: -9px;
             left: 0;
             right: 0;
             height: 2px;
-            background: var(--primary-accent);
+            background: var(--primary-purple);
         }
-        .quick-gen-input-area {
+        .quick-input-grid {
             display: flex;
             gap: 10px;
             margin-bottom: 12px;
         }
-        .box-add-image-ref {
-            width: 50px;
-            height: 50px;
-            border: 1px dashed var(--border-color);
+        .ref-image-box {
+            width: 48px;
+            height: 48px;
+            background: #090a10;
+            border: 1px dashed var(--border-subtle);
             border-radius: 8px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 20px;
-            color: var(--text-dim);
+            font-size: 18px;
+            color: var(--text-muted);
             cursor: pointer;
         }
-        .quick-gen-input-area textarea {
+        .quick-input-grid textarea {
             flex: 1;
             background: none;
             border: none;
-            color: var(--text-main);
+            outline: none;
+            color: #fff;
             font-family: inherit;
             font-size: 12px;
             resize: none;
-            outline: none;
         }
-        .quick-gen-bottom {
+        .quick-footer {
             display: flex;
             justify-content: space-between;
             align-items: center;
         }
-        .model-select-chip {
+        .chip-model {
             background: var(--bg-card);
-            padding: 6px 10px;
-            border-radius: 16px;
+            padding: 4px 8px;
+            border-radius: 12px;
             font-size: 11px;
+            color: var(--text-secondary);
             display: flex;
             align-items: center;
-            gap: 6px;
-            color: var(--text-secondary);
+            gap: 4px;
         }
-        .btn-create-magic {
+        .btn-gen-purple {
             background: var(--primary-gradient);
             border: none;
             color: #fff;
-            padding: 6px 16px;
-            border-radius: 16px;
+            padding: 6px 14px;
+            border-radius: 14px;
             font-size: 12px;
             font-weight: 700;
             cursor: pointer;
         }
 
-        /* Feeds de Cartões e Grids */
-        .section-header-title {
-            padding: 16px;
+        /* Notificação Flutuante de Energia / Stamina */
+        .stamina-toast {
+            margin: 12px 16px;
+            background: #171929;
+            border: 1px solid var(--border-subtle);
+            border-radius: 10px;
+            padding: 10px 14px;
             display: flex;
             justify-content: space-between;
             align-items: center;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.5);
         }
-        .section-header-title h3 {
-            font-size: 15px;
+        .stamina-text {
+            font-size: 11px;
+            line-height: 1.3;
+        }
+        .stamina-text b {
+            color: #facc15;
+        }
+        .btn-free-access {
+            background: var(--primary-purple);
+            color: #fff;
+            border: none;
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 11px;
             font-weight: 700;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-        }
-        .horizontal-cards-scroller {
-            display: flex;
-            gap: 10px;
-            overflow-x: auto;
-            padding: 0 16px;
-            margin-bottom: 16px;
-        }
-        .card-app-horizontal {
-            min-width: 140px;
-            width: 140px;
-            background: var(--bg-surface);
-            border-radius: 10px;
-            overflow: hidden;
-            border: 1px solid var(--border-color);
-            flex-shrink: 0;
-        }
-        .card-app-horizontal img {
-            width: 100%;
-            height: 140px;
-            object-fit: cover;
-            display: block;
-        }
-        .card-info {
-            padding: 8px;
-        }
-        .card-title {
-            font-size: 12px;
-            font-weight: 600;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            margin-bottom: 2px;
-        }
-        .card-author {
-            font-size: 10px;
-            color: var(--text-dim);
+            cursor: pointer;
         }
 
-        /* Masonry Grid Duplo */
-        .feed-masonry-container {
+        /* Feeds em Masonry 2 Colunas */
+        .section-header {
+            padding: 16px 16px 8px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 14px;
+            font-weight: 700;
+        }
+        .masonry-wrap {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 10px;
             padding: 0 12px;
         }
-        .masonry-column {
+        .masonry-col {
             display: flex;
             flex-direction: column;
             gap: 10px;
         }
-        .masonry-item {
+        .art-card {
             background: var(--bg-surface);
+            border: 1px solid var(--border-subtle);
             border-radius: 10px;
             overflow: hidden;
-            border: 1px solid var(--border-color);
             cursor: pointer;
             position: relative;
         }
-        .masonry-item img {
+        .art-card img {
             width: 100%;
             display: block;
             object-fit: cover;
         }
-        .item-details-foot {
+        .art-card-body {
             padding: 8px;
-            background: var(--bg-surface);
         }
-        .item-prompt-label {
+        .art-card-title {
             font-size: 11px;
             line-height: 1.3;
-            color: var(--text-main);
-            overflow: hidden;
+            color: var(--text-primary);
             display: -webkit-box;
             -webkit-line-clamp: 2;
             line-clamp: 2;
             -webkit-box-orient: vertical;
+            overflow: hidden;
             margin-bottom: 6px;
         }
-        .author-box {
+        .art-card-author {
             display: flex;
             justify-content: space-between;
             align-items: center;
             font-size: 10px;
-            color: var(--text-secondary);
+            color: var(--text-muted);
         }
 
-        /* 2. VIEW PERSONAGEM DE IA */
-        .character-tabs-row {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 8px 16px;
-            border-bottom: 1px solid var(--border-color);
-        }
-        .char-tab-group {
-            display: flex;
-            gap: 14px;
-        }
-        .char-tab {
-            font-size: 13px;
-            color: var(--text-dim);
-            font-weight: 600;
-            cursor: pointer;
-        }
-        .char-tab.active {
-            color: var(--text-main);
-            border-bottom: 2px solid var(--primary-accent);
-            padding-bottom: 4px;
-        }
-        .btn-filter-icon {
-            background: none;
-            border: none;
-            color: var(--text-main);
-            font-size: 16px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            gap: 4px;
-        }
-
-        /* 3. VIEW CRIAR (CANVAS / INTERFACE DE CRIAÇÃO) */
-        .create-top-tools {
-            height: 48px;
-            background: var(--bg-surface);
-            border-bottom: 1px solid var(--border-color);
+        /* Barra de Criação / Histórico de Tarefas */
+        .studio-tools-header {
+            height: 44px;
+            background: var(--bg-navbar);
+            border-bottom: 1px solid var(--border-subtle);
             display: flex;
             align-items: center;
             justify-content: space-between;
             padding: 0 12px;
         }
-        .create-top-tools .tools-left {
+        .studio-tools-cluster {
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 6px;
         }
-        .tool-icon-btn {
+        .btn-icon-tool {
             background: none;
             border: none;
-            color: var(--text-main);
+            color: var(--text-secondary);
             font-size: 16px;
-            cursor: pointer;
             padding: 6px;
             border-radius: 6px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
         }
-        .tool-icon-btn:hover {
+        .btn-icon-tool:hover {
+            color: #fff;
             background: var(--bg-card);
         }
-        .canvas-workspace {
+
+        /* Modo de Seleção / Lote */
+        .batch-action-bar {
+            height: 48px;
+            background: var(--bg-card);
+            border-bottom: 1px solid var(--border-subtle);
+            display: none;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 14px;
+            z-index: 55;
+        }
+        .batch-action-bar.active {
+            display: flex;
+        }
+
+        /* Feed do Studio (Cards de Tarefas Geradas) */
+        .studio-feed {
             flex: 1;
-            padding: 16px;
-            overflow-y: auto;
+            padding: 12px;
             display: flex;
             flex-direction: column;
-            gap: 16px;
+            gap: 12px;
+            overflow-y: auto;
         }
-        .generated-media-card {
+        .job-card {
             background: var(--bg-surface);
-            border-radius: 12px;
-            border: 1px solid var(--border-color);
+            border: 1px solid var(--border-subtle);
+            border-radius: 10px;
             overflow: hidden;
             position: relative;
         }
-        .generated-media-card.selected-for-batch {
-            border-color: #a855f7;
-            box-shadow: 0 0 10px rgba(168, 85, 247, 0.4);
+        .job-card.is-selected {
+            border-color: var(--primary-purple);
+            box-shadow: 0 0 12px rgba(139,92,246,0.3);
         }
-        .media-preview-container {
+        .job-preview {
             width: 100%;
             height: 220px;
-            position: relative;
             background: #000;
+            position: relative;
         }
-        .media-preview-container img {
+        .job-preview img {
             width: 100%;
             height: 100%;
             object-fit: contain;
         }
-        .media-select-check {
+        .select-circle-btn {
             position: absolute;
             top: 10px;
             left: 10px;
@@ -495,68 +454,68 @@
             justify-content: center;
             cursor: pointer;
         }
-        .generated-media-card.selected-for-batch .media-select-check {
-            background: var(--primary-accent);
-            border-color: var(--primary-accent);
+        .job-card.is-selected .select-circle-btn {
+            background: var(--primary-purple);
+            border-color: var(--primary-purple);
         }
-        .media-card-details {
+        .job-details {
             padding: 10px;
         }
-        .media-prompt-text {
+        .job-prompt {
             font-size: 12px;
             color: var(--text-secondary);
             margin-bottom: 8px;
         }
-        .media-actions-row {
+        .job-actions {
             display: flex;
             gap: 8px;
         }
-        .btn-sub-action {
+        .btn-action-ghost {
             background: var(--bg-card);
-            border: 1px solid var(--border-color);
-            color: var(--text-main);
+            border: 1px solid var(--border-subtle);
+            color: #fff;
             padding: 4px 8px;
             border-radius: 6px;
             font-size: 11px;
             cursor: pointer;
         }
 
-        /* Floating Input Bar na Criação */
-        .bottom-generation-dock {
-            background: var(--bg-surface);
-            border-top: 1px solid var(--border-color);
-            padding: 10px 12px;
+        /* Barra de Input Flutuante no Studio */
+        .docked-generator {
             position: absolute;
             bottom: var(--bottom-nav-height);
             left: 0;
             right: 0;
+            background: var(--bg-navbar);
+            border-top: 1px solid var(--border-subtle);
+            padding: 10px 12px;
             display: flex;
             flex-direction: column;
-            gap: 8px;
-            z-index: 30;
+            gap: 6px;
+            z-index: 40;
         }
-        .prompt-input-wrapper {
-            background: var(--bg-main);
-            border: 1px solid var(--border-color);
-            border-radius: 20px;
+        .generator-input-row {
             display: flex;
             align-items: center;
-            padding: 4px 12px;
+            background: #090a10;
+            border: 1px solid var(--border-subtle);
+            border-radius: 20px;
+            padding: 4px 10px;
         }
-        .prompt-input-wrapper input {
+        .generator-input-row input {
             flex: 1;
             background: none;
             border: none;
-            color: var(--text-main);
-            padding: 8px 4px;
             outline: none;
+            color: #fff;
             font-size: 13px;
+            padding: 6px 4px;
         }
-        .btn-trigger-send {
-            width: 32px;
-            height: 32px;
+        .btn-send-dock {
+            width: 28px;
+            height: 28px;
+            background: var(--primary-purple);
             border-radius: 50%;
-            background: var(--primary-accent);
             border: none;
             color: #fff;
             display: flex;
@@ -565,384 +524,268 @@
             cursor: pointer;
         }
 
-        /* Batch Top Bar (Seleção de Imagens) */
-        .batch-operations-bar {
-            height: 48px;
-            background: var(--bg-card);
-            border-bottom: 1px solid var(--border-color);
-            display: none;
-            align-items: center;
-            justify-content: space-between;
+        /* Perfil de Usuário */
+        .profile-cover {
+            height: 120px;
+            background: linear-gradient(180deg, #1e1b4b 0%, #0c0a1f 100%);
+        }
+        .profile-row-user {
             padding: 0 16px;
-            z-index: 45;
-        }
-        .batch-operations-bar.active {
-            display: flex;
-        }
-        .batch-actions-cluster {
-            display: flex;
-            gap: 12px;
-            align-items: center;
-        }
-        .btn-batch-publish {
-            background: var(--primary-gradient);
-            border: none;
-            color: #fff;
-            padding: 4px 12px;
-            border-radius: 14px;
-            font-size: 12px;
-            font-weight: 600;
-            cursor: pointer;
-        }
-
-        /* 4. VIEW PESSOAL (PERFIL) */
-        .profile-banner-header {
-            height: 140px;
-            background: url('https://picsum.photos/seed/nebula/600/300') center/cover;
-            position: relative;
-        }
-        .profile-info-strip {
-            padding: 0 16px;
-            position: relative;
-            margin-top: -30px;
             display: flex;
             justify-content: space-between;
             align-items: flex-end;
-            margin-bottom: 16px;
+            margin-top: -30px;
+            margin-bottom: 12px;
         }
-        .profile-avatar-circle {
-            width: 72px;
-            height: 72px;
+        .avatar-initial {
+            width: 64px;
+            height: 64px;
             border-radius: 50%;
-            background: #0f766e;
-            border: 3px solid var(--bg-main);
+            background: #065f46;
+            border: 3px solid var(--bg-body);
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 28px;
+            font-size: 24px;
             font-weight: 700;
         }
-        .profile-controls-right {
+        .profile-stat-bar {
             display: flex;
-            gap: 8px;
+            justify-content: space-around;
+            padding: 10px 0;
+            border-top: 1px solid var(--border-subtle);
+            border-bottom: 1px solid var(--border-subtle);
         }
-        .profile-meta-details {
-            padding: 0 16px;
-            margin-bottom: 16px;
+        .stat-box {
+            text-align: center;
         }
-        .profile-username {
-            font-size: 18px;
-            font-weight: 700;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-        }
-        .profile-stats-grid {
-            display: flex;
-            gap: 20px;
-            padding: 12px 16px;
-            border-top: 1px solid var(--border-color);
-            border-bottom: 1px solid var(--border-color);
-            margin-bottom: 16px;
-        }
-        .stat-node {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-        .stat-value {
+        .stat-box .num {
             font-size: 14px;
             font-weight: 700;
         }
-        .stat-label {
+        .stat-box .lbl {
             font-size: 11px;
-            color: var(--text-dim);
+            color: var(--text-muted);
         }
 
-        /* Abas de Navegação do Perfil */
-        .profile-subtabs {
+        /* Menu de Navegação Horizontal do Perfil */
+        .nav-tabs-horizontal {
             display: flex;
-            border-bottom: 1px solid var(--border-color);
+            gap: 16px;
             padding: 0 16px;
-            gap: 20px;
+            border-bottom: 1px solid var(--border-subtle);
+            overflow-x: auto;
         }
-        .profile-tab {
+        .tab-h-item {
             padding: 10px 0;
-            font-size: 13px;
+            font-size: 12px;
             font-weight: 600;
-            color: var(--text-dim);
+            color: var(--text-muted);
             cursor: pointer;
+            white-space: nowrap;
         }
-        .profile-tab.active {
-            color: var(--text-main);
-            border-bottom: 2px solid var(--primary-accent);
-        }
-        .profile-empty-state {
-            padding: 40px 16px;
-            text-align: center;
-            color: var(--text-dim);
-            font-size: 13px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 10px;
+        .tab-h-item.active {
+            color: #fff;
+            border-bottom: 2px solid var(--primary-purple);
         }
 
-        /* 5. GAVETA LATERAL DE NAVEGAÇÃO (DRAWER / MENU) */
-        .app-drawer-overlay {
+        /* Drawer Lateral & Submenus */
+        .drawer-backdrop {
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
+            inset: 0;
             background: rgba(0,0,0,0.6);
-            backdrop-filter: blur(2px);
-            z-index: 99;
+            backdrop-filter: blur(3px);
+            z-index: 100;
             opacity: 0;
             pointer-events: none;
-            transition: opacity 0.3s ease;
+            transition: opacity 0.25s ease;
         }
-        .app-drawer-overlay.visible {
+        .drawer-backdrop.is-visible {
             opacity: 1;
             pointer-events: auto;
         }
-        .app-drawer-pane {
+        .drawer-panel {
             position: fixed;
             top: 0;
-            left: -280px;
-            width: 280px;
-            height: 100vh;
-            background: var(--bg-surface);
-            z-index: 100;
-            transition: transform 0.3s ease;
+            bottom: 0;
+            left: -270px;
+            width: 270px;
+            background: var(--bg-navbar);
+            border-right: 1px solid var(--border-subtle);
+            z-index: 101;
+            transition: transform 0.25s ease;
             display: flex;
             flex-direction: column;
-            border-right: 1px solid var(--border-color);
         }
-        .app-drawer-overlay.visible .app-drawer-pane {
-            transform: translateX(280px);
+        .drawer-backdrop.is-visible .drawer-panel {
+            transform: translateX(270px);
         }
-
-        /* Subpáginas do Drawer (Menu > Mais, Menu > Outro) */
-        .drawer-subpanel {
+        .drawer-subpage {
             position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: var(--bg-surface);
+            inset: 0;
+            background: var(--bg-navbar);
             display: none;
             flex-direction: column;
         }
-        .drawer-subpanel.active {
+        .drawer-subpage.is-open {
             display: flex;
         }
-        .drawer-nav-list {
+        .drawer-menu-list {
             list-style: none;
             overflow-y: auto;
-            padding: 12px 0;
         }
-        .drawer-nav-item {
+        .drawer-menu-item {
             padding: 12px 16px;
             display: flex;
             align-items: center;
             justify-content: space-between;
-            color: var(--text-main);
             font-size: 13px;
             font-weight: 500;
             cursor: pointer;
             border-bottom: 1px solid rgba(255,255,255,0.02);
         }
-        .drawer-nav-item:hover {
+        .drawer-menu-item:hover {
             background: var(--bg-card);
         }
-        .drawer-nav-item span {
+        .drawer-menu-item span {
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 10px;
         }
 
-        /* 6. MODAIS E BOTTOM SHEETS */
-        .bottom-sheet-modal {
+        /* Bottom Sheets */
+        .bottom-sheet {
             position: fixed;
             bottom: -100%;
             left: 0;
             right: 0;
             background: var(--bg-sheet);
-            border-top: 1px solid var(--border-color);
+            border-top: 1px solid var(--border-subtle);
             border-radius: 16px 16px 0 0;
             z-index: 120;
-            transition: bottom 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            transition: bottom 0.25s cubic-bezier(0.2, 0.8, 0.2, 1);
             max-height: 80vh;
             display: flex;
             flex-direction: column;
-            padding-bottom: 24px;
         }
-        .bottom-sheet-modal.show {
+        .bottom-sheet.is-open {
             bottom: 0;
         }
-        .sheet-header-bar {
-            padding: 14px 16px;
+        .sheet-top {
+            padding: 12px 16px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            border-bottom: 1px solid var(--border-color);
-        }
-        .sheet-title {
-            font-size: 14px;
+            border-bottom: 1px solid var(--border-subtle);
+            font-size: 13px;
             font-weight: 700;
         }
-        .btn-sheet-close {
-            background: none;
-            border: none;
-            color: var(--text-dim);
-            font-size: 18px;
-            cursor: pointer;
-        }
-        .sheet-content-body {
+        .sheet-inner {
             padding: 16px;
             overflow-y: auto;
         }
 
-        /* Modal Central (Ex: Login) */
-        .center-popup-overlay {
+        /* Tela de Notificações / Centro de Mensagens */
+        .fullscreen-view {
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            background: rgba(0,0,0,0.7);
-            z-index: 130;
-            display: none;
-            align-items: center;
-            justify-content: center;
-            padding: 20px;
-        }
-        .center-popup-overlay.show {
-            display: flex;
-        }
-        .login-popup-box {
-            background: var(--bg-surface);
-            border: 1px solid var(--border-color);
-            border-radius: 16px;
-            width: 100%;
-            max-width: 360px;
-            padding: 24px;
-            position: relative;
-            text-align: center;
-        }
-        .social-login-btn-row {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-            margin-top: 18px;
-        }
-        .social-btn {
-            background: var(--bg-card);
-            border: 1px solid var(--border-color);
-            color: var(--text-main);
-            padding: 10px;
-            border-radius: 10px;
-            font-size: 13px;
-            font-weight: 600;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-        }
-
-        /* 7. VIEW EXPLORAR DETALHE (IMAGE DETAIL OVERLAY) */
-        .fullscreen-detail-view {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            background: var(--bg-main);
+            inset: 0;
+            background: var(--bg-body);
             z-index: 110;
             display: none;
             flex-direction: column;
             overflow-y: auto;
         }
-        .fullscreen-detail-view.active {
+        .fullscreen-view.is-active {
             display: flex;
         }
-        .detail-top-nav {
-            padding: 12px;
-            display: flex;
-            justify-content: space-between;
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            z-index: 2;
-            background: linear-gradient(180deg, rgba(0,0,0,0.8), transparent);
+
+        /* Modal Central de Login */
+        .dialog-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.7);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            z-index: 130;
         }
-        .detail-image-hero {
+        .dialog-overlay.is-active {
+            display: flex;
+        }
+        .dialog-card {
+            background: var(--bg-surface);
+            border: 1px solid var(--border-subtle);
+            border-radius: 16px;
             width: 100%;
-            max-height: 500px;
+            max-width: 350px;
+            padding: 20px;
+            position: relative;
+            text-align: center;
+        }
+        .btn-social-auth {
+            width: 100%;
+            background: var(--bg-card);
+            border: 1px solid var(--border-subtle);
+            color: #fff;
+            padding: 10px;
+            border-radius: 8px;
+            margin-top: 10px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        /* Tela de Detalhes da Arte (Remix) */
+        .detail-cover-hero {
+            width: 100%;
+            max-height: 480px;
             object-fit: contain;
             background: #000;
         }
-        .detail-meta-box {
+        .detail-meta-container {
             padding: 16px;
             background: var(--bg-surface);
             border-radius: 16px 16px 0 0;
             margin-top: -12px;
             position: relative;
-            z-index: 1;
         }
-        .prompt-copy-block {
-            background: var(--bg-main);
-            border: 1px solid var(--border-color);
+        .prompt-view-card {
+            background: var(--bg-body);
+            border: 1px solid var(--border-subtle);
             border-radius: 8px;
             padding: 10px;
             font-size: 12px;
-            margin: 12px 0;
             line-height: 1.4;
             color: var(--text-secondary);
+            margin: 10px 0;
         }
-        .parameters-chip-list {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
-            margin-bottom: 16px;
-        }
-        .param-chip {
-            background: var(--bg-card);
-            padding: 4px 8px;
-            border-radius: 6px;
-            font-size: 11px;
-            color: var(--text-dim);
-        }
-        .detail-bottom-bar {
+        .remix-footer-dock {
             position: sticky;
             bottom: 0;
-            background: var(--bg-surface);
-            border-top: 1px solid var(--border-color);
+            background: var(--bg-navbar);
+            border-top: 1px solid var(--border-subtle);
             padding: 10px 16px;
             display: flex;
-            gap: 12px;
-            z-index: 5;
+            gap: 10px;
         }
-        .btn-remix-cyan {
+        .btn-cyan-remix {
             flex: 1;
-            background: linear-gradient(90deg, #06b6d4, #3b82f6);
+            background: var(--seaart-blue-gradient);
             border: none;
             color: #fff;
             padding: 10px;
-            border-radius: 12px;
-            font-weight: 700;
+            border-radius: 10px;
             font-size: 13px;
+            font-weight: 700;
             cursor: pointer;
         }
 
-        /* 8. BARRA DE NAVEGAÇÃO INFERIOR */
-        nav.bottom-app-bar {
+        /* Barra Inferior Fixa */
+        nav.seaart-bottom-nav {
             height: var(--bottom-nav-height);
-            background: var(--bg-surface);
-            border-top: 1px solid var(--border-color);
+            background: var(--bg-navbar);
+            border-top: 1px solid var(--border-subtle);
             display: flex;
             align-items: center;
             justify-content: space-around;
@@ -950,23 +793,22 @@
             bottom: 0;
             left: 0;
             right: 0;
-            z-index: 45;
+            z-index: 50;
         }
-        .nav-node {
+        .nav-button {
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 3px;
-            color: var(--text-dim);
+            gap: 2px;
+            color: var(--text-muted);
             font-size: 10px;
             font-weight: 500;
             cursor: pointer;
-            transition: color 0.2s;
         }
-        .nav-node.active {
-            color: var(--text-main);
+        .nav-button.active {
+            color: #fff;
         }
-        .nav-node svg {
+        .nav-button svg {
             width: 20px;
             height: 20px;
             fill: currentColor;
@@ -975,783 +817,722 @@
 </head>
 <body>
 
-    <!-- 0. Top Promo Banner Global -->
-    <div class="top-event-banner">
-        <span>🎁 EXCLUSIVO DE OUTONO: Compre créditos e ganhe molduras VIP</span>
-        <button class="btn-banner-action" onclick="alert('Redirecionando para compra de pacotes!')">Obter</button>
+    <!-- Top Banner Promocional -->
+    <div class="top-promo-banner">
+        <span>🍂 Exclusivo do outono dourado: compre créditos e ganhe moldura VIP</span>
+        <button class="btn-banner-tag" onclick="alert('Pacote VIP SeaArt')">Abra agora</button>
     </div>
 
-    <!-- 1. Header Global -->
-    <header class="app-header">
-        <div class="header-left">
-            <button class="menu-toggle-btn" id="openMainDrawer">
-                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+    <!-- Header Principal -->
+    <header class="seaart-header">
+        <div class="header-brand-wrap">
+            <button class="btn-hamburger" id="btnOpenSidebar">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
             </button>
-            <span class="brand-logo">SEAART.AI</span>
+            <span class="seaart-logo">SEAART.AI</span>
         </div>
-        <div class="header-search-bar" id="openSearchBtn">
+        <div class="search-pill" id="triggerSearch">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
-            <span>Buscar modelos, artes e prompts...</span>
+            <span>Buscar modelos e prompts...</span>
         </div>
-        <div class="header-right">
-            <div class="btn-vip-tag">👑 40% OFF</div>
-            <button class="btn-primary-login" id="topLoginBtn">Entrar</button>
+        <div class="header-actions">
+            <div class="vip-discount-badge">VIP 40% OFF</div>
+            <button class="btn-auth-top" id="triggerLoginModal">Log In</button>
         </div>
     </header>
 
-    <!-- 2. Main Viewport (SPA Switcher) -->
-    <main class="app-viewport">
+    <!-- Área de Visualização Única (SPA) -->
+    <main class="seaart-viewport">
 
-        <!-- ================= VIEW 1: HOME (INÍCIO) ================= -->
-        <section class="view-page active-page" id="viewHome">
-            <div class="home-hero-card">
+        <!-- ================= ABA 1: INÍCIO ================= -->
+        <section class="spa-view active-view" id="pageHome">
+            <div class="home-hero">
                 <h1 class="hero-title">All-in-One AI Creation<br>Platform & Community</h1>
-                <p class="hero-subtitle">Transforme ideias em ilustrações, vídeos e personas digitais em segundos com tecnologia de ponta.</p>
+                <p class="hero-desc">Transforme suas ideias em imagens, vídeos e personagens em minutos. Crie, faça remix e compartilhe com a comunidade.</p>
                 
-                <div class="quick-generator-box">
-                    <div class="gen-type-tabs">
-                        <div class="gen-tab active">Texto p/ Imagem</div>
-                        <div class="gen-tab">Vídeo</div>
-                        <div class="gen-tab">Agente Beta</div>
+                <div class="quick-box">
+                    <div class="quick-nav-modes">
+                        <div class="mode-tab active">Texto p/ Imagem</div>
+                        <div class="mode-tab">Vídeo</div>
+                        <div class="mode-tab">Agent Beta</div>
                     </div>
-                    <div class="quick-gen-input-area">
-                        <div class="box-add-image-ref">+</div>
-                        <textarea placeholder="Descreva sua imaginação com detalhes (ex: garota anime na floresta mística, raios de sol, 8k)..."></textarea>
+                    <div class="quick-input-grid">
+                        <div class="ref-image-box">+</div>
+                        <textarea placeholder="Along with the image, describe the scene and actions you want to generate..."></textarea>
                     </div>
-                    <div class="quick-gen-bottom">
-                        <div class="model-select-chip">⚡ SDXL Turbo 2.5</div>
-                        <button class="btn-create-magic" onclick="switchNav('viewCreate')">Criar Agora</button>
+                    <div class="quick-footer">
+                        <div class="chip-model">🎲 Stardream 2.5 ▾</div>
+                        <button class="btn-gen-purple" onclick="navigate('pageCreate')">Generate</button>
                     </div>
                 </div>
             </div>
 
-            <div class="section-header-title">
-                <h3>✨ Comunidade & Tendências</h3>
+            <!-- Toast de Stamina Diária -->
+            <div class="stamina-toast">
+                <div class="stamina-text">
+                    <b>Daily Rewards</b><br>
+                    <span>130 Free Stamina Daily ⚡</span>
+                </div>
+                <button class="btn-free-access" onclick="alert('130 energias resgatadas!')">Free Access</button>
             </div>
 
-            <!-- Feed Principal Masonry Home -->
-            <div class="feed-masonry-container">
-                <div class="masonry-column" id="homeMasonryLeft">
-                    <!-- Cards carregados via JS -->
-                </div>
-                <div class="masonry-column" id="homeMasonryRight">
-                    <!-- Cards carregados via JS -->
-                </div>
+            <div class="section-header">
+                <span>Comunidade Tudo-em-Um de Criação 💡</span>
+            </div>
+
+            <div class="masonry-wrap">
+                <div class="masonry-col" id="feedHomeLeft"></div>
+                <div class="masonry-col" id="feedHomeRight"></div>
             </div>
         </section>
 
-        <!-- ================= VIEW 2: PERSONAGEM DE IA ================= -->
-        <section class="view-page" id="viewCharacters">
-            <div class="character-tabs-row">
-                <div class="char-tab-group">
-                    <span class="char-tab active">Popular</span>
-                    <span class="char-tab">Alta Qualidade</span>
-                    <span class="char-tab">Novidades</span>
+        <!-- ================= ABA 2: PERSONAGEM DE IA ================= -->
+        <section class="spa-view" id="pageCharacters">
+            <div style="padding: 10px 14px; display:flex; justify-content:space-between; align-items:center; border-bottom: 1px solid var(--border-subtle);">
+                <div style="display:flex; gap:12px; font-size:12px; font-weight:600;">
+                    <span style="color:#fff; border-bottom:2px solid var(--primary-purple); padding-bottom:4px;">Popular</span>
+                    <span style="color:var(--text-muted);">Alta qualidade</span>
+                    <span style="color:var(--text-muted);">Potencial</span>
                 </div>
-                <!-- Seta verde Personagem -> Filtro de Gênero/Ordenação -->
-                <button class="btn-filter-icon" id="openCharFilterBtn">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"></polygon></svg>
-                    Filtros
+                <!-- Seta verde Personagem -> Filtro de ordenação -->
+                <button class="btn-action-ghost" id="triggerCharFilter" style="display:flex; align-items:center; gap:4px;">
+                    Filtros ▾
                 </button>
             </div>
 
-            <div class="feed-masonry-container" style="margin-top: 12px;">
-                <div class="masonry-column" id="charMasonryLeft"></div>
-                <div class="masonry-column" id="charMasonryRight"></div>
+            <div class="masonry-wrap" style="margin-top: 10px;">
+                <div class="masonry-col" id="feedCharLeft"></div>
+                <div class="masonry-col" id="feedCharRight"></div>
             </div>
         </section>
 
-        <!-- ================= VIEW 3: CRIAR (CANVAS / HISTÓRICO) ================= -->
-        <section class="view-page" id="viewCreate">
-            <!-- Barra Superior de Ferramentas -->
-            <div class="create-top-tools">
-                <div class="tools-left">
-                    <span style="font-size:12px; font-weight:700;">Modo Estúdio</span>
-                </div>
-                <!-- Ferramentas mapeadas da UI de criação -->
-                <div style="display:flex; gap:6px;">
-                    <!-- Seta verde Ferramentas IA (Upscale, Expansão) -->
-                    <button class="tool-icon-btn" id="openAiToolsSheetBtn" title="Ferramentas">🛠️</button>
-                    <!-- Seta amarela Check-in Diário -->
-                    <button class="tool-icon-btn" id="openDailyQuestBtn" title="Missões">🎁</button>
+        <!-- ================= ABA 3: CRIAR (CANVAS / WORKSPACE) ================= -->
+        <section class="spa-view" id="pageCreate">
+            <!-- Barra Superior do Modo Criar -->
+            <div class="studio-tools-header">
+                <div style="font-size:12px; font-weight:700; color:#fff;">Modelo: Z Image Turbo</div>
+                <div class="studio-tools-cluster">
+                    <!-- Seta verde Ferramentas de IA -->
+                    <button class="btn-icon-tool" id="triggerAiTools" title="Ferramentas">🛠️</button>
                     <!-- Seta azul Filtros do Workspace -->
-                    <button class="tool-icon-btn" id="openWorkspaceFilterBtn" title="Filtrar">⚡</button>
+                    <button class="btn-icon-tool" id="triggerWorkspaceFilter" title="Filtro">⚡</button>
+                    <!-- Seta amarela Missões Diárias -->
+                    <button class="btn-icon-tool" id="triggerDailyQuests" title="Recompensas">🎁</button>
                 </div>
             </div>
 
-            <!-- Batch Actions Bar (Ativada ao selecionar imagem) -->
-            <div class="batch-operations-bar" id="batchBar">
-                <span id="batchCountLabel" style="font-size:12px;">1 imagens selecionadas</span>
-                <div class="batch-actions-cluster">
-                    <button class="btn-batch-publish">Publicar</button>
-                    <button class="tool-icon-btn" title="Baixar">💾</button>
-                    <button class="tool-icon-btn" title="Excluir">🗑️</button>
-                    <button class="tool-icon-btn" id="closeBatchMode">✕</button>
+            <!-- Batch Bar de Seleção (Seta Amarela - Seleção de lote) -->
+            <div class="batch-action-bar" id="batchActionBar">
+                <span id="batchSelectedText" style="font-size:12px;">1 imagens selecionadas.</span>
+                <div style="display:flex; gap:10px; align-items:center;">
+                    <button class="btn-gen-purple" style="padding:4px 10px;">Publicar</button>
+                    <button class="btn-icon-tool">💾</button>
+                    <button class="btn-icon-tool">🗑️</button>
+                    <button class="btn-icon-tool" id="btnExitBatch">✕</button>
                 </div>
             </div>
 
-            <div class="canvas-workspace" id="createCanvasList">
-                <!-- Itens Gerados -->
-                <div class="generated-media-card" id="cardGen1">
-                    <div class="media-preview-container">
-                        <div class="media-select-check" onclick="toggleSelectBatch('cardGen1')">✓</div>
-                        <img src="https://picsum.photos/seed/animepark/600/350" alt="Generated">
+            <!-- Feed do Canvas / Workspace -->
+            <div class="studio-feed" id="studioWorkspaceFeed">
+                <div class="job-card" id="taskCard-1">
+                    <div class="job-preview">
+                        <div class="select-circle-btn" onclick="toggleBatchItem('taskCard-1')">✓</div>
+                        <img src="https://picsum.photos/seed/abandonedpark/600/350" alt="Result">
                     </div>
-                    <div class="media-card-details">
-                        <p class="media-prompt-text">Abandoned Themepark, 1 pic, solo, vibrant nature reclaiming architecture, anime scenic landscape...</p>
-                        <div class="media-actions-row">
-                            <button class="btn-sub-action">Reeditar</button>
-                            <button class="btn-sub-action">Regenerar</button>
-                            <button class="btn-sub-action">Upscale</button>
+                    <div class="job-details">
+                        <p class="job-prompt">Abandoned Themepark, 1 pic, solo, no person, place, vibrant overgrown vegetation, anime cinematic lighting...</p>
+                        <div class="job-actions">
+                            <button class="btn-action-ghost">Reeditar</button>
+                            <button class="btn-action-ghost">Regenerar</button>
+                            <button class="btn-action-ghost">Vídeo</button>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <!-- Input Flutuante Inferior para Envio de Prompt -->
-            <div class="bottom-generation-dock">
-                <div class="prompt-input-wrapper">
-                    <input type="text" id="studioPromptInput" placeholder="Inside the Ferris wheel, fluffy stuffed bear sits...">
-                    <button class="btn-trigger-send" id="btnSendPrompt">↑</button>
+            <!-- Barra Inferior Fixa do Prompt -->
+            <div class="docked-generator">
+                <div class="generator-input-row">
+                    <input type="text" id="dockedInputPrompt" placeholder="Inside the Ferris wheel, a dirty, tattered, fluffy stuffed bear...">
+                    <button class="btn-send-dock" id="btnSubmitGen">↑</button>
                 </div>
             </div>
         </section>
 
-        <!-- ================= VIEW 4: APPS DE IA ================= -->
-        <section class="view-page" id="viewApps">
-            <div class="section-header-title">
-                <h3>🚀 Ferramentas & Fluxos em Destaque</h3>
+        <!-- ================= ABA 4: APPS DE IA ================= -->
+        <section class="spa-view" id="pageApps">
+            <div class="section-header">
+                <span>✨ Aplicativos de IA em destaque</span>
             </div>
-            <div class="feed-masonry-container">
-                <div class="masonry-column" id="appsMasonryLeft"></div>
-                <div class="masonry-column" id="appsMasonryRight"></div>
+            <div class="masonry-wrap">
+                <div class="masonry-col" id="feedAppsLeft"></div>
+                <div class="masonry-col" id="feedAppsRight"></div>
             </div>
         </section>
 
-        <!-- ================= VIEW 5: PESSOAL (PERFIL) ================= -->
-        <section class="view-page" id="viewProfile">
-            <div class="profile-banner-header"></div>
-            <div class="profile-info-strip">
-                <div class="profile-avatar-circle">E</div>
-                <div class="profile-controls-right">
-                    <!-- Seta ciano Perfil -> Menu Mais/Configurações Pessoais -->
-                    <button class="tool-icon-btn" id="openProfileMoreBtn" style="font-size: 20px;">⋯</button>
+        <!-- ================= ABA 5: PESSOAL (PERFIL) ================= -->
+        <section class="spa-view" id="pageProfile">
+            <div class="profile-cover"></div>
+            <div class="profile-row-user">
+                <div class="avatar-initial">E</div>
+                <!-- Seta ciano Perfil -> Menu Mais Pessoal -->
+                <button class="btn-icon-tool" id="triggerProfileMenu" style="font-size:22px; color:#fff;">⋯</button>
+            </div>
+
+            <div style="padding: 0 16px 10px;">
+                <h3 style="font-size: 17px; font-weight:700;">Error404 Not afound 💎</h3>
+                <div style="display:flex; gap:8px; align-items:center; margin-top:4px; font-size:11px; color:var(--text-secondary);">
+                    <span>⚡ 1.4K</span>
+                    <span>⚡ 130</span>
                 </div>
             </div>
 
-            <div class="profile-meta-details">
-                <div class="profile-username">Error404 Not afound <span style="font-size:12px;">💎</span></div>
+            <div class="profile-stat-bar">
+                <div class="stat-box"><div class="num">0</div><div class="lbl">Seguindo</div></div>
+                <div class="stat-box"><div class="num">0</div><div class="lbl">Conectores</div></div>
+                <div class="stat-box"><div class="num">153</div><div class="lbl">Favoritos</div></div>
+                <div class="stat-box"><div class="num">0</div><div class="lbl">Assinatura</div></div>
             </div>
 
-            <div class="profile-stats-grid">
-                <div class="stat-node">
-                    <span class="stat-value">0</span>
-                    <span class="stat-label">Seguindo</span>
-                </div>
-                <div class="stat-node">
-                    <span class="stat-value">0</span>
-                    <span class="stat-label">Conectores</span>
-                </div>
-                <div class="stat-node">
-                    <span class="stat-value">153</span>
-                    <span class="stat-label">Favoritos</span>
-                </div>
-                <div class="stat-node">
-                    <span class="stat-value">0</span>
-                    <span class="stat-label">Assinatura</span>
-                </div>
+            <div class="nav-tabs-horizontal">
+                <div class="tab-h-item active" onclick="switchProfileSub(this, 'profGrid')">Início</div>
+                <div class="tab-h-item" onclick="switchProfileSub(this, 'profEmpty')">Série de coleções</div>
+                <div class="tab-h-item" onclick="switchProfileSub(this, 'profFav')">Favoritar</div>
+                <div class="tab-h-item" onclick="switchProfileSub(this, 'profEmpty')">Apoiando 🔒</div>
             </div>
 
-            <div class="profile-subtabs">
-                <div class="profile-tab active" onclick="switchProfileTab(this, 'profPosts')">Início</div>
-                <div class="profile-tab" onclick="switchProfileTab(this, 'profCollections')">Série de coleções</div>
-                <div class="profile-tab" onclick="switchProfileTab(this, 'profFavs')">Favoritar</div>
-                <div class="profile-tab" onclick="switchProfileTab(this, 'profSupporting')">Apoiando 🔒</div>
-            </div>
-
-            <div id="profileTabContentArea" style="padding: 12px;">
-                <!-- Feed Masonry de Posts do Usuário -->
-                <div class="feed-masonry-container" id="profileMasonryGrid">
-                    <div class="masonry-column" id="profColLeft"></div>
-                    <div class="masonry-column" id="profColRight"></div>
+            <div id="profileBodyContent" style="padding: 12px;">
+                <div class="masonry-wrap">
+                    <div class="masonry-col" id="profLeftCol"></div>
+                    <div class="masonry-col" id="profRightCol"></div>
                 </div>
             </div>
         </section>
 
-        <!-- ================= VIEW DE PESQUISA (OVERLAY) ================= -->
-        <section class="view-page" id="viewSearch" style="z-index: 80; background: var(--bg-main);">
-            <div style="padding: 10px; display:flex; align-items:center; gap:8px; border-bottom: 1px solid var(--border-color);">
-                <button class="tool-icon-btn" onclick="switchNav('viewHome')">←</button>
-                <div class="prompt-input-wrapper" style="flex:1;">
-                    <input type="text" id="searchInputField" placeholder="Pesquisar (ex: Dog, Cyberpunk)...">
+        <!-- ================= VIEW OVERLAY: BUSCA (SEARCH) ================= -->
+        <section class="spa-view" id="pageSearch" style="z-index: 90; background: var(--bg-body);">
+            <div style="padding: 8px 12px; display:flex; align-items:center; gap:8px; border-bottom:1px solid var(--border-subtle);">
+                <button class="btn-icon-tool" onclick="navigate('pageHome')">←</button>
+                <div class="generator-input-row" style="flex:1;">
+                    <input type="text" id="mainSearchInput" placeholder="Buscar 'Dog', anime, paisagem...">
                 </div>
-                <button class="btn-create-magic" id="btnExecuteSearch">Buscar</button>
+                <button class="btn-gen-purple" id="btnExecuteSearch">Buscar</button>
             </div>
-            <div class="section-header-title">
-                <h3>Resultados da Pesquisa</h3>
+            <div class="section-header">
+                <span>Resultados Encontrados</span>
             </div>
-            <div class="feed-masonry-container">
-                <div class="masonry-column" id="searchColLeft"></div>
-                <div class="masonry-column" id="searchColRight"></div>
+            <div class="masonry-wrap">
+                <div class="masonry-col" id="searchLeftCol"></div>
+                <div class="masonry-col" id="searchRightCol"></div>
             </div>
         </section>
 
     </main>
 
-    <!-- 3. Drawer Lateral (Menu Hambúrguer com Subníveis) -->
-    <div class="app-drawer-overlay" id="drawerOverlay">
-        <aside class="app-drawer-pane">
-            <!-- Painel 1: Raiz do Drawer -->
-            <div class="drawer-subpanel active" id="drawerPanelRoot">
-                <div style="padding: 20px 16px; border-bottom: 1px solid var(--border-color); display:flex; align-items:center; gap:12px;">
-                    <div class="profile-avatar-circle" style="width:40px; height:40px; font-size:16px;">E</div>
+    <!-- Sidebar / Drawer Lateral com Subníveis -->
+    <div class="drawer-backdrop" id="sidebarBackdrop">
+        <aside class="drawer-panel">
+            <!-- Subnível 1: Raiz do Menu -->
+            <div class="drawer-subpage is-open" id="subpageDrawerRoot">
+                <div style="padding: 16px; border-bottom: 1px solid var(--border-subtle); display:flex; gap:12px; align-items:center;">
+                    <div class="avatar-initial" style="width:40px; height:40px; font-size:16px;">E</div>
                     <div>
                         <div style="font-size:13px; font-weight:700;">Error404 Not afound</div>
-                        <div style="font-size:10px; color:var(--text-dim);">Energia Diária: 130 ⚡</div>
+                        <div style="font-size:10px; color:var(--text-muted);">Energia: 130 ⚡</div>
                     </div>
                 </div>
-                <ul class="drawer-nav-list">
-                    <li class="drawer-nav-item" onclick="switchNav('viewHome'); closeDrawer();">
+                <ul class="drawer-menu-list">
+                    <li class="drawer-menu-item" onclick="navigate('pageHome'); closeDrawer();">
                         <span>🏠 Início</span>
                     </li>
-                    <li class="drawer-nav-item" onclick="switchNav('viewCreate'); closeDrawer();">
-                        <span>🎨 Criar Imagens & Vídeos</span>
+                    <li class="drawer-menu-item" onclick="navigate('pageCreate'); closeDrawer();">
+                        <span>🎨 Criar</span>
                     </li>
-                    <!-- Seta roxa Notificações -> Centro de Mensagens -->
-                    <li class="drawer-nav-item" id="openNotificationsBtn">
+                    <!-- Seta roxa -> Notificações / Centro de Mensagens -->
+                    <li class="drawer-menu-item" id="triggerNotifications">
                         <span>🔔 Centro de Mensagens</span>
-                        <small style="background:red; color:#fff; border-radius:10px; padding:1px 6px; font-size:9px;">5</small>
+                        <small style="background:red; color:#fff; border-radius:10px; padding:1px 6px; font-size:9px;">4</small>
                     </li>
-                    <!-- Seta Laranja -> Drawer Painel Mais -->
-                    <li class="drawer-nav-item" id="gotoDrawerMore">
-                        <span>⋯ Mais Opções</span>
+                    <!-- Seta Laranja -> Submenu Mais -->
+                    <li class="drawer-menu-item" id="triggerSubMore">
+                        <span>⋯ Mais</span>
                         <span>›</span>
                     </li>
-                    <!-- Seta Verde -> Drawer Painel Outro -->
-                    <li class="drawer-nav-item" id="gotoDrawerOther">
-                        <span>⚙️ Outro & Sistema</span>
+                    <!-- Seta Verde Menu -> Submenu Outro -->
+                    <li class="drawer-menu-item" id="triggerSubOther">
+                        <span>⚙️ Outro</span>
                         <span>›</span>
                     </li>
                 </ul>
             </div>
 
-            <!-- Painel 2: Submenu "Mais" (Seta Laranja) -->
-            <div class="drawer-subpanel" id="drawerPanelMore">
-                <div class="sheet-header-bar">
-                    <button class="tool-icon-btn" onclick="navDrawerPanel('drawerPanelRoot')">← Voltar</button>
-                    <span class="sheet-title">Mais Opções</span>
+            <!-- Subnível 2: Mais (Seta Laranja) -->
+            <div class="drawer-subpage" id="subpageDrawerMore">
+                <div class="sheet-top">
+                    <button class="btn-icon-tool" onclick="openDrawerSub('subpageDrawerRoot')">← Voltar</button>
+                    <span>Mais Opções</span>
                 </div>
-                <ul class="drawer-nav-list">
-                    <li class="drawer-nav-item"><span>⚡ Swift AI</span></li>
-                    <li class="drawer-nav-item"><span>🛒 Decorações & Loja</span></li>
-                    <li class="drawer-nav-item"><span>📑 Blogs Oficiais</span></li>
-                    <li class="drawer-nav-item"><span>📰 Novidades & Updates</span></li>
-                    <li class="drawer-nav-item"><span>📖 Tutoriais SeaArt</span></li>
-                    <li class="drawer-nav-item"><span>📱 Baixar Aplicativo Android/iOS</span></li>
+                <ul class="drawer-menu-list">
+                    <li class="drawer-menu-item"><span>⚡ Swift AI</span></li>
+                    <li class="drawer-menu-item"><span>🛒 Decorações</span></li>
+                    <li class="drawer-menu-item"><span>📑 Blogs</span></li>
+                    <li class="drawer-menu-item"><span>📰 Notícias</span></li>
+                    <li class="drawer-menu-item"><span>📖 Tutoriais</span></li>
+                    <li class="drawer-menu-item"><span>📱 Baixe o aplicativo</span></li>
+                    <li class="drawer-menu-item"><span>✍️ Feedback</span></li>
                 </ul>
             </div>
 
-            <!-- Painel 3: Submenu "Outro" (Seta Verde do Menu) -->
-            <div class="drawer-subpanel" id="drawerPanelOther">
-                <div class="sheet-header-bar">
-                    <button class="tool-icon-btn" onclick="navDrawerPanel('drawerPanelRoot')">← Voltar</button>
-                    <span class="sheet-title">Outro</span>
+            <!-- Subnível 3: Outro (Seta Verde Menu) -->
+            <div class="drawer-subpage" id="subpageDrawerOther">
+                <div class="sheet-top">
+                    <button class="btn-icon-tool" onclick="openDrawerSub('subpageDrawerRoot')">← Voltar</button>
+                    <span>Outro</span>
                 </div>
-                <ul class="drawer-nav-list">
-                    <li class="drawer-nav-item"><span>🌐 Idioma (Português)</span></li>
-                    <li class="drawer-nav-item"><span>📲 Instalar Aplicativo PWA</span></li>
-                    <li class="drawer-nav-item"><span>✉️ Fale Conosco / Suporte</span></li>
-                    <li class="drawer-nav-item"><span>⚙️ Preferências de Sistema</span></li>
-                    <li class="drawer-nav-item" style="color: var(--danger);"><span>🚪 Encerrar Sessão</span></li>
+                <ul class="drawer-menu-list">
+                    <li class="drawer-menu-item"><span>🌐 Português</span></li>
+                    <li class="drawer-menu-item"><span>📲 Baixar PWA</span></li>
+                    <li class="drawer-menu-item"><span>❓ Contacte-nos</span></li>
+                    <li class="drawer-menu-item"><span>⚙️ Configurações</span></li>
+                    <li class="drawer-menu-item" style="color: #ef4444;"><span>🚪 Sair da conta</span></li>
                 </ul>
             </div>
         </aside>
     </div>
 
-    <!-- 4. Modais Flutuantes (Bottom Sheets) -->
+    <!-- Modais Flutuantes (Bottom Sheets) -->
 
-    <!-- A. Sheet Ferramentas de IA (Seta Azul Clara na Criação) -->
-    <div class="bottom-sheet-modal" id="sheetAiTools">
-        <div class="sheet-header-bar">
-            <span class="sheet-title">Ferramentas de IA Avançadas</span>
-            <button class="btn-sheet-close" onclick="closeSheet('sheetAiTools')">✕</button>
+    <!-- Sheet 1: Ferramentas de IA (Seta Azul Clara Criação) -->
+    <div class="bottom-sheet" id="sheetToolsModal">
+        <div class="sheet-top">
+            <span>Ferramentas de IA</span>
+            <button class="btn-icon-tool" onclick="closeSheet('sheetToolsModal')">✕</button>
         </div>
-        <div class="sheet-content-body">
-            <div style="display:grid; grid-template-columns: 1fr 1fr; gap:10px;">
-                <div class="social-btn">HD Upscale Ultra</div>
-                <div class="social-btn">Expansão de Canvas</div>
-                <div class="social-btn">Correção de Rosto</div>
-                <div class="social-btn">Borracha Inteligente</div>
-                <div class="social-btn">Removedor de Fundo</div>
-                <div class="social-btn">Maquiagem com IA</div>
+        <div class="sheet-inner">
+            <div style="display:grid; grid-template-columns: 1fr 1fr; gap:8px;">
+                <button class="btn-action-ghost" style="padding:10px;">HD Upscale</button>
+                <button class="btn-action-ghost" style="padding:10px;">Expansão</button>
+                <button class="btn-action-ghost" style="padding:10px;">Correção de Face</button>
+                <button class="btn-action-ghost" style="padding:10px;">Remover Fundo</button>
+                <button class="btn-action-ghost" style="padding:10px;">Borracha de IA</button>
+                <button class="btn-action-ghost" style="padding:10px;">Maquiagem IA</button>
             </div>
         </div>
     </div>
 
-    <!-- B. Sheet Check-in Diário & Missões (Seta Verde/Amarela Criação) -->
-    <div class="bottom-sheet-modal" id="sheetDailyTasks">
-        <div class="sheet-header-bar">
-            <span class="sheet-title">S9 · Competição de Pontos & Check-In</span>
-            <button class="btn-sheet-close" onclick="closeSheet('sheetDailyTasks')">✕</button>
+    <!-- Sheet 2: Missões & Check-In (Seta Amarela Criação) -->
+    <div class="bottom-sheet" id="sheetQuestsModal">
+        <div class="sheet-top">
+            <span>S9 · Competição de Pontos de Criação</span>
+            <button class="btn-icon-tool" onclick="closeSheet('sheetQuestsModal')">✕</button>
         </div>
-        <div class="sheet-content-body">
-            <div style="background:var(--bg-card); padding:12px; border-radius:10px; margin-bottom:12px; display:flex; justify-content:space-between; align-items:center;">
+        <div class="sheet-inner">
+            <div style="background:var(--bg-card); padding:12px; border-radius:8px; display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
                 <div>
                     <div style="font-size:12px; font-weight:700;">Check-In Diário</div>
-                    <div style="font-size:10px; color:var(--text-dim);">Receba 130 energias grátis</div>
+                    <div style="font-size:10px; color:var(--text-muted);">+130 Pontos de Energia</div>
                 </div>
-                <button class="btn-create-magic" onclick="alert('Energia coletada com sucesso!')">Check-in</button>
-            </div>
-            <p style="font-size:11px; color:var(--text-dim);">Complete missões gerando obras para desbloquear o passe VIP.</p>
-        </div>
-    </div>
-
-    <!-- C. Sheet Filtro de Busca/Workspace (Seta Branca Criação) -->
-    <div class="bottom-sheet-modal" id="sheetFilterWorkspace">
-        <div class="sheet-header-bar">
-            <span class="sheet-title">Filtro de Exibição</span>
-            <button class="btn-sheet-close" onclick="closeSheet('sheetFilterWorkspace')">✕</button>
-        </div>
-        <div class="sheet-content-body">
-            <label style="font-size:12px; color:var(--text-dim);">Status de Salvamento</label>
-            <div style="display:flex; gap:8px; margin:8px 0 16px;">
-                <button class="btn-sub-action">Todos</button>
-                <button class="btn-sub-action">Salvos</button>
-                <button class="btn-sub-action">Não Salvos</button>
-            </div>
-            <label style="font-size:12px; color:var(--text-dim);">Tipo de Mídia</label>
-            <div style="display:flex; gap:8px; margin-top:8px;">
-                <button class="btn-sub-action">Imagem</button>
-                <button class="btn-sub-action">Vídeo</button>
-                <button class="btn-sub-action">Apps</button>
+                <button class="btn-gen-purple" onclick="alert('Recompensa coletada!')">Check-in</button>
             </div>
         </div>
     </div>
 
-    <!-- D. Sheet Filtro de Personagens (Seta Verde Personagem) -->
-    <div class="bottom-sheet-modal" id="sheetCharFilter">
-        <div class="sheet-header-bar">
-            <span class="sheet-title">Ordenação de Conteúdo & Gênero</span>
-            <button class="btn-sheet-close" onclick="closeSheet('sheetCharFilter')">✕</button>
+    <!-- Sheet 3: Filtro do Workspace (Seta Azul Criação) -->
+    <div class="bottom-sheet" id="sheetWorkspaceModal">
+        <div class="sheet-top">
+            <span>Método de exibição</span>
+            <button class="btn-icon-tool" onclick="closeSheet('sheetWorkspaceModal')">✕</button>
         </div>
-        <div class="sheet-content-body">
-            <p style="font-size:12px; margin-bottom:8px;">Gênero do Personagem:</p>
-            <div style="display:flex; gap:8px; margin-bottom:14px;">
-                <button class="btn-sub-action">Feminino</button>
-                <button class="btn-sub-action">Masculino</button>
-                <button class="btn-sub-action">Outro</button>
+        <div class="sheet-inner">
+            <p style="font-size:11px; color:var(--text-muted); margin-bottom:6px;">Status de Salvamento</p>
+            <div style="display:flex; gap:8px; margin-bottom:12px;">
+                <button class="btn-action-ghost">Tudo</button>
+                <button class="btn-action-ghost">Salvo</button>
+                <button class="btn-action-ghost">Não salvo</button>
             </div>
-            <button class="btn-create-magic" style="width:100%;" onclick="closeSheet('sheetCharFilter')">Aplicar Filtros</button>
         </div>
     </div>
 
-    <!-- E. Sheet Configurações Pessoais (Seta Ciano Perfil) -->
-    <div class="bottom-sheet-modal" id="sheetProfileMenu">
-        <div class="sheet-header-bar">
-            <span class="sheet-title">Opções da Conta</span>
-            <button class="btn-sheet-close" onclick="closeSheet('sheetProfileMenu')">✕</button>
+    <!-- Sheet 4: Filtros de Personagem (Seta Verde Personagem) -->
+    <div class="bottom-sheet" id="sheetCharModal">
+        <div class="sheet-top">
+            <span>Ordenação de Conteúdo</span>
+            <button class="btn-icon-tool" onclick="closeSheet('sheetCharModal')">✕</button>
         </div>
-        <div class="sheet-content-body">
-            <ul class="drawer-nav-list">
-                <li class="drawer-nav-item"><span>🔗 Compartilhar Perfil</span></li>
-                <li class="drawer-nav-item"><span>🆔 Copiar User ID (UID: 8554198)</span></li>
-                <li class="drawer-nav-item"><span>🏬 Loja de Cristais</span></li>
-                <li class="drawer-nav-item"><span>🎨 Centro de Criadores SeaArt</span></li>
-                <li class="drawer-nav-item"><span>⚙️ Configurações Pessoais</span></li>
+        <div class="sheet-inner">
+            <p style="font-size:11px; color:var(--text-muted); margin-bottom:6px;">Gênero</p>
+            <div style="display:flex; gap:8px;">
+                <button class="btn-action-ghost">Masculino</button>
+                <button class="btn-action-ghost">Feminino</button>
+                <button class="btn-action-ghost">Outro</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Sheet 5: Opções do Perfil (Seta Ciano Perfil) -->
+    <div class="bottom-sheet" id="sheetProfileModal">
+        <div class="sheet-top">
+            <span>Menu da Conta</span>
+            <button class="btn-icon-tool" onclick="closeSheet('sheetProfileModal')">✕</button>
+        </div>
+        <div class="sheet-inner">
+            <ul class="drawer-menu-list">
+                <li class="drawer-menu-item"><span>🔗 Compartilhar</span></li>
+                <li class="drawer-menu-item"><span>🆔 User ID (85541618)</span></li>
+                <li class="drawer-menu-item"><span>🛒 Loja</span></li>
+                <li class="drawer-menu-item"><span>⚙️ Configurações pessoais</span></li>
             </ul>
         </div>
     </div>
 
-    <!-- 5. Popups e Telas em Camada Completa -->
+    <!-- Modal Central: Boas-Vindas Login (Seta Vermelha Boas-Vindas) -->
+    <div class="dialog-overlay" id="dialogLogin">
+        <div class="dialog-card">
+            <button style="position:absolute; top:10px; right:10px; background:none; border:none; color:var(--text-muted); font-size:16px; cursor:pointer;" onclick="closeLoginDialog()">✕</button>
+            <div style="font-size:32px; margin-bottom:6px;">🔮</div>
+            <h3 style="font-size:16px; font-weight:700;">Welcome to SeaArt AI</h3>
+            <p style="font-size:11px; color:var(--text-secondary); margin-bottom:12px;">Log in or Sign up to Continue</p>
+            <button class="btn-social-auth" onclick="alert('Login Google')">Continue with Google</button>
+            <button class="btn-social-auth" onclick="alert('Login Facebook')">Continue with Facebook</button>
+            <button class="btn-social-auth" onclick="alert('Login Apple')">Continue with Apple</button>
+        </div>
+    </div>
 
-    <!-- A. Modal Central Login (Seta Vermelha Boas-Vindas) -->
-    <div class="center-popup-overlay" id="loginModal">
-        <div class="login-popup-box">
-            <button style="position:absolute; right:12px; top:12px; background:none; border:none; color:var(--text-dim); font-size:18px; cursor:pointer;" onclick="closeLoginModal()">✕</button>
-            <div style="font-size:32px; margin-bottom:8px;">🔮</div>
-            <h2 style="font-size:18px; margin-bottom:4px;">Welcome to SeaArt AI</h2>
-            <p style="font-size:11px; color:var(--text-secondary); margin-bottom:16px;">Log in or Sign up to Continue</p>
-            <div class="social-login-btn-row">
-                <button class="social-btn" onclick="alert('Login Google')">Continuar com Google</button>
-                <button class="social-btn" onclick="alert('Login Facebook')">Continuar com Facebook</button>
-                <button class="social-btn" onclick="alert('Login Apple')">Continuar com Apple</button>
+    <!-- Tela Cheia: Centro de Notificações (Seta Roxa Notificações) -->
+    <div class="fullscreen-view" id="viewNotificationsFull">
+        <div style="padding:10px; display:flex; align-items:center; gap:8px; border-bottom:1px solid var(--border-subtle); background:var(--bg-navbar);">
+            <button class="btn-icon-tool" onclick="closeNotifications()">←</button>
+            <span style="font-size:14px; font-weight:700;">Centro de Mensagens</span>
+        </div>
+        <div class="nav-tabs-horizontal">
+            <div class="tab-h-item active">Notificação</div>
+            <div class="tab-h-item">Interações</div>
+            <div class="tab-h-item">Comentário</div>
+        </div>
+        <div style="padding:12px; display:flex; flex-direction:column; gap:8px;">
+            <div style="background:var(--bg-surface); padding:10px; border-radius:8px; font-size:12px;">
+                <b>SeaArt - V2.6.9.1 Anúncio de Atualização</b>
+                <p style="color:var(--text-muted); font-size:10px; margin-top:2px;">Prezado(a) criador(a), novos fluxos e LoRAs do FLUX e Minimax disponíveis.</p>
+            </div>
+            <div style="background:var(--bg-surface); padding:10px; border-radius:8px; font-size:12px;">
+                <b>Free MiniMax H3 Video Generation</b>
+                <p style="color:var(--text-muted); font-size:10px; margin-top:2px;">Experimente a geração de vídeos hiper-realistas gratuita hoje.</p>
             </div>
         </div>
     </div>
 
-    <!-- B. Tela Cheia: Centro de Mensagens (Seta Roxa) -->
-    <div class="fullscreen-detail-view" id="notificationsView">
-        <div style="padding:12px; display:flex; align-items:center; gap:12px; background:var(--bg-surface); border-bottom:1px solid var(--border-color);">
-            <button class="tool-icon-btn" onclick="closeNotificationsView()">←</button>
-            <span style="font-size:15px; font-weight:700;">Centro de Mensagens</span>
+    <!-- Tela Cheia: Detalhes da Arte & Remix (Seta Rosa das Artes) -->
+    <div class="fullscreen-view" id="viewArtworkDetail">
+        <div style="position:absolute; top:8px; left:8px; z-index:2;">
+            <button class="btn-icon-tool" style="background:rgba(0,0,0,0.6);" onclick="closeArtworkDetail()">←</button>
         </div>
-        <div class="profile-subtabs">
-            <div class="profile-tab active" onclick="switchNotifyTab(this, 'boxNotif')">Notificação</div>
-            <div class="profile-tab" onclick="switchNotifyTab(this, 'boxInter')">Interações</div>
-            <div class="profile-tab" onclick="switchNotifyTab(this, 'boxComms')">Comentário</div>
-        </div>
-        <div id="notifyTabContent" style="padding:12px;">
-            <!-- Itens de Notificação -->
-            <div style="display:flex; flex-direction:column; gap:10px;">
-                <div style="background:var(--bg-surface); padding:10px; border-radius:8px; display:flex; gap:10px; align-items:center;">
-                    <div style="font-size:24px;">💬</div>
-                    <div>
-                        <div style="font-size:12px; font-weight:700;">Atualização V2.6.9 Disponível</div>
-                        <div style="font-size:10px; color:var(--text-dim);">Novos modelos Flux e Minimax integrados.</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- C. Tela Cheia: Detalhe da Obra & Remix (Seta Rosa das Imagens) -->
-    <div class="fullscreen-detail-view" id="artworkDetailView">
-        <div class="detail-top-nav">
-            <button class="tool-icon-btn" onclick="closeArtworkDetail()">←</button>
-            <button class="tool-icon-btn">🔗</button>
-        </div>
-        <img src="" id="detailImageNode" class="detail-image-hero" alt="Detail Art">
-        <div class="detail-meta-box">
-            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
+        <img src="" id="imgHeroDetail" class="detail-cover-hero" alt="Detail Art">
+        <div class="detail-meta-container">
+            <div style="display:flex; justify-content:space-between; align-items:center;">
                 <div style="display:flex; align-items:center; gap:8px;">
-                    <div class="profile-avatar-circle" style="width:32px; height:32px; font-size:12px;">O</div>
-                    <span style="font-size:13px; font-weight:600;" id="detailAuthorText">Artista</span>
+                    <div class="avatar-initial" style="width:32px; height:32px; font-size:12px;">A</div>
+                    <span style="font-size:13px; font-weight:600;" id="labelDetailAuthor">Autor</span>
                 </div>
-                <button class="btn-sub-action">+ Seguir</button>
-            </div>
-            
-            <h4 style="font-size:12px; color:var(--text-dim); margin-bottom:4px;">PROMPT USADO:</h4>
-            <div class="prompt-copy-block" id="detailPromptText">
-                prompt descritivo aqui...
+                <button class="btn-action-ghost">+ Seguir</button>
             </div>
 
-            <div class="parameters-chip-list">
-                <span class="param-chip" id="detailModelTag">Modelo: FLUX.1</span>
-                <span class="param-chip">Passos: 28</span>
-                <span class="param-chip">Escala CFG: 7.0</span>
-                <span class="param-chip">Sampler: DPM++ 2M Karras</span>
+            <div class="prompt-view-card" id="textDetailPrompt">Prompt descritivo...</div>
+
+            <div style="display:flex; flex-wrap:wrap; gap:6px; margin-bottom:16px;">
+                <span class="chip-model" id="labelDetailModel">Modelo: FLUX</span>
+                <span class="chip-model">Steps: 30</span>
+                <span class="chip-model">CFG: 7.5</span>
             </div>
 
-            <div class="section-header-title" style="padding:0; margin-bottom:8px;">
-                <h3>Obras Relacionadas</h3>
+            <div class="section-header" style="padding:0; margin-bottom:8px;">
+                <span>Recomendações relacionadas</span>
             </div>
-            <div class="feed-masonry-container">
-                <div class="masonry-column" id="detailRelatedLeft"></div>
-                <div class="masonry-column" id="detailRelatedRight"></div>
+            <div class="masonry-wrap">
+                <div class="masonry-col" id="relDetailLeft"></div>
+                <div class="masonry-col" id="relDetailRight"></div>
             </div>
         </div>
-        <div class="detail-bottom-bar">
-            <button class="btn-sub-action" style="flex:0.6;">Vídeo IA</button>
-            <button class="btn-remix-cyan" id="btnExecuteRemix">✨ Remix / Recriar</button>
+        <div class="remix-footer-dock">
+            <button class="btn-action-ghost" style="flex:0.6;">Vídeo</button>
+            <button class="btn-cyan-remix" id="btnRemixTrigger">✨ Remix</button>
         </div>
     </div>
 
-    <!-- 6. Bottom Navigation Bar Global -->
-    <nav class="bottom-app-bar">
-        <div class="nav-node active" onclick="switchNav('viewHome', this)">
+    <!-- Navegação Inferior Fixa -->
+    <nav class="seaart-bottom-nav">
+        <div class="nav-button active" onclick="navigate('pageHome', this)">
             <svg viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
             <span>Início</span>
         </div>
-        <div class="nav-node" onclick="switchNav('viewCharacters', this)">
+        <div class="nav-button" onclick="navigate('pageCharacters', this)">
             <svg viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
             <span>Personagem</span>
         </div>
-        <!-- Seta Verde do Menu Inferior -> Criar -->
-        <div class="nav-node" id="bottomNavCreate" onclick="switchNav('viewCreate', this)">
+        <!-- Seta Verde Menu Inferior -> Criar -->
+        <div class="nav-button" id="tabNavCreate" onclick="navigate('pageCreate', this)">
             <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M21.5 12c0-.38-.04-.75-.12-1.12l1.62-1.26a.5.5 0 0 0 .12-.64l-1.54-2.66a.5.5 0 0 0-.6-.22l-1.91.77a7.6 7.6 0 0 0-1.94-1.12l-.29-2.02A.5.5 0 0 0 16.34 2h-3.08a.5.5 0 0 0-.49.42l-.29 2.02c-.68.27-1.33.65-1.94 1.12l-1.91-.77a.5.5 0 0 0-.6.22L6.49 7.67a.5.5 0 0 0 .12.64l1.62 1.26c-.08.37-.12.74-.12 1.12s.04.75.12 1.12l-1.62 1.26a.5.5 0 0 0-.12.64l1.54 2.66c.14.24.43.34.6.22l1.91-.77c.61.47 1.26.85 1.94 1.12l.29 2.02c.04.24.25.42.49.42h3.08c.24 0 .45-.18.49-.42l.29-2.02c.68-.27 1.33-.65 1.94-1.12l1.91.77c.17.12.46.02.6-.22l1.54-2.66a.5.5 0 0 0-.12-.64l-1.62-1.26c.08-.37.12-.74.12-1.12z"/></svg>
             <span>Criar</span>
         </div>
-        <!-- Seta Vermelha do Menu Inferior -> Apps de IA -->
-        <div class="nav-node" onclick="switchNav('viewApps', this)">
+        <!-- Seta Vermelha Menu Inferior -> Apps de IA -->
+        <div class="nav-button" onclick="navigate('pageApps', this)">
             <svg viewBox="0 0 24 24"><path d="M4 8h4V4H4v4zm6 12h4v-4h-4v4zm-6 0h4v-4H4v4zm0-6h4v-4H4v4zm6 0h4v-4h-4v4zm6-10v4h4V4h-4zm-6 4h4V4h-4v4zm6 6h4v-4h-4v4zm0 6h4v-4h-4v4z"/></svg>
             <span>Apps IA</span>
         </div>
-        <!-- Seta Vermelha do Menu Inferior -> Pessoal -->
-        <div class="nav-node" onclick="switchNav('viewProfile', this)">
+        <!-- Seta Vermelha Menu Inferior -> Pessoal -->
+        <div class="nav-button" onclick="navigate('pageProfile', this)">
             <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z"/></svg>
             <span>Pessoal</span>
         </div>
     </nav>
 
-    <!-- 7. Scripts e Orquestração do Clone Completo -->
+    <!-- Javascript de Interações & Mapeamento -->
     <script>
-        // Database em Memória Simulando Modelos, Artes e Posts do SeaArt
-        const MOCK_DATABASE = [
+        // Banco de Dados Simulado
+        const ARTWORKS = [
             {
-                id: 'art-101',
-                title: 'Cyberpunk Geisha In Neo Tokyo',
-                author: 'Kirie_Master',
-                prompt: 'hyperrealistic portrait of cyberpunk geisha, neon backlight, highly detailed kimonos, mechanical joints, octane render 8k',
-                model: 'FLUX.1 Schnell',
-                image: 'https://picsum.photos/seed/geisha/400/580',
-                likes: 852
+                id: '1',
+                title: 'Cute Anime Girl Magic Orb',
+                author: 'Captain We...',
+                prompt: 'beautiful anime girl holding a glowing cyan magical orb, ethereal lighting, masterpiece, 8k resolution',
+                model: 'FLUX.1 Cute Asian Face',
+                image: 'https://picsum.photos/seed/animegirl1/400/550',
+                likes: 11500
             },
             {
-                id: 'art-102',
-                title: 'Stardream Fantasy Ruins',
+                id: '2',
+                title: 'Photorealistic Dog in Field',
+                author: 'Oriora',
+                prompt: 'golden retriever running through flowers, bright sunny daylight, 85mm portrait, high shutter speed, photorealistic',
+                model: 'SDXL Realistic',
+                image: 'https://picsum.photos/seed/retrieverdog/400/480',
+                likes: 163
+            },
+            {
+                id: '3',
+                title: 'Cyberpunk Ninja Assassin',
                 author: 'Ziperto',
-                prompt: 'ancient overgrown castle ruins on a floating island, studio ghibli aesthetic, anime landscape, sunset lighting',
-                model: 'StarDream 2.5',
-                image: 'https://picsum.photos/seed/castle/400/450',
-                likes: 1240
-            },
-            {
-                id: 'art-103',
-                title: 'Realistic Western Portrait',
-                author: 'Takeshi Yamada',
-                prompt: 'closeup headshot portrait of elegant woman, natural skin texture, 85mm lens photography, golden hour ambient light',
-                model: 'SDXL PhotoReal',
-                image: 'https://picsum.photos/seed/portrait1/400/600',
-                likes: 310
-            },
-            {
-                id: 'art-104',
-                title: 'Dark Elf Rogue',
-                author: 'MelmothTheWanderer',
-                prompt: 'fantasy dark elf assassin holding twin daggers, crimson eyes, dark cavern, bioluminescent plants',
+                prompt: 'cyberpunk red oni masked warrior with katana, neon reflections, rain, dark alley, octane render',
                 model: 'FLUX Dev',
-                image: 'https://picsum.photos/seed/darkelf/400/520',
-                likes: 954
+                image: 'https://picsum.photos/seed/ninjaoni/400/600',
+                likes: 49200
             },
             {
-                id: 'art-105',
-                title: 'Cute Anime Mage',
-                author: 'Lingdong',
-                prompt: 'cute anime girl casting magical water sphere, detailed magical library background, vibrant colors',
+                id: '4',
+                title: 'Western Portrait Elegance',
+                author: 'Takeshi Yamada',
+                prompt: 'de frente para o espectador, contato visual, retrato elegante, luz natural suave, 50mm f1.8',
+                model: 'FLUX.1 Schnell',
+                image: 'https://picsum.photos/seed/westernface/400/520',
+                likes: 25
+            },
+            {
+                id: '5',
+                title: 'Retro 90s Anime Heroine',
+                author: 'Melmoth',
+                prompt: 'retro 90s classic cel anime style, cute heroine ready to battle, nostalgic colors, grain texture',
                 model: 'ColorMax Anime',
-                image: 'https://picsum.photos/seed/mage/400/480',
-                likes: 421
-            },
-            {
-                id: 'art-106',
-                title: 'Minimalist Architecture',
-                author: 'Nigel Moore',
-                prompt: 'concrete modern brutalist villa in scandinavian forest, foggy morning, photorealistic architecture',
-                model: 'ArchitectPro',
-                image: 'https://picsum.photos/seed/villa/400/500',
-                likes: 198
+                image: 'https://picsum.photos/seed/retro90s/400/460',
+                likes: 7900
             }
         ];
 
-        // Navegação de Telas Principais (SPA Router)
-        function switchNav(viewId, clickedTabNode = null) {
-            document.querySelectorAll('.view-page').forEach(page => page.classList.remove('active-page'));
-            const targetPage = document.getElementById(viewId);
-            if (targetPage) targetPage.classList.add('active-page');
+        // Roteador de Views (SPA)
+        function navigate(pageId, navButtonNode = null) {
+            document.querySelectorAll('.spa-view').forEach(p => p.classList.remove('active-view'));
+            const target = document.getElementById(pageId);
+            if (target) target.classList.add('active-view');
 
-            if (clickedTabNode) {
-                document.querySelectorAll('.nav-node').forEach(node => node.classList.remove('active'));
-                clickedTabNode.classList.add('active');
+            if (navButtonNode) {
+                document.querySelectorAll('.nav-button').forEach(btn => btn.classList.remove('active'));
+                navButtonNode.classList.add('active');
             }
         }
 
-        // Renderizador de Colunas Masonry
-        function populateMasonryGrid(items, leftColId, rightColId) {
-            const leftCol = document.getElementById(leftColId);
-            const rightCol = document.getElementById(rightColId);
-            if (!leftCol || !rightCol) return;
+        // Renderizador Masonry
+        function fillMasonry(items, leftId, rightId) {
+            const left = document.getElementById(leftId);
+            const right = document.getElementById(rightId);
+            if (!left || !right) return;
+            left.innerHTML = '';
+            right.innerHTML = '';
 
-            leftCol.innerHTML = '';
-            rightCol.innerHTML = '';
-
-            items.forEach((item, index) => {
+            items.forEach((item, idx) => {
                 const card = document.createElement('div');
-                card.className = 'masonry-item';
+                card.className = 'art-card';
                 card.onclick = () => openArtworkDetail(item);
-
                 card.innerHTML = `
                     <img src="${item.image}" alt="${item.title}" loading="lazy">
-                    <div class="item-details-foot">
-                        <div class="item-prompt-label">${item.title}</div>
-                        <div class="author-box">
+                    <div class="art-card-body">
+                        <div class="art-card-title">${item.title}</div>
+                        <div class="art-card-author">
                             <span>${item.author}</span>
                             <span>❤️ ${item.likes}</span>
                         </div>
                     </div>
                 `;
-
-                if (index % 2 === 0) {
-                    leftCol.appendChild(card);
-                } else {
-                    rightCol.appendChild(card);
-                }
+                if (idx % 2 === 0) left.appendChild(card);
+                else right.appendChild(card);
             });
         }
 
-        // Operações da Gaveta de Navegação (Drawer)
-        const drawerOverlay = document.getElementById('drawerOverlay');
-        document.getElementById('openMainDrawer').onclick = () => {
-            drawerOverlay.classList.add('visible');
-            navDrawerPanel('drawerPanelRoot');
+        // Drawer / Menu Lateral
+        const sidebarBackdrop = document.getElementById('sidebarBackdrop');
+        document.getElementById('btnOpenSidebar').onclick = () => {
+            sidebarBackdrop.classList.add('is-visible');
+            openDrawerSub('subpageDrawerRoot');
         };
-        drawerOverlay.onclick = (e) => {
-            if (e.target === drawerOverlay) closeDrawer();
+        sidebarBackdrop.onclick = (e) => {
+            if (e.target === sidebarBackdrop) closeDrawer();
         };
         function closeDrawer() {
-            drawerOverlay.classList.remove('visible');
+            sidebarBackdrop.classList.remove('is-visible');
         }
-        function navDrawerPanel(panelId) {
-            document.querySelectorAll('.drawer-subpanel').forEach(p => p.classList.remove('active'));
-            document.getElementById(panelId).classList.add('active');
+        function openDrawerSub(subId) {
+            document.querySelectorAll('.drawer-subpage').forEach(sub => sub.classList.remove('is-open'));
+            document.getElementById(subId).classList.add('is-open');
         }
-        document.getElementById('gotoDrawerMore').onclick = () => navDrawerPanel('drawerPanelMore');
-        document.getElementById('gotoDrawerOther').onclick = () => navDrawerPanel('drawerPanelOther');
+        document.getElementById('triggerSubMore').onclick = () => openDrawerSub('subpageDrawerMore');
+        document.getElementById('triggerSubOther').onclick = () => openDrawerSub('subpageDrawerOther');
 
-        // Modais Bottom Sheet
-        function openSheet(sheetId) {
-            document.getElementById(sheetId).classList.add('show');
-        }
-        function closeSheet(sheetId) {
-            document.getElementById(sheetId).classList.remove('show');
-        }
+        // Bottom Sheets
+        function openSheet(id) { document.getElementById(id).classList.add('is-open'); }
+        function closeSheet(id) { document.getElementById(id).classList.remove('is-open'); }
 
-        // Conexões Mapeadas nas Imagens do SeaArt:
-        // Seta Azul Clara Criação -> Ferramentas IA
-        document.getElementById('openAiToolsSheetBtn').onclick = () => openSheet('sheetAiTools');
-        // Seta Amarela Criação -> Check-in Diário & Missões
-        document.getElementById('openDailyQuestBtn').onclick = () => openSheet('sheetDailyTasks');
-        // Seta Azul Criação -> Filtro Workspace
-        document.getElementById('openWorkspaceFilterBtn').onclick = () => openSheet('sheetFilterWorkspace');
-        // Seta Verde Personagem -> Filtro de Gênero/Ordenação
-        document.getElementById('openCharFilterBtn').onclick = () => openSheet('sheetCharFilter');
-        // Seta Ciano Perfil -> Menu Pessoal
-        document.getElementById('openProfileMoreBtn').onclick = () => openSheet('sheetProfileMenu');
+        // Mapeamento das Ações:
+        // Seta azul clara Criação -> Ferramentas
+        document.getElementById('triggerAiTools').onclick = () => openSheet('sheetToolsModal');
+        // Seta amarela Criação -> Missões
+        document.getElementById('triggerDailyQuests').onclick = () => openSheet('sheetQuestsModal');
+        // Seta azul Criação -> Filtro Workspace
+        document.getElementById('triggerWorkspaceFilter').onclick = () => openSheet('sheetWorkspaceModal');
+        // Seta verde Personagem -> Filtro
+        document.getElementById('triggerCharFilter').onclick = () => openSheet('sheetCharModal');
+        // Seta ciano Perfil -> Menu Pessoal
+        document.getElementById('triggerProfileMenu').onclick = () => openSheet('sheetProfileModal');
 
-        // Modal de Login (Seta Vermelha Boas-Vindas)
-        const loginModal = document.getElementById('loginModal');
-        document.getElementById('topLoginBtn').onclick = () => loginModal.classList.add('show');
-        function closeLoginModal() {
-            loginModal.classList.remove('show');
-        }
+        // Modal Login (Seta vermelha)
+        const dialogLogin = document.getElementById('dialogLogin');
+        document.getElementById('triggerLoginModal').onclick = () => dialogLogin.classList.add('is-active');
+        function closeLoginDialog() { dialogLogin.classList.remove('is-active'); }
 
-        // Centro de Mensagens (Seta Roxa Notificações)
-        const notificationsView = document.getElementById('notificationsView');
-        document.getElementById('openNotificationsBtn').onclick = () => {
+        // Centro de Mensagens (Seta roxa)
+        const viewNotificationsFull = document.getElementById('viewNotificationsFull');
+        document.getElementById('triggerNotifications').onclick = () => {
             closeDrawer();
-            notificationsView.classList.add('active');
+            viewNotificationsFull.classList.add('is-active');
         };
-        function closeNotificationsView() {
-            notificationsView.classList.remove('active');
-        }
+        function closeNotifications() { viewNotificationsFull.classList.remove('is-active'); }
 
-        // Subtabs do Perfil
-        function switchProfileTab(tabElement, tabType) {
-            document.querySelectorAll('.profile-tab').forEach(t => t.classList.remove('active'));
-            tabElement.classList.add('active');
-            const container = document.getElementById('profileTabContentArea');
-
-            if (tabType === 'profPosts') {
-                container.innerHTML = `
-                    <div class="feed-masonry-container">
-                        <div class="masonry-column" id="profColLeft"></div>
-                        <div class="masonry-column" id="profColRight"></div>
-                    </div>
-                `;
-                populateMasonryGrid(MOCK_DATABASE.slice(0, 3), 'profColLeft', 'profColRight');
-            } else {
-                container.innerHTML = `
-                    <div class="profile-empty-state">
-                        <div style="font-size:36px;">📋</div>
-                        <div>Nenhum dado encontrado para esta seção</div>
-                    </div>
-                `;
-            }
-        }
-
-        // Batch Mode na Criação (Seta Amarela - Seleção de Imagens)
-        let selectedBatchCount = 0;
-        function toggleSelectBatch(cardId) {
+        // Seleção de Lote na Criação (Seta amarela)
+        let batchCount = 0;
+        function toggleBatchItem(cardId) {
             const card = document.getElementById(cardId);
-            const batchBar = document.getElementById('batchBar');
-            card.classList.toggle('selected-for-batch');
+            const batchBar = document.getElementById('batchActionBar');
+            card.classList.toggle('is-selected');
 
-            selectedBatchCount = document.querySelectorAll('.selected-for-batch').length;
-            if (selectedBatchCount > 0) {
+            batchCount = document.querySelectorAll('.job-card.is-selected').length;
+            if (batchCount > 0) {
                 batchBar.classList.add('active');
-                document.getElementById('batchCountLabel').innerText = `${selectedBatchCount} imagem(ns) selecionada(s)`;
+                document.getElementById('batchSelectedText').innerText = `${batchCount} imagens selecionadas.`;
             } else {
                 batchBar.classList.remove('active');
             }
         }
-        document.getElementById('closeBatchMode').onclick = () => {
-            document.querySelectorAll('.selected-for-batch').forEach(c => c.classList.remove('selected-for-batch'));
-            document.getElementById('batchBar').classList.remove('active');
-            selectedBatchCount = 0;
+        document.getElementById('btnExitBatch').onclick = () => {
+            document.querySelectorAll('.job-card.is-selected').forEach(c => c.classList.remove('is-selected'));
+            document.getElementById('batchActionBar').classList.remove('active');
+            batchCount = 0;
         };
 
-        // Geração no Workspace / Botão de Envio
-        document.getElementById('btnSendPrompt').onclick = () => {
-            const input = document.getElementById('studioPromptInput');
-            const promptVal = input.value.trim();
-            if (!promptVal) return;
+        // Geração no Canvas
+        document.getElementById('btnSubmitGen').onclick = () => {
+            const input = document.getElementById('dockedInputPrompt');
+            const val = input.value.trim();
+            if (!val) return;
 
-            const workspace = document.getElementById('createCanvasList');
-            const newId = 'cardGen_' + Date.now();
-            const newCard = document.createElement('div');
-            newCard.className = 'generated-media-card';
-            newCard.id = newId;
-            newCard.innerHTML = `
-                <div class="media-preview-container">
-                    <div class="media-select-check" onclick="toggleSelectBatch('${newId}')">✓</div>
-                    <img src="https://picsum.photos/seed/${encodeURIComponent(promptVal)}/600/350" alt="Generated">
+            const feed = document.getElementById('studioWorkspaceFeed');
+            const uid = 'task_' + Date.now();
+            const newJob = document.createElement('div');
+            newJob.className = 'job-card';
+            newJob.id = uid;
+            newJob.innerHTML = `
+                <div class="job-preview">
+                    <div class="select-circle-btn" onclick="toggleBatchItem('${uid}')">✓</div>
+                    <img src="https://picsum.photos/seed/${encodeURIComponent(val)}/600/350" alt="New Generated">
                 </div>
-                <div class="media-card-details">
-                    <p class="media-prompt-text">${promptVal}</p>
-                    <div class="media-actions-row">
-                        <button class="btn-sub-action">Reeditar</button>
-                        <button class="btn-sub-action">Regenerar</button>
-                        <button class="btn-sub-action">Upscale</button>
+                <div class="job-details">
+                    <p class="job-prompt">${val}</p>
+                    <div class="job-actions">
+                        <button class="btn-action-ghost">Reeditar</button>
+                        <button class="btn-action-ghost">Regenerar</button>
+                        <button class="btn-action-ghost">Vídeo</button>
                     </div>
                 </div>
             `;
-            workspace.prepend(newCard);
+            feed.prepend(newJob);
             input.value = '';
         };
 
-        // Detalhe da Obra & Remix (Seta Rosa)
-        const artworkDetailView = document.getElementById('artworkDetailView');
+        // Detalhe da Arte & Remix (Seta Rosa)
+        const viewArtworkDetail = document.getElementById('viewArtworkDetail');
         function openArtworkDetail(item) {
-            document.getElementById('detailImageNode').src = item.image;
-            document.getElementById('detailAuthorText').innerText = item.author;
-            document.getElementById('detailPromptText').innerText = item.prompt;
-            document.getElementById('detailModelTag').innerText = `Modelo: ${item.model}`;
-            
-            // Renderiza recomendações relacionadas na base da imagem
-            populateMasonryGrid(MOCK_DATABASE, 'detailRelatedLeft', 'detailRelatedRight');
-            artworkDetailView.classList.add('active');
+            document.getElementById('imgHeroDetail').src = item.image;
+            document.getElementById('labelDetailAuthor').innerText = item.author;
+            document.getElementById('textDetailPrompt').innerText = item.prompt;
+            document.getElementById('labelDetailModel').innerText = `Modelo: ${item.model}`;
 
-            // Lógica do botão Remix
-            document.getElementById('btnExecuteRemix').onclick = () => {
-                artworkDetailView.classList.remove('active');
-                switchNav('viewCreate', document.getElementById('bottomNavCreate'));
-                document.getElementById('studioPromptInput').value = item.prompt;
+            fillMasonry(ARTWORKS, 'relDetailLeft', 'relDetailRight');
+            viewArtworkDetail.classList.add('is-active');
+
+            document.getElementById('btnRemixTrigger').onclick = () => {
+                viewArtworkDetail.classList.remove('is-active');
+                navigate('pageCreate', document.getElementById('tabNavCreate'));
+                document.getElementById('dockedInputPrompt').value = item.prompt;
             };
         }
-        function closeArtworkDetail() {
-            artworkDetailView.classList.remove('active');
-        }
+        function closeArtworkDetail() { viewArtworkDetail.classList.remove('is-active'); }
 
-        // Navegação de Busca
-        document.getElementById('openSearchBtn').onclick = () => {
-            switchNav('viewSearch');
-            document.getElementById('searchInputField').focus();
+        // Busca
+        document.getElementById('triggerSearch').onclick = () => {
+            navigate('pageSearch');
+            document.getElementById('mainSearchInput').focus();
         };
         document.getElementById('btnExecuteSearch').onclick = () => {
-            const query = document.getElementById('searchInputField').value.toLowerCase();
-            const results = MOCK_DATABASE.filter(i => 
-                i.title.toLowerCase().includes(query) || 
-                i.prompt.toLowerCase().includes(query)
-            );
-            populateMasonryGrid(results.length ? results : MOCK_DATABASE, 'searchColLeft', 'searchColRight');
+            const q = document.getElementById('mainSearchInput').value.toLowerCase();
+            const filtered = ARTWORKS.filter(a => a.title.toLowerCase().includes(q) || a.prompt.toLowerCase().includes(q));
+            fillMasonry(filtered.length ? filtered : ARTWORKS, 'searchLeftCol', 'searchRightCol');
         };
 
-        // Inicialização de Conteúdo dos Feeds
+        // Subtabs do Perfil
+        function switchProfileSub(tab, type) {
+            document.querySelectorAll('.tab-h-item').forEach(t => t.classList.remove('active'));
+            tab.classList.add('active');
+            const container = document.getElementById('profileBodyContent');
+            if (type === 'profGrid') {
+                container.innerHTML = `
+                    <div class="masonry-wrap">
+                        <div class="masonry-col" id="profLeftCol"></div>
+                        <div class="masonry-col" id="profRightCol"></div>
+                    </div>
+                `;
+                fillMasonry(ARTWORKS.slice(0, 3), 'profLeftCol', 'profRightCol');
+            } else {
+                container.innerHTML = `
+                    <div style="text-align:center; padding:40px; color:var(--text-muted); font-size:12px;">
+                        <div style="font-size:30px; margin-bottom:8px;">📁</div>
+                        Sem dados disponíveis nesta seção
+                    </div>
+                `;
+            }
+        }
+
+        // Inicializar feeds
         window.addEventListener('DOMContentLoaded', () => {
-            populateMasonryGrid(MOCK_DATABASE, 'homeMasonryLeft', 'homeMasonryRight');
-            populateMasonryGrid(MOCK_DATABASE, 'charMasonryLeft', 'charMasonryRight');
-            populateMasonryGrid(MOCK_DATABASE, 'appsMasonryLeft', 'appsMasonryRight');
-            populateMasonryGrid(MOCK_DATABASE.slice(0, 2), 'profColLeft', 'profColRight');
+            fillMasonry(ARTWORKS, 'feedHomeLeft', 'feedHomeRight');
+            fillMasonry(ARTWORKS, 'feedCharLeft', 'feedCharRight');
+            fillMasonry(ARTWORKS, 'feedAppsLeft', 'feedAppsRight');
+            fillMasonry(ARTWORKS.slice(0, 2), 'profLeftCol', 'profRightCol');
         });
     </script>
 </body>
-</html>
+    </html>
