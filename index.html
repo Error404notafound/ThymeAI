@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ThymeAI - Inteligência Artificial Botânica & Arte</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #0b0f0c; /* Tom de grafite bem escuro com fundo esverdeado */
+            color: #e2e8f0;
+            text-align: center;
+            padding: 50px 20px;
+            margin: 0;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: #131a15; /* Verde floresta ultra escuro */
+            padding: 30px;
+            border-radius: 16px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.6);
+            border: 1px solid #1f2e24;
+        }
+        h1 {
+            color: #2ecc71; /* Verde menta vibrante / Thyme */
+            margin-bottom: 5px;
+            font-size: 2.2rem;
+            letter-spacing: -0.5px;
+        }
+        .subtitle {
+            color: #8fa89b;
+            margin-top: 0;
+            font-size: 0.95rem;
+            margin-bottom: 25px;
+        }
+        input[type="text"] {
+            width: 100%;
+            padding: 14px;
+            margin: 15px 0;
+            border: 1px solid #2d4235;
+            border-radius: 8px;
+            background: #0b0f0c;
+            color: #fff;
+            box-sizing: border-box;
+            font-size: 15px;
+            transition: 0.3s;
+        }
+        input[type="text"]:focus {
+            border-color: #2ecc71;
+            outline: none;
+            box-shadow: 0 0 8px rgba(46, 204, 113, 0.3);
+        }
+        button {
+            background-color: #2ecc71;
+            color: #0b0f0c;
+            border: none;
+            padding: 14px 28px;
+            font-size: 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: 0.3s;
+            width: 100%;
+        }
+        button:hover {
+            background-color: #27ae60;
+            transform: translateY(-1px);
+        }
+        button:active {
+            transform: translateY(0);
+        }
+        #status {
+            margin-top: 20px;
+            color: #2ecc71;
+            font-size: 14px;
+            font-weight: 500;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>🌿 ThymeAI</h1>
+        <p class="subtitle">Geração de Arte Digital Avançada & Design por IA</p>
+        
+        <input type="text" id="promptInput" placeholder="Descreva a imagem que deseja criar...">
+        <button id="generateBtn">Gerar Nova Arte</button>
+        
+        <p id="status"></p>
+    </div>
+
+    <!-- Script do Firebase via CDN -->
+    <script type="module">
+        import { initializeApp } from "https://gstatic.com";
+        import { getFirestore, collection, addDoc } from "https://gstatic.com";
+
+        // Sua configuração do Firebase mantida para o projeto
+        const firebaseConfig = {
+            apiKey: "AIzaSyCiqgGY0ufivG7jMWfNaC3mfZSyKgpM_cs",
+            authDomain: "://firebaseapp.com",
+            projectId: "cronosartai",
+            storageBucket: "cronosartai.firebasestorage.app",
+            messagingSenderId: "85541618478",
+            appId: "1:85541618478:web:004c6d71cf6f82d18b30bf"
+        };
+
+        // Inicializando
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
+        console.log("ThymeAI: Sistema conectado ao Firebase com sucesso!");
+
+        document.getElementById('generateBtn').addEventListener('click', async () => {
+            const promptText = document.getElementById('promptInput').value;
+            const statusElement = document.getElementById('status');
+
+            if (!promptText.trim()) {
+                statusElement.style.color = "#e74c3c";
+                statusElement.innerText = "Por favor, digite um prompt para iniciar a geração!";
+                return;
+            }
+
+            statusElement.style.color = "#f1c40f";
+            statusElement.innerText = "ThymeAI está processando sua arte e registrando no banco...";
+
+            try {
+                // Salvando na coleção do Firestore
+                await addDoc(collection(db, "thyme_prompts"), {
+                    prompt: promptText,
+                    timestamp: new Date()
+                });
+
+                statusElement.style.color = "#2ecc71";
+                statusElement.innerText = "Sucesso! Prompt salvo na base de dados da ThymeAI.";
+                document.getElementById('promptInput').value = ""; 
+            } catch (error) {
+                console.error("Erro Firebase:", error);
+                statusElement.style.color = "#e74c3c";
+                statusElement.innerText = "Erro na conexão. Verifique se o Cloud Firestore está ativo no Console.";
+            }
+        });
+    </script>
+</body>
+</html>
