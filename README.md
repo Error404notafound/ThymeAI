@@ -1,2 +1,0 @@
-# ThymeAI
-AI site 
