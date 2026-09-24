@@ -121,14 +121,12 @@
             cursor: pointer;
         }
         .brand-logo-text {
-            font-family: var(--font-title);
-            font-weight: 800;
-            font-size: 18px;
-            letter-spacing: -0.5px;
-            background: linear-gradient(90deg, #fff 0%, #c084fc 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
+    font-family: var(--font-title);
+    font-weight: 800;
+    font-size: 18px;
+    letter-spacing: -0.5px;
+    color: #ffffff; /* Branco sólido oficial */
+}
         .header-search-pill {
             flex: 1;
             margin: 0 10px;
@@ -846,9 +844,8 @@
             <span class="brand-logo-text">THYME.AI</span>
         </div>
         <div class="header-search-pill" id="btnHeaderSearch">
-            <svg class="svg-icon" style="width:14px; height:14px;" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
-            <span>Buscar modelos e prompts...</span>
-        </div>
+    <svg class="svg-icon" style="width:14px; height:14px;" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+</div>
         <div class="header-right-tools">
             <div class="badge-discount-vip">VIP 40% OFF</div>
             <button class="btn-auth-header" id="btnHeaderAuth">Entrar</button>
@@ -1714,29 +1711,31 @@ document.getElementById('btnAuthFacebook').onclick = async () => {
         const btnHeaderAuth = document.getElementById('btnHeaderAuth');
 
         onAuthStateChanged(auth, async (user) => {
-            if (user) {
-                wrapHeaderLoggedOut.style.display = 'none';
-                wrapFooterLoggedOut.style.display = 'none';
-                wrapHeaderLoggedIn.style.display = 'block';
-                wrapMenuCriar.style.display = 'block';
-                btnActionSignOut.style.display = 'flex';
+    if (user) {
+        wrapHeaderLoggedOut.style.display = 'none';
+        wrapFooterLoggedOut.style.display = 'none';
+        wrapHeaderLoggedIn.style.display = 'block';
+        wrapMenuCriar.style.display = 'block';
+        btnActionSignOut.style.display = 'flex';
 
-                btnHeaderAuth.innerText = "Conectado";
-                btnHeaderAuth.style.background = "#059669";
+        // Oculta o botão do cabeçalho quando logado
+        btnHeaderAuth.style.display = 'none';
 
-                await handlePostLoginCheck(user);
-            } else {
-                wrapHeaderLoggedOut.style.display = 'flex';
-                wrapFooterLoggedOut.style.display = 'flex';
-                wrapHeaderLoggedIn.style.display = 'none';
-                wrapMenuCriar.style.display = 'none';
-                btnActionSignOut.style.display = 'none';
+        await handlePostLoginCheck(user);
+    } else {
+        wrapHeaderLoggedOut.style.display = 'flex';
+        wrapFooterLoggedOut.style.display = 'flex';
+        wrapHeaderLoggedIn.style.display = 'none';
+        wrapMenuCriar.style.display = 'none';
+        btnActionSignOut.style.display = 'none';
 
-                btnHeaderAuth.innerText = "Entrar";
-                btnHeaderAuth.style.background = "var(--purple-main)";
-                renderFeed();
-            }
-        });
+        // Reexibe o botão "Entrar" quando deslogado
+        btnHeaderAuth.style.display = 'block';
+        btnHeaderAuth.innerText = "Entrar";
+        btnHeaderAuth.style.background = "var(--purple-main)";
+        renderFeed();
+    }
+});
 
         window.addEventListener('DOMContentLoaded', () => renderFeed());
     </script>
