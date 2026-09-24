@@ -3,32 +3,31 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>SeaArt AI - All-in-One AI Creation Platform</title>
-    <!-- Fonte Oficial Sans Google -->
+    <title>ThymeAI - Inteligência Artificial & Arte Digital</title>
+    
+    <!-- Tipografia Idêntica -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Cinzel:wght@700&display=swap" rel="stylesheet">
+
     <style>
         :root {
-            --bg-body: #07080c;
-            --bg-navbar: #0e0f18;
-            --bg-surface: #131522;
-            --bg-card: #1a1d2e;
-            --bg-elevated: #22263d;
-            --bg-sheet: #151726;
-            --primary-purple: #8b5cf6;
-            --primary-hover: #7c3aed;
-            --primary-gradient: linear-gradient(135deg, #a855f7 0%, #6366f1 100%);
-            --seaart-blue-gradient: linear-gradient(135deg, #06b6d4 0%, #3b82f6 100%);
-            --gold-gradient: linear-gradient(90deg, #f59e0b, #fbbf24);
-            --text-primary: #ffffff;
-            --text-secondary: #94a3b8;
-            --text-muted: #64748b;
-            --border-subtle: #242942;
-            --border-focus: #8b5cf6;
-            --bottom-nav-height: 56px;
-            --header-height: 50px;
-            --font-main: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+            --bg-body: #0b0c10;
+            --bg-drawer: #121318;
+            --bg-card-vip: linear-gradient(135deg, rgba(255, 255, 255, 0.12) 0%, rgba(255, 255, 255, 0.03) 100%);
+            --bg-icon-box: #1e2029;
+            --purple-main: #8b5cf6;
+            --purple-hover: #7c3aed;
+            --purple-btn: #a855f7;
+            --gold-btn: linear-gradient(90deg, #f59e0b, #fbbf24);
+            --gold-txt: #f59e0b;
+            --text-white: #ffffff;
+            --text-dim: #9ca3af;
+            --text-muted: #6b7280;
+            --border-dark: #222530;
+            --border-light: rgba(255, 255, 255, 0.06);
+            --font-ui: 'Plus Jakarta Sans', sans-serif;
+            --font-serif: 'Cinzel', serif;
         }
 
         * {
@@ -40,1499 +39,880 @@
         }
 
         body {
-            font-family: var(--font-main);
+            font-family: var(--font-ui);
             background-color: var(--bg-body);
-            color: var(--text-primary);
-            overflow: hidden;
+            color: var(--text-white);
             height: 100vh;
             width: 100vw;
+            overflow: hidden;
             display: flex;
             flex-direction: column;
         }
 
-        /* Rolagem sem barras visíveis */
-        ::-webkit-scrollbar { display: none; }
-        * { -ms-overflow-style: none; scrollbar-width: none; }
-
-        /* Top Bar de Promoção / Outono */
-        .top-promo-banner {
-            background: linear-gradient(90deg, #581c87 0%, #9333ea 50%, #f59e0b 100%);
-            height: 30px;
+        /* Topbar de teste */
+        header.app-topbar {
+            height: 52px;
+            background: #0e0f14;
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding: 0 12px;
-            font-size: 11px;
-            font-weight: 600;
-            z-index: 60;
+            padding: 0 16px;
+            border-bottom: 1px solid var(--border-dark);
+            z-index: 10;
         }
-        .btn-banner-tag {
-            background: #fef08a;
-            color: #000;
-            border: none;
-            padding: 2px 8px;
-            border-radius: 12px;
-            font-size: 10px;
-            font-weight: 700;
-            cursor: pointer;
-        }
-
-        /* Top Header Principal */
-        header.seaart-header {
-            height: var(--header-height);
-            background: var(--bg-navbar);
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 0 12px;
-            border-bottom: 1px solid var(--border-subtle);
-            z-index: 50;
-        }
-        .header-brand-wrap {
+        .header-brand {
             display: flex;
             align-items: center;
             gap: 12px;
-        }
-        .btn-hamburger {
-            background: none;
-            border: none;
-            color: #fff;
-            display: flex;
-            align-items: center;
-            cursor: pointer;
-        }
-        .seaart-logo {
             font-weight: 800;
-            font-size: 17px;
             letter-spacing: -0.5px;
-            color: #fff;
-            display: flex;
-            align-items: center;
-            gap: 4px;
+            font-size: 17px;
         }
-        .search-pill {
-            flex: 1;
-            margin: 0 10px;
-            height: 32px;
-            background: #090a10;
-            border: 1px solid var(--border-subtle);
-            border-radius: 16px;
-            display: flex;
-            align-items: center;
-            padding: 0 10px;
-            gap: 8px;
-            color: var(--text-muted);
-            font-size: 12px;
-            cursor: pointer;
-        }
-        .header-actions {
-            display: flex;
-            align-items: center;
-            gap: 6px;
-        }
-        .vip-discount-badge {
-            background: #1e1b2e;
-            border: 1px solid #d97706;
-            color: #fbbf24;
-            padding: 3px 6px;
-            border-radius: 12px;
-            font-size: 10px;
-            font-weight: 700;
-            display: flex;
-            align-items: center;
-            gap: 2px;
-        }
-        .btn-auth-top {
-            background: var(--primary-purple);
-            color: #fff;
-            border: none;
-            padding: 5px 12px;
-            border-radius: 14px;
-            font-size: 12px;
-            font-weight: 600;
-            cursor: pointer;
-        }
-
-        /* Layout Switcher (Views) */
-        main.seaart-viewport {
-            flex: 1;
-            position: relative;
-            overflow: hidden;
-        }
-        .spa-view {
-            position: absolute;
-            inset: 0;
-            overflow-y: auto;
-            display: none;
-            flex-direction: column;
-            padding-bottom: calc(var(--bottom-nav-height) + 16px);
-        }
-        .spa-view.active-view {
-            display: flex;
-        }
-
-        /* Hero do Início */
-        .home-hero {
-            padding: 24px 16px 16px;
-            background: radial-gradient(circle at 50% 10%, #2e1065 0%, var(--bg-body) 70%);
-            text-align: center;
-        }
-        .hero-title {
-            font-size: 22px;
-            font-weight: 800;
-            line-height: 1.25;
-            margin-bottom: 6px;
-        }
-        .hero-desc {
-            font-size: 12px;
-            color: var(--text-secondary);
-            margin-bottom: 18px;
-            line-height: 1.4;
-        }
-
-        /* Box de Geração Rápida */
-        .quick-box {
-            background: var(--bg-surface);
-            border: 1px solid var(--border-subtle);
-            border-radius: 14px;
-            padding: 12px;
-            text-align: left;
-        }
-        .quick-nav-modes {
-            display: flex;
-            gap: 16px;
-            border-bottom: 1px solid var(--border-subtle);
-            padding-bottom: 8px;
-            margin-bottom: 10px;
-        }
-        .mode-tab {
-            font-size: 13px;
-            font-weight: 600;
-            color: var(--text-muted);
-            cursor: pointer;
-            position: relative;
-        }
-        .mode-tab.active {
-            color: #fff;
-        }
-        .mode-tab.active::after {
-            content: '';
-            position: absolute;
-            bottom: -9px;
-            left: 0;
-            right: 0;
-            height: 2px;
-            background: var(--primary-purple);
-        }
-        .quick-input-grid {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 12px;
-        }
-        .ref-image-box {
-            width: 48px;
-            height: 48px;
-            background: #090a10;
-            border: 1px dashed var(--border-subtle);
-            border-radius: 8px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 18px;
-            color: var(--text-muted);
-            cursor: pointer;
-        }
-        .quick-input-grid textarea {
-            flex: 1;
+        .btn-hamburger-trigger {
             background: none;
             border: none;
-            outline: none;
             color: #fff;
-            font-family: inherit;
-            font-size: 12px;
-            resize: none;
-        }
-        .quick-footer {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        .chip-model {
-            background: var(--bg-card);
-            padding: 4px 8px;
-            border-radius: 12px;
-            font-size: 11px;
-            color: var(--text-secondary);
+            cursor: pointer;
             display: flex;
             align-items: center;
-            gap: 4px;
         }
-        .btn-gen-purple {
-            background: var(--primary-gradient);
+        .btn-header-auth {
+            background: var(--purple-main);
+            color: #fff;
             border: none;
-            color: #fff;
             padding: 6px 14px;
-            border-radius: 14px;
+            border-radius: 16px;
             font-size: 12px;
             font-weight: 700;
             cursor: pointer;
         }
 
-        /* Notificação Flutuante de Energia / Stamina */
-        .stamina-toast {
-            margin: 12px 16px;
-            background: #171929;
-            border: 1px solid var(--border-subtle);
-            border-radius: 10px;
-            padding: 10px 14px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.5);
-        }
-        .stamina-text {
-            font-size: 11px;
-            line-height: 1.3;
-        }
-        .stamina-text b {
-            color: #facc15;
-        }
-        .btn-free-access {
-            background: var(--primary-purple);
-            color: #fff;
-            border: none;
-            padding: 4px 10px;
-            border-radius: 12px;
-            font-size: 11px;
-            font-weight: 700;
-            cursor: pointer;
-        }
-
-        /* Feeds em Masonry 2 Colunas */
-        .section-header {
-            padding: 16px 16px 8px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            font-size: 14px;
-            font-weight: 700;
-        }
-        .masonry-wrap {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 10px;
-            padding: 0 12px;
-        }
-        .masonry-col {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
-        .art-card {
-            background: var(--bg-surface);
-            border: 1px solid var(--border-subtle);
-            border-radius: 10px;
-            overflow: hidden;
-            cursor: pointer;
-            position: relative;
-        }
-        .art-card img {
-            width: 100%;
-            display: block;
-            object-fit: cover;
-        }
-        .art-card-body {
-            padding: 8px;
-        }
-        .art-card-title {
-            font-size: 11px;
-            line-height: 1.3;
-            color: var(--text-primary);
-            display: -webkit-box;
-            -webkit-line-clamp: 2;
-            line-clamp: 2;
-            -webkit-box-orient: vertical;
-            overflow: hidden;
-            margin-bottom: 6px;
-        }
-        .art-card-author {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            font-size: 10px;
-            color: var(--text-muted);
-        }
-
-        /* Barra de Criação / Histórico de Tarefas */
-        .studio-tools-header {
-            height: 44px;
-            background: var(--bg-navbar);
-            border-bottom: 1px solid var(--border-subtle);
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 0 12px;
-        }
-        .studio-tools-cluster {
-            display: flex;
-            align-items: center;
-            gap: 6px;
-        }
-        .btn-icon-tool {
-            background: none;
-            border: none;
-            color: var(--text-secondary);
-            font-size: 16px;
-            padding: 6px;
-            border-radius: 6px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-        }
-        .btn-icon-tool:hover {
-            color: #fff;
-            background: var(--bg-card);
-        }
-
-        /* Modo de Seleção / Lote */
-        .batch-action-bar {
-            height: 48px;
-            background: var(--bg-card);
-            border-bottom: 1px solid var(--border-subtle);
-            display: none;
-            align-items: center;
-            justify-content: space-between;
-            padding: 0 14px;
-            z-index: 55;
-        }
-        .batch-action-bar.active {
-            display: flex;
-        }
-
-        /* Feed do Studio (Cards de Tarefas Geradas) */
-        .studio-feed {
-            flex: 1;
-            padding: 12px;
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-            overflow-y: auto;
-        }
-        .job-card {
-            background: var(--bg-surface);
-            border: 1px solid var(--border-subtle);
-            border-radius: 10px;
-            overflow: hidden;
-            position: relative;
-        }
-        .job-card.is-selected {
-            border-color: var(--primary-purple);
-            box-shadow: 0 0 12px rgba(139,92,246,0.3);
-        }
-        .job-preview {
-            width: 100%;
-            height: 220px;
-            background: #000;
-            position: relative;
-        }
-        .job-preview img {
-            width: 100%;
-            height: 100%;
-            object-fit: contain;
-        }
-        .select-circle-btn {
-            position: absolute;
-            top: 10px;
-            left: 10px;
-            width: 22px;
-            height: 22px;
-            border-radius: 50%;
-            border: 2px solid #fff;
-            background: rgba(0,0,0,0.5);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-        }
-        .job-card.is-selected .select-circle-btn {
-            background: var(--primary-purple);
-            border-color: var(--primary-purple);
-        }
-        .job-details {
-            padding: 10px;
-        }
-        .job-prompt {
-            font-size: 12px;
-            color: var(--text-secondary);
-            margin-bottom: 8px;
-        }
-        .job-actions {
-            display: flex;
-            gap: 8px;
-        }
-        .btn-action-ghost {
-            background: var(--bg-card);
-            border: 1px solid var(--border-subtle);
-            color: #fff;
-            padding: 4px 8px;
-            border-radius: 6px;
-            font-size: 11px;
-            cursor: pointer;
-        }
-
-        /* Barra de Input Flutuante no Studio */
-        .docked-generator {
-            position: absolute;
-            bottom: var(--bottom-nav-height);
-            left: 0;
-            right: 0;
-            background: var(--bg-navbar);
-            border-top: 1px solid var(--border-subtle);
-            padding: 10px 12px;
-            display: flex;
-            flex-direction: column;
-            gap: 6px;
-            z-index: 40;
-        }
-        .generator-input-row {
-            display: flex;
-            align-items: center;
-            background: #090a10;
-            border: 1px solid var(--border-subtle);
-            border-radius: 20px;
-            padding: 4px 10px;
-        }
-        .generator-input-row input {
-            flex: 1;
-            background: none;
-            border: none;
-            outline: none;
-            color: #fff;
-            font-size: 13px;
-            padding: 6px 4px;
-        }
-        .btn-send-dock {
-            width: 28px;
-            height: 28px;
-            background: var(--primary-purple);
-            border-radius: 50%;
-            border: none;
-            color: #fff;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-        }
-
-        /* Perfil de Usuário */
-        .profile-cover {
-            height: 120px;
-            background: linear-gradient(180deg, #1e1b4b 0%, #0c0a1f 100%);
-        }
-        .profile-row-user {
-            padding: 0 16px;
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-end;
-            margin-top: -30px;
-            margin-bottom: 12px;
-        }
-        .avatar-initial {
-            width: 64px;
-            height: 64px;
-            border-radius: 50%;
-            background: #065f46;
-            border: 3px solid var(--bg-body);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 24px;
-            font-weight: 700;
-        }
-        .profile-stat-bar {
-            display: flex;
-            justify-content: space-around;
-            padding: 10px 0;
-            border-top: 1px solid var(--border-subtle);
-            border-bottom: 1px solid var(--border-subtle);
-        }
-        .stat-box {
-            text-align: center;
-        }
-        .stat-box .num {
-            font-size: 14px;
-            font-weight: 700;
-        }
-        .stat-box .lbl {
-            font-size: 11px;
-            color: var(--text-muted);
-        }
-
-        /* Menu de Navegação Horizontal do Perfil */
-        .nav-tabs-horizontal {
-            display: flex;
-            gap: 16px;
-            padding: 0 16px;
-            border-bottom: 1px solid var(--border-subtle);
-            overflow-x: auto;
-        }
-        .tab-h-item {
-            padding: 10px 0;
-            font-size: 12px;
-            font-weight: 600;
-            color: var(--text-muted);
-            cursor: pointer;
-            white-space: nowrap;
-        }
-        .tab-h-item.active {
-            color: #fff;
-            border-bottom: 2px solid var(--primary-purple);
-        }
-
-        /* Drawer Lateral & Submenus */
-        .drawer-backdrop {
+        /* Backdrop do Drawer */
+        .drawer-overlay {
             position: fixed;
             inset: 0;
-            background: rgba(0,0,0,0.6);
+            background: rgba(0, 0, 0, 0.7);
             backdrop-filter: blur(3px);
             z-index: 100;
             opacity: 0;
             pointer-events: none;
-            transition: opacity 0.25s ease;
+            transition: opacity 0.28s ease;
         }
-        .drawer-backdrop.is-visible {
+        .drawer-overlay.open {
             opacity: 1;
             pointer-events: auto;
         }
+
+        /* Painel Lateral Principal */
         .drawer-panel {
             position: fixed;
             top: 0;
-            bottom: 0;
-            left: -270px;
-            width: 270px;
-            background: var(--bg-navbar);
-            border-right: 1px solid var(--border-subtle);
+            left: -320px;
+            width: 295px;
+            height: 100vh;
+            background: var(--bg-drawer);
+            border-right: 1px solid var(--border-dark);
             z-index: 101;
-            transition: transform 0.25s ease;
+            transition: transform 0.28s cubic-bezier(0.2, 0.8, 0.2, 1);
+            overflow: hidden;
             display: flex;
             flex-direction: column;
         }
-        .drawer-backdrop.is-visible .drawer-panel {
-            transform: translateX(270px);
+        .drawer-overlay.open .drawer-panel {
+            transform: translateX(320px);
         }
-        .drawer-subpage {
+
+        .drawer-viewports {
+            position: relative;
+            flex: 1;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        /* Páginas deslizantes (Root, Mais, Outro) */
+        .drawer-page {
             position: absolute;
             inset: 0;
-            background: var(--bg-navbar);
-            display: none;
-            flex-direction: column;
-        }
-        .drawer-subpage.is-open {
+            width: 100%;
+            height: 100%;
             display: flex;
-        }
-        .drawer-menu-list {
-            list-style: none;
+            flex-direction: column;
+            background: var(--bg-drawer);
+            transform: translateX(100%);
+            transition: transform 0.25s ease;
             overflow-y: auto;
+            scrollbar-width: none;
         }
-        .drawer-menu-item {
-            padding: 12px 16px;
+        .drawer-page::-webkit-scrollbar { display: none; }
+        .drawer-page.current {
+            transform: translateX(0);
+        }
+
+        /* Topo do Menu DESLOGADO (Foto 1) */
+        .logged-out-header {
+            padding: 16px;
             display: flex;
             align-items: center;
             justify-content: space-between;
-            font-size: 13px;
-            font-weight: 500;
-            cursor: pointer;
-            border-bottom: 1px solid rgba(255,255,255,0.02);
         }
-        .drawer-menu-item:hover {
-            background: var(--bg-card);
+        .brand-logo-group {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: 800;
+            font-size: 17px;
+            letter-spacing: -0.5px;
         }
-        .drawer-menu-item span {
+
+        /* Topo do Menu LOGADO (Fotos 2, 3 e 4) */
+        .logged-in-header {
+            padding: 16px 14px 12px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .logged-user-row {
             display: flex;
             align-items: center;
             gap: 10px;
         }
-
-        /* Bottom Sheets */
-        .bottom-sheet {
-            position: fixed;
-            bottom: -100%;
-            left: 0;
-            right: 0;
-            background: var(--bg-sheet);
-            border-top: 1px solid var(--border-subtle);
-            border-radius: 16px 16px 0 0;
-            z-index: 120;
-            transition: bottom 0.25s cubic-bezier(0.2, 0.8, 0.2, 1);
-            max-height: 80vh;
+        .avatar-circle {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: #0f766e;
+            color: #fff;
             display: flex;
-            flex-direction: column;
-        }
-        .bottom-sheet.is-open {
-            bottom: 0;
-        }
-        .sheet-top {
-            padding: 12px 16px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-bottom: 1px solid var(--border-subtle);
-            font-size: 13px;
-            font-weight: 700;
-        }
-        .sheet-inner {
-            padding: 16px;
-            overflow-y: auto;
-        }
-
-        /* Tela de Notificações / Centro de Mensagens */
-        .fullscreen-view {
-            position: fixed;
-            inset: 0;
-            background: var(--bg-body);
-            z-index: 110;
-            display: none;
-            flex-direction: column;
-            overflow-y: auto;
-        }
-        .fullscreen-view.is-active {
-            display: flex;
-        }
-
-        /* Modal Central de Login */
-        .dialog-overlay {
-            position: fixed;
-            inset: 0;
-            background: rgba(0,0,0,0.7);
-            display: none;
             align-items: center;
             justify-content: center;
-            padding: 20px;
-            z-index: 130;
+            font-weight: 700;
+            font-size: 15px;
+            overflow: hidden;
+            border: 2px solid var(--border-light);
         }
-        .dialog-overlay.is-active {
+        .avatar-circle img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .user-nickname {
+            font-size: 14px;
+            font-weight: 700;
+            max-width: 160px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        /* Card VIP (Estado Logado) */
+        .vip-banner-box {
+            margin: 0 12px 14px;
+            background: var(--bg-card-vip);
+            border: 1px solid var(--border-light);
+            border-radius: 12px;
+            padding: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+        }
+        .vip-banner-top {
             display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 12px;
         }
-        .dialog-card {
-            background: var(--bg-surface);
-            border: 1px solid var(--border-subtle);
-            border-radius: 16px;
-            width: 100%;
-            max-width: 350px;
-            padding: 20px;
-            position: relative;
-            text-align: center;
-        }
-        .btn-social-auth {
-            width: 100%;
-            background: var(--bg-card);
-            border: 1px solid var(--border-subtle);
-            color: #fff;
-            padding: 10px;
-            border-radius: 8px;
-            margin-top: 10px;
+        .vip-title-txt {
             font-size: 13px;
-            font-weight: 600;
+            font-weight: 700;
+        }
+        .vip-desc-txt {
+            font-size: 10px;
+            color: var(--text-dim);
+            margin-top: 2px;
+        }
+        .btn-gold-activate {
+            background: var(--gold-btn);
+            color: #2b1400;
+            border: none;
+            border-radius: 14px;
+            padding: 4px 12px;
+            font-size: 11px;
+            font-weight: 800;
+            cursor: pointer;
+        }
+        .vip-counter-row {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid var(--border-light);
+            margin-bottom: 8px;
+        }
+        .counter-pill {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 12px;
+            font-weight: 700;
+        }
+        .counter-pill small {
+            font-size: 9px;
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+        .btn-mini-plus {
+            color: var(--text-muted);
+            font-size: 13px;
+            cursor: pointer;
+            margin-left: 2px;
+        }
+        .account-hub-link {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 11px;
+            color: var(--text-dim);
             cursor: pointer;
         }
 
-        /* Tela de Detalhes da Arte (Remix) */
-        .detail-cover-hero {
-            width: 100%;
-            max-height: 480px;
-            object-fit: contain;
-            background: #000;
-        }
-        .detail-meta-container {
-            padding: 16px;
-            background: var(--bg-surface);
-            border-radius: 16px 16px 0 0;
-            margin-top: -12px;
-            position: relative;
-        }
-        .prompt-view-card {
-            background: var(--bg-body);
-            border: 1px solid var(--border-subtle);
-            border-radius: 8px;
-            padding: 10px;
-            font-size: 12px;
-            line-height: 1.4;
-            color: var(--text-secondary);
-            margin: 10px 0;
-        }
-        .remix-footer-dock {
-            position: sticky;
-            bottom: 0;
-            background: var(--bg-navbar);
-            border-top: 1px solid var(--border-subtle);
-            padding: 10px 16px;
-            display: flex;
-            gap: 10px;
-        }
-        .btn-cyan-remix {
+        /* Lista de Itens dos Menus */
+        .drawer-links-menu {
+            list-style: none;
+            padding: 0 8px;
             flex: 1;
-            background: var(--seaart-blue-gradient);
-            border: none;
+        }
+        .drawer-row-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px 12px;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 600;
+            color: #d1d5db;
+            cursor: pointer;
+            transition: background 0.15s ease;
+        }
+        .drawer-row-item:hover, .drawer-row-item.highlight {
+            background: rgba(255, 255, 255, 0.05);
             color: #fff;
-            padding: 10px;
-            border-radius: 10px;
+        }
+        .drawer-row-item.highlight-initial {
+            background: rgba(255, 255, 255, 0.06);
+            color: #e9d5ff;
+        }
+        .item-left {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .svg-icon-base {
+            width: 18px;
+            height: 18px;
+            stroke-width: 2;
+            stroke: currentColor;
+            fill: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Dropdown Sanfona */
+        .accordion-sublinks {
+            list-style: none;
+            padding-left: 42px;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.25s cubic-bezier(0, 1, 0, 1);
+        }
+        .accordion-sublinks.expanded {
+            max-height: 320px;
+            transition: max-height 0.28s ease-in-out;
+        }
+        .sublink-item {
+            padding: 8px 10px;
+            font-size: 12px;
+            color: var(--text-dim);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .sublink-item:hover {
+            color: #fff;
+        }
+        .badge-tag-beta {
+            background: #f59e0b;
+            color: #000;
+            font-size: 9px;
+            font-weight: 800;
+            padding: 1px 5px;
+            border-radius: 4px;
+        }
+
+        /* Itens dos Submenus (Mais & Outro) com Squircle Icon */
+        .squircle-icon-box {
+            width: 34px;
+            height: 34px;
+            background: var(--bg-icon-box);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid var(--border-light);
+            color: #e2e8f0;
+        }
+        .submenu-header-bar {
+            height: 48px;
+            border-bottom: 1px solid var(--border-dark);
+            display: flex;
+            align-items: center;
+            padding: 0 12px;
+            gap: 12px;
+            font-size: 14px;
+            font-weight: 700;
+        }
+
+        /* Rodapé com Redes Sociais e Login (Estado Deslogado) */
+        .logged-out-footer {
+            padding: 14px 16px 20px;
+            background: var(--bg-drawer);
+            border-top: 1px solid var(--border-dark);
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+        .social-icons-strip {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 2px;
+        }
+        .social-link-btn {
+            color: var(--text-dim);
+            cursor: pointer;
+            transition: color 0.15s ease;
+            display: flex;
+            align-items: center;
+        }
+        .social-link-btn:hover {
+            color: #fff;
+        }
+        .social-link-btn svg {
+            width: 17px;
+            height: 17px;
+            fill: currentColor;
+        }
+        .btn-purple-signup {
+            width: 100%;
+            background: var(--purple-btn);
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            padding: 11px;
             font-size: 13px;
             font-weight: 700;
             cursor: pointer;
+            transition: background 0.15s;
         }
-
-        /* Barra Inferior Fixa */
-        nav.seaart-bottom-nav {
-            height: var(--bottom-nav-height);
-            background: var(--bg-navbar);
-            border-top: 1px solid var(--border-subtle);
-            display: flex;
-            align-items: center;
-            justify-content: space-around;
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            z-index: 50;
+        .btn-purple-signup:hover {
+            background: var(--purple-hover);
         }
-        .nav-button {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 2px;
-            color: var(--text-muted);
-            font-size: 10px;
-            font-weight: 500;
-            cursor: pointer;
-        }
-        .nav-button.active {
+        .btn-outline-login {
+            width: 100%;
+            background: transparent;
             color: #fff;
+            border: 1px solid var(--border-dark);
+            border-radius: 8px;
+            padding: 11px;
+            font-size: 13px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: background 0.15s;
         }
-        .nav-button svg {
-            width: 20px;
-            height: 20px;
-            fill: currentColor;
+        .btn-outline-login:hover {
+            background: rgba(255, 255, 255, 0.05);
         }
     </style>
 </head>
 <body>
 
-    <!-- Top Banner Promocional -->
-    <div class="top-promo-banner">
-        <span>🍂 Exclusivo do outono dourado: compre créditos e ganhe moldura VIP</span>
-        <button class="btn-banner-tag" onclick="alert('Pacote VIP SeaArt')">Abra agora</button>
-    </div>
-
-    <!-- Header Principal -->
-    <header class="seaart-header">
-        <div class="header-brand-wrap">
-            <button class="btn-hamburger" id="btnOpenSidebar">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+    <!-- Header do Site -->
+    <header class="app-topbar">
+        <div class="header-brand">
+            <button class="btn-hamburger-trigger" id="btnToggleDrawer">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
             </button>
-            <span class="seaart-logo">SEAART.AI</span>
+            <span>ThymeAI</span>
         </div>
-        <div class="search-pill" id="triggerSearch">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
-            <span>Buscar modelos e prompts...</span>
-        </div>
-        <div class="header-actions">
-            <div class="vip-discount-badge">VIP 40% OFF</div>
-            <button class="btn-auth-top" id="triggerLoginModal">Log In</button>
-        </div>
+        <button class="btn-header-auth" id="btnTopLogin">Entrar</button>
     </header>
 
-    <!-- Área de Visualização Única (SPA) -->
-    <main class="seaart-viewport">
-
-        <!-- ================= ABA 1: INÍCIO ================= -->
-        <section class="spa-view active-view" id="pageHome">
-            <div class="home-hero">
-                <h1 class="hero-title">All-in-One AI Creation<br>Platform & Community</h1>
-                <p class="hero-desc">Transforme suas ideias em imagens, vídeos e personagens em minutos. Crie, faça remix e compartilhe com a comunidade.</p>
-                
-                <div class="quick-box">
-                    <div class="quick-nav-modes">
-                        <div class="mode-tab active">Texto p/ Imagem</div>
-                        <div class="mode-tab">Vídeo</div>
-                        <div class="mode-tab">Agent Beta</div>
-                    </div>
-                    <div class="quick-input-grid">
-                        <div class="ref-image-box">+</div>
-                        <textarea placeholder="Along with the image, describe the scene and actions you want to generate..."></textarea>
-                    </div>
-                    <div class="quick-footer">
-                        <div class="chip-model">🎲 Stardream 2.5 ▾</div>
-                        <button class="btn-gen-purple" onclick="navigate('pageCreate')">Generate</button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Toast de Stamina Diária -->
-            <div class="stamina-toast">
-                <div class="stamina-text">
-                    <b>Daily Rewards</b><br>
-                    <span>130 Free Stamina Daily ⚡</span>
-                </div>
-                <button class="btn-free-access" onclick="alert('130 energias resgatadas!')">Free Access</button>
-            </div>
-
-            <div class="section-header">
-                <span>Comunidade Tudo-em-Um de Criação 💡</span>
-            </div>
-
-            <div class="masonry-wrap">
-                <div class="masonry-col" id="feedHomeLeft"></div>
-                <div class="masonry-col" id="feedHomeRight"></div>
-            </div>
-        </section>
-
-        <!-- ================= ABA 2: PERSONAGEM DE IA ================= -->
-        <section class="spa-view" id="pageCharacters">
-            <div style="padding: 10px 14px; display:flex; justify-content:space-between; align-items:center; border-bottom: 1px solid var(--border-subtle);">
-                <div style="display:flex; gap:12px; font-size:12px; font-weight:600;">
-                    <span style="color:#fff; border-bottom:2px solid var(--primary-purple); padding-bottom:4px;">Popular</span>
-                    <span style="color:var(--text-muted);">Alta qualidade</span>
-                    <span style="color:var(--text-muted);">Potencial</span>
-                </div>
-                <!-- Seta verde Personagem -> Filtro de ordenação -->
-                <button class="btn-action-ghost" id="triggerCharFilter" style="display:flex; align-items:center; gap:4px;">
-                    Filtros ▾
-                </button>
-            </div>
-
-            <div class="masonry-wrap" style="margin-top: 10px;">
-                <div class="masonry-col" id="feedCharLeft"></div>
-                <div class="masonry-col" id="feedCharRight"></div>
-            </div>
-        </section>
-
-        <!-- ================= ABA 3: CRIAR (CANVAS / WORKSPACE) ================= -->
-        <section class="spa-view" id="pageCreate">
-            <!-- Barra Superior do Modo Criar -->
-            <div class="studio-tools-header">
-                <div style="font-size:12px; font-weight:700; color:#fff;">Modelo: Z Image Turbo</div>
-                <div class="studio-tools-cluster">
-                    <!-- Seta verde Ferramentas de IA -->
-                    <button class="btn-icon-tool" id="triggerAiTools" title="Ferramentas">🛠️</button>
-                    <!-- Seta azul Filtros do Workspace -->
-                    <button class="btn-icon-tool" id="triggerWorkspaceFilter" title="Filtro">⚡</button>
-                    <!-- Seta amarela Missões Diárias -->
-                    <button class="btn-icon-tool" id="triggerDailyQuests" title="Recompensas">🎁</button>
-                </div>
-            </div>
-
-            <!-- Batch Bar de Seleção (Seta Amarela - Seleção de lote) -->
-            <div class="batch-action-bar" id="batchActionBar">
-                <span id="batchSelectedText" style="font-size:12px;">1 imagens selecionadas.</span>
-                <div style="display:flex; gap:10px; align-items:center;">
-                    <button class="btn-gen-purple" style="padding:4px 10px;">Publicar</button>
-                    <button class="btn-icon-tool">💾</button>
-                    <button class="btn-icon-tool">🗑️</button>
-                    <button class="btn-icon-tool" id="btnExitBatch">✕</button>
-                </div>
-            </div>
-
-            <!-- Feed do Canvas / Workspace -->
-            <div class="studio-feed" id="studioWorkspaceFeed">
-                <div class="job-card" id="taskCard-1">
-                    <div class="job-preview">
-                        <div class="select-circle-btn" onclick="toggleBatchItem('taskCard-1')">✓</div>
-                        <img src="https://picsum.photos/seed/abandonedpark/600/350" alt="Result">
-                    </div>
-                    <div class="job-details">
-                        <p class="job-prompt">Abandoned Themepark, 1 pic, solo, no person, place, vibrant overgrown vegetation, anime cinematic lighting...</p>
-                        <div class="job-actions">
-                            <button class="btn-action-ghost">Reeditar</button>
-                            <button class="btn-action-ghost">Regenerar</button>
-                            <button class="btn-action-ghost">Vídeo</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Barra Inferior Fixa do Prompt -->
-            <div class="docked-generator">
-                <div class="generator-input-row">
-                    <input type="text" id="dockedInputPrompt" placeholder="Inside the Ferris wheel, a dirty, tattered, fluffy stuffed bear...">
-                    <button class="btn-send-dock" id="btnSubmitGen">↑</button>
-                </div>
-            </div>
-        </section>
-
-        <!-- ================= ABA 4: APPS DE IA ================= -->
-        <section class="spa-view" id="pageApps">
-            <div class="section-header">
-                <span>✨ Aplicativos de IA em destaque</span>
-            </div>
-            <div class="masonry-wrap">
-                <div class="masonry-col" id="feedAppsLeft"></div>
-                <div class="masonry-col" id="feedAppsRight"></div>
-            </div>
-        </section>
-
-        <!-- ================= ABA 5: PESSOAL (PERFIL) ================= -->
-        <section class="spa-view" id="pageProfile">
-            <div class="profile-cover"></div>
-            <div class="profile-row-user">
-                <div class="avatar-initial">E</div>
-                <!-- Seta ciano Perfil -> Menu Mais Pessoal -->
-                <button class="btn-icon-tool" id="triggerProfileMenu" style="font-size:22px; color:#fff;">⋯</button>
-            </div>
-
-            <div style="padding: 0 16px 10px;">
-                <h3 style="font-size: 17px; font-weight:700;">Error404 Not afound 💎</h3>
-                <div style="display:flex; gap:8px; align-items:center; margin-top:4px; font-size:11px; color:var(--text-secondary);">
-                    <span>⚡ 1.4K</span>
-                    <span>⚡ 130</span>
-                </div>
-            </div>
-
-            <div class="profile-stat-bar">
-                <div class="stat-box"><div class="num">0</div><div class="lbl">Seguindo</div></div>
-                <div class="stat-box"><div class="num">0</div><div class="lbl">Conectores</div></div>
-                <div class="stat-box"><div class="num">153</div><div class="lbl">Favoritos</div></div>
-                <div class="stat-box"><div class="num">0</div><div class="lbl">Assinatura</div></div>
-            </div>
-
-            <div class="nav-tabs-horizontal">
-                <div class="tab-h-item active" onclick="switchProfileSub(this, 'profGrid')">Início</div>
-                <div class="tab-h-item" onclick="switchProfileSub(this, 'profEmpty')">Série de coleções</div>
-                <div class="tab-h-item" onclick="switchProfileSub(this, 'profFav')">Favoritar</div>
-                <div class="tab-h-item" onclick="switchProfileSub(this, 'profEmpty')">Apoiando 🔒</div>
-            </div>
-
-            <div id="profileBodyContent" style="padding: 12px;">
-                <div class="masonry-wrap">
-                    <div class="masonry-col" id="profLeftCol"></div>
-                    <div class="masonry-col" id="profRightCol"></div>
-                </div>
-            </div>
-        </section>
-
-        <!-- ================= VIEW OVERLAY: BUSCA (SEARCH) ================= -->
-        <section class="spa-view" id="pageSearch" style="z-index: 90; background: var(--bg-body);">
-            <div style="padding: 8px 12px; display:flex; align-items:center; gap:8px; border-bottom:1px solid var(--border-subtle);">
-                <button class="btn-icon-tool" onclick="navigate('pageHome')">←</button>
-                <div class="generator-input-row" style="flex:1;">
-                    <input type="text" id="mainSearchInput" placeholder="Buscar 'Dog', anime, paisagem...">
-                </div>
-                <button class="btn-gen-purple" id="btnExecuteSearch">Buscar</button>
-            </div>
-            <div class="section-header">
-                <span>Resultados Encontrados</span>
-            </div>
-            <div class="masonry-wrap">
-                <div class="masonry-col" id="searchLeftCol"></div>
-                <div class="masonry-col" id="searchRightCol"></div>
-            </div>
-        </section>
-
+    <!-- Conteúdo Central Informativo -->
+    <main style="flex:1; display:flex; flex-direction:column; align-items:center; justify-content:center; padding:24px; text-align:center;">
+        <h2 style="font-size: 22px; margin-bottom: 8px;">🌿 ThymeAI Workspace</h2>
+        <p style="color: var(--text-dim); font-size: 13px; max-width: 320px; line-height: 1.5;">
+            Abra o menu hambúrguer para testar o comportamento. Quando deslogado, o menu exibe a interface com botões de cadastro e redes sociais. Ao logar via Google, ele renderiza o card VIP e o perfil real.
+        </p>
     </main>
 
-    <!-- Sidebar / Drawer Lateral com Subníveis -->
-    <div class="drawer-backdrop" id="sidebarBackdrop">
+    <!-- Drawer Lateral com Rotas -->
+    <div class="drawer-overlay" id="drawerBackdrop">
         <aside class="drawer-panel">
-            <!-- Subnível 1: Raiz do Menu -->
-            <div class="drawer-subpage is-open" id="subpageDrawerRoot">
-                <div style="padding: 16px; border-bottom: 1px solid var(--border-subtle); display:flex; gap:12px; align-items:center;">
-                    <div class="avatar-initial" style="width:40px; height:40px; font-size:16px;">E</div>
-                    <div>
-                        <div style="font-size:13px; font-weight:700;">Error404 Not afound</div>
-                        <div style="font-size:10px; color:var(--text-muted);">Energia: 130 ⚡</div>
+            <div class="drawer-viewports">
+
+                <!-- 1. TELA RAIZ (Alterna entre Deslogado e Logado) -->
+                <div class="drawer-page current" id="pageRoot">
+                    
+                    <!-- Topo A: Deslogado (Foto 1) -->
+                    <div class="logged-out-header" id="wrapHeaderLoggedOut">
+                        <div class="brand-logo-group">
+                            <!-- Logo Thyme Spiral SVG -->
+                            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><path d="M12 2a7 7 0 0 0-7 7c0 5 7 13 7 13s7-8 7-13a7 7 0 0 0-7-7Z"></path><circle cx="12" cy="9" r="2.5"></circle></svg>
+                            <span>THYME.AI</span>
+                        </div>
+                        <button class="btn-hamburger-trigger" onclick="closeAppDrawer()">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+                        </button>
                     </div>
-                </div>
-                <ul class="drawer-menu-list">
-                    <li class="drawer-menu-item" onclick="navigate('pageHome'); closeDrawer();">
-                        <span>🏠 Início</span>
-                    </li>
-                    <li class="drawer-menu-item" onclick="navigate('pageCreate'); closeDrawer();">
-                        <span>🎨 Criar</span>
-                    </li>
-                    <!-- Seta roxa -> Notificações / Centro de Mensagens -->
-                    <li class="drawer-menu-item" id="triggerNotifications">
-                        <span>🔔 Centro de Mensagens</span>
-                        <small style="background:red; color:#fff; border-radius:10px; padding:1px 6px; font-size:9px;">4</small>
-                    </li>
-                    <!-- Seta Laranja -> Submenu Mais -->
-                    <li class="drawer-menu-item" id="triggerSubMore">
-                        <span>⋯ Mais</span>
-                        <span>›</span>
-                    </li>
-                    <!-- Seta Verde Menu -> Submenu Outro -->
-                    <li class="drawer-menu-item" id="triggerSubOther">
-                        <span>⚙️ Outro</span>
-                        <span>›</span>
-                    </li>
-                </ul>
-            </div>
 
-            <!-- Subnível 2: Mais (Seta Laranja) -->
-            <div class="drawer-subpage" id="subpageDrawerMore">
-                <div class="sheet-top">
-                    <button class="btn-icon-tool" onclick="openDrawerSub('subpageDrawerRoot')">← Voltar</button>
-                    <span>Mais Opções</span>
-                </div>
-                <ul class="drawer-menu-list">
-                    <li class="drawer-menu-item"><span>⚡ Swift AI</span></li>
-                    <li class="drawer-menu-item"><span>🛒 Decorações</span></li>
-                    <li class="drawer-menu-item"><span>📑 Blogs</span></li>
-                    <li class="drawer-menu-item"><span>📰 Notícias</span></li>
-                    <li class="drawer-menu-item"><span>📖 Tutoriais</span></li>
-                    <li class="drawer-menu-item"><span>📱 Baixe o aplicativo</span></li>
-                    <li class="drawer-menu-item"><span>✍️ Feedback</span></li>
-                </ul>
-            </div>
+                    <!-- Topo B: Logado (Fotos 2, 3 e 4) -->
+                    <div id="wrapHeaderLoggedIn" style="display: none;">
+                        <div class="logged-in-header">
+                            <div class="logged-user-row">
+                                <div class="avatar-circle" id="userAvatarNode">U</div>
+                                <span class="user-nickname" id="userNameNode">Usuário</span>
+                            </div>
+                            <button class="btn-hamburger-trigger" style="color:var(--text-dim);" onclick="alert('Centro de Mensagens')">
+                                <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path><path d="M13.73 21a2 2 0 0 1-3.46 0"></path></svg>
+                            </button>
+                        </div>
 
-            <!-- Subnível 3: Outro (Seta Verde Menu) -->
-            <div class="drawer-subpage" id="subpageDrawerOther">
-                <div class="sheet-top">
-                    <button class="btn-icon-tool" onclick="openDrawerSub('subpageDrawerRoot')">← Voltar</button>
-                    <span>Outro</span>
+                        <!-- Card VIP -->
+                        <div class="vip-status-card vip-banner-box">
+                            <div class="vip-banner-top">
+                                <div>
+                                    <div class="vip-title-txt">Thyme · VIP</div>
+                                    <div class="vip-desc-txt">Oferta exclusiva para membros</div>
+                                </div>
+                                <button class="btn-gold-activate">Ativar</button>
+                            </div>
+                            <div class="vip-counter-row">
+                                <div class="counter-pill">
+                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#a855f7" stroke-width="2.5"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>
+                                    <span>1419</span> <span class="btn-mini-plus">+</span>
+                                </div>
+                                <div class="counter-pill">
+                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#eab308" stroke-width="2.5"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>
+                                    <span>130</span> <small>20:15:29</small> <span class="btn-mini-plus">+</span>
+                                </div>
+                            </div>
+                            <div class="account-hub-link">
+                                <span>Centro da Conta</span>
+                                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Lista de Links Compartilhada com SVGs Reais -->
+                    <ul class="drawer-links-menu">
+                        <li class="drawer-row-item highlight-initial" onclick="closeAppDrawer()">
+                            <div class="item-left">
+                                <svg class="svg-icon-base" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                                <span>Página Inicial</span>
+                            </div>
+                        </li>
+
+                        <!-- Sanfona: Criar (Apenas no modo Logado) -->
+                        <div id="wrapMenuCriarLogado" style="display: none;">
+                            <li class="drawer-row-item" id="btnToggleCriar">
+                                <div class="item-left">
+                                    <svg class="svg-icon-base" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><path d="m4.93 4.93 4.24 4.24"></path><path d="m14.83 9.17 4.24-4.24"></path><path d="m14.83 14.83 4.24 4.24"></path><path d="m9.17 14.83-4.24 4.24"></path></svg>
+                                    <span>Criar</span>
+                                </div>
+                                <svg id="chevronCriar" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                            </li>
+                            <ul class="accordion-sublinks expanded" id="listCriarSub">
+                                <li class="sublink-item">Criar imagens</li>
+                                <li class="sublink-item">Criar vídeos</li>
+                                <li class="sublink-item">Criar filmes</li>
+                                <li class="sublink-item">Criar apps de IA <span class="badge-tag-beta">Beta</span></li>
+                                <li class="sublink-item">Modo Agente</li>
+                                <li class="sublink-item">Treinamento de modelo</li>
+                            </ul>
+                            <li class="drawer-row-item">
+                                <div class="item-left">
+                                    <svg class="svg-icon-base" viewBox="0 0 24 24"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"></path><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"></path><path d="M4 22h16"></path><path d="M10 14.66V17c0 .55-.45 1-1 1H7.5"></path><path d="M14 14.66V17c0 .55.45 1 1 1h1.5"></path><path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"></path></svg>
+                                    <span>Recompensas</span>
+                                </div>
+                            </li>
+                        </div>
+
+                        <!-- Sanfona: Explorar -->
+                        <li class="drawer-row-item" id="btnToggleExplorar">
+                            <div class="item-left">
+                                <svg class="svg-icon-base" viewBox="0 0 24 24"><path d="m21.44 11.05-9.19 9.19a6 6 0 0 1-8.49-8.49l8.57-8.57A4 4 0 1 1 18 8.84l-8.59 8.57a2 2 0 0 1-2.83-2.83l8.49-8.48"></path></svg>
+                                <span>Explorar</span>
+                            </div>
+                            <svg id="chevronExplorar" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                        </li>
+                        <ul class="accordion-sublinks" id="listExplorarSub">
+                            <li class="sublink-item">Inspirações</li>
+                            <li class="sublink-item">Apps de IA</li>
+                            <li class="sublink-item">Modelos</li>
+                            <li class="sublink-item">Personagens</li>
+                            <li class="sublink-item">Fluxo de trabalho</li>
+                        </ul>
+
+                        <li class="drawer-row-item">
+                            <div class="item-left">
+                                <svg class="svg-icon-base" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"></rect><path d="M3 9h18"></path><path d="M9 21V9"></path></svg>
+                                <span>Ferramentas De IA</span>
+                            </div>
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                        </li>
+
+                        <li class="drawer-row-item">
+                            <div class="item-left">
+                                <svg class="svg-icon-base" viewBox="0 0 24 24"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path><polyline points="3.29 7 12 12 20.71 7"></polyline><line x1="12" y1="22" x2="12" y2="12"></line></svg>
+                                <span>Molduras</span>
+                            </div>
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                        </li>
+
+                        <li class="drawer-row-item">
+                            <div class="item-left">
+                                <svg class="svg-icon-base" viewBox="0 0 24 24"><path d="M16.5 9.4 7.55 4.24a1.78 1.78 0 0 0-2.5 1.55v12.42a1.78 1.78 0 0 0 2.5 1.55L16.5 14.6a1.78 1.78 0 0 0 0-3.2z"></path></svg>
+                                <span>Treinamento De Modelo</span>
+                            </div>
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                        </li>
+
+                        <li class="drawer-row-item">
+                            <div class="item-left">
+                                <svg class="svg-icon-base" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+                                <span>Comunidade</span>
+                            </div>
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                        </li>
+
+                        <li class="drawer-row-item">
+                            <div class="item-left">
+                                <svg class="svg-icon-base" viewBox="0 0 24 24"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
+                                <span>Loja</span>
+                            </div>
+                        </li>
+
+                        <!-- Seta Laranja -> Abre Submenu "Mais" -->
+                        <li class="drawer-row-item" id="btnGoToMais">
+                            <div class="item-left">
+                                <svg class="svg-icon-base" viewBox="0 0 24 24"><circle cx="12" cy="12" r="1"></circle><circle cx="19" cy="12" r="1"></circle><circle cx="5" cy="12" r="1"></circle></svg>
+                                <span>Mais</span>
+                            </div>
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                        </li>
+
+                        <!-- Seta Verde -> Abre Submenu "Outro" -->
+                        <li class="drawer-row-item" id="btnGoToOutro">
+                            <div class="item-left">
+                                <svg class="svg-icon-base" viewBox="0 0 24 24"><line x1="4" y1="21" x2="4" y2="14"></line><line x1="4" y1="10" x2="4" y2="3"></line><line x1="12" y1="21" x2="12" y2="12"></line><line x1="12" y1="8" x2="12" y2="3"></line><line x1="20" y1="21" x2="20" y2="16"></line><line x1="20" y1="12" x2="20" y2="3"></line><line x1="1" y1="14" x2="7" y2="14"></line><line x1="9" y1="8" x2="15" y2="8"></line><line x1="17" y1="16" x2="23" y2="16"></line></svg>
+                                <span>Outro</span>
+                            </div>
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                        </li>
+                    </ul>
+
+                    <!-- Rodapé DESLOGADO (Foto 1) -->
+                    <div class="logged-out-footer" id="wrapFooterLoggedOut">
+                        <div class="social-icons-strip">
+                            <!-- Discord -->
+                            <div class="social-link-btn" title="Discord"><svg viewBox="0 0 24 24"><path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028 14.09 14.09 0 0 0 1.226-1.994.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.929 1.793 8.18 1.793 12.061 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.894.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.028zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z"/></svg></div>
+                            <!-- X (Twitter) -->
+                            <div class="social-link-btn" title="X"><svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></div>
+                            <!-- Instagram -->
+                            <div class="social-link-btn" title="Instagram"><svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5" ry="5" fill="none" stroke="currentColor" stroke-width="2"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" fill="none" stroke="currentColor" stroke-width="2"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5" stroke="currentColor" stroke-width="2.5"/></svg></div>
+                            <!-- Facebook -->
+                            <div class="social-link-btn" title="Facebook"><svg viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg></div>
+                            <!-- TikTok -->
+                            <div class="social-link-btn" title="TikTok"><svg viewBox="0 0 24 24"><path d="M9 12a4 4 0 1 0 4 4V4a5 5 0 0 0 5 5"></path></svg></div>
+                            <!-- Reddit -->
+                            <div class="social-link-btn" title="Reddit"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="9" cy="12" r="1"/><circle cx="15" cy="12" r="1"/><path d="M8 15c1 1 3 1 4 1s3 0 4-1" fill="none" stroke="currentColor" stroke-width="1.8"/></svg></div>
+                            <!-- YouTube -->
+                            <div class="social-link-btn" title="YouTube"><svg viewBox="0 0 24 24"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.33z"/><polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02" fill="#121318"/></svg></div>
+                        </div>
+                        <button class="btn-purple-signup" id="btnOpenAuthSignup">Criar conta</button>
+                        <button class="btn-outline-login" id="btnOpenAuthLogin">Fazer Login</button>
+                    </div>
+
                 </div>
-                <ul class="drawer-menu-list">
-                    <li class="drawer-menu-item"><span>🌐 Português</span></li>
-                    <li class="drawer-menu-item"><span>📲 Baixar PWA</span></li>
-                    <li class="drawer-menu-item"><span>❓ Contacte-nos</span></li>
-                    <li class="drawer-menu-item"><span>⚙️ Configurações</span></li>
-                    <li class="drawer-menu-item" style="color: #ef4444;"><span>🚪 Sair da conta</span></li>
-                </ul>
+
+                <!-- 2. SUBMENU "MAIS" (Foto 3 - Seta Laranja) -->
+                <div class="drawer-page" id="pageMais">
+                    <div class="submenu-header-bar">
+                        <button class="btn-hamburger-trigger" id="btnBackFromMais">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"></polyline></svg>
+                        </button>
+                        <span>Mais</span>
+                    </div>
+                    <ul class="drawer-links-menu" style="padding-top: 12px;">
+                        <li class="drawer-row-item">
+                            <div class="item-left">
+                                <div class="squircle-icon-box">
+                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="16" rx="3"></rect><polygon points="12 8 9 13 13 13 11 17 15 11 11 11 12 8"></polygon></svg>
+                                </div>
+                                <span>Swift AI</span>
+                            </div>
+                        </li>
+                        <li class="drawer-row-item">
+                            <div class="item-left">
+                                <div class="squircle-icon-box">
+                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
+                                </div>
+                                <span>Decorações</span>
+                            </div>
+                        </li>
+                        <li class="drawer-row-item">
+                            <div class="item-left">
+                                <div class="squircle-icon-box">
+                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1-2.5-2.5Z"></path><path d="M6 6h10"></path><path d="M6 10h10"></path></svg>
+                                </div>
+                                <span>Blogs</span>
+                            </div>
+                        </li>
+                        <li class="drawer-row-item">
+                            <div class="item-left">
+                                <div class="squircle-icon-box">
+                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 20H5a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v1m2 13a2 2 0 0 1-2-2V7m2 13a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z"></path></svg>
+                                </div>
+                                <span>Notícias</span>
+                            </div>
+                        </li>
+                        <li class="drawer-row-item">
+                            <div class="item-left">
+                                <div class="squircle-icon-box">
+                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path></svg>
+                                </div>
+                                <span>Tutoriais</span>
+                            </div>
+                        </li>
+                        <li class="drawer-row-item">
+                            <div class="item-left">
+                                <div class="squircle-icon-box">
+                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"></rect><line x1="12" y1="18" x2="12.01" y2="18"></line></svg>
+                                </div>
+                                <span>Baixe o aplicativo</span>
+                            </div>
+                        </li>
+                        <li class="drawer-row-item">
+                            <div class="item-left">
+                                <div class="squircle-icon-box">
+                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9"></path><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path></svg>
+                                </div>
+                                <span>Feedback</span>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- 3. SUBMENU "OUTRO" (Foto 4 - Seta Verde) -->
+                <div class="drawer-page" id="pageOutro">
+                    <div class="submenu-header-bar">
+                        <button class="btn-hamburger-trigger" id="btnBackFromOutro">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"></polyline></svg>
+                        </button>
+                        <span>Outro</span>
+                    </div>
+                    <ul class="drawer-links-menu" style="padding-top: 12px;">
+                        <li class="drawer-row-item">
+                            <div class="item-left">
+                                <div class="squircle-icon-box">
+                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
+                                </div>
+                                <span>Português</span>
+                            </div>
+                        </li>
+                        <li class="drawer-row-item">
+                            <div class="item-left">
+                                <div class="squircle-icon-box">
+                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="8 17 12 21 16 17"></polyline><line x1="12" y1="12" x2="12" y2="21"></line><path d="M20.88 18.09A5 5 0 0 0 18 9h-1.26A8 8 0 1 0 3 16.29"></path></svg>
+                                </div>
+                                <span>Baixar PWA</span>
+                            </div>
+                        </li>
+                        <li class="drawer-row-item">
+                            <div class="item-left">
+                                <div class="squircle-icon-box">
+                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
+                                </div>
+                                <span>Contacte-nos</span>
+                            </div>
+                        </li>
+                        <li class="drawer-row-item">
+                            <div class="item-left">
+                                <div class="squircle-icon-box">
+                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9"></path><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path></svg>
+                                </div>
+                                <span>Feedback</span>
+                            </div>
+                        </li>
+                        <li class="drawer-row-item">
+                            <div class="item-left">
+                                <div class="squircle-icon-box">
+                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
+                                </div>
+                                <span>Configurações</span>
+                            </div>
+                        </li>
+                        <!-- Item Sair Real (Aparece apenas quando logado) -->
+                        <li class="drawer-row-item" id="itemSignOutReal" style="display: none; color: #ef4444;">
+                            <div class="item-left">
+                                <div class="squircle-icon-box" style="color:#ef4444;">
+                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg>
+                                </div>
+                                <span>Sair da conta</span>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+
             </div>
         </aside>
     </div>
 
-    <!-- Modais Flutuantes (Bottom Sheets) -->
+    <!-- Script de Inicialização & Firebase Auth Oficial -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+        import { getAuth, signInWithPopup, GoogleAuthProvider, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
 
-    <!-- Sheet 1: Ferramentas de IA (Seta Azul Clara Criação) -->
-    <div class="bottom-sheet" id="sheetToolsModal">
-        <div class="sheet-top">
-            <span>Ferramentas de IA</span>
-            <button class="btn-icon-tool" onclick="closeSheet('sheetToolsModal')">✕</button>
-        </div>
-        <div class="sheet-inner">
-            <div style="display:grid; grid-template-columns: 1fr 1fr; gap:8px;">
-                <button class="btn-action-ghost" style="padding:10px;">HD Upscale</button>
-                <button class="btn-action-ghost" style="padding:10px;">Expansão</button>
-                <button class="btn-action-ghost" style="padding:10px;">Correção de Face</button>
-                <button class="btn-action-ghost" style="padding:10px;">Remover Fundo</button>
-                <button class="btn-action-ghost" style="padding:10px;">Borracha de IA</button>
-                <button class="btn-action-ghost" style="padding:10px;">Maquiagem IA</button>
-            </div>
-        </div>
-    </div>
-
-    <!-- Sheet 2: Missões & Check-In (Seta Amarela Criação) -->
-    <div class="bottom-sheet" id="sheetQuestsModal">
-        <div class="sheet-top">
-            <span>S9 · Competição de Pontos de Criação</span>
-            <button class="btn-icon-tool" onclick="closeSheet('sheetQuestsModal')">✕</button>
-        </div>
-        <div class="sheet-inner">
-            <div style="background:var(--bg-card); padding:12px; border-radius:8px; display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
-                <div>
-                    <div style="font-size:12px; font-weight:700;">Check-In Diário</div>
-                    <div style="font-size:10px; color:var(--text-muted);">+130 Pontos de Energia</div>
-                </div>
-                <button class="btn-gen-purple" onclick="alert('Recompensa coletada!')">Check-in</button>
-            </div>
-        </div>
-    </div>
-
-    <!-- Sheet 3: Filtro do Workspace (Seta Azul Criação) -->
-    <div class="bottom-sheet" id="sheetWorkspaceModal">
-        <div class="sheet-top">
-            <span>Método de exibição</span>
-            <button class="btn-icon-tool" onclick="closeSheet('sheetWorkspaceModal')">✕</button>
-        </div>
-        <div class="sheet-inner">
-            <p style="font-size:11px; color:var(--text-muted); margin-bottom:6px;">Status de Salvamento</p>
-            <div style="display:flex; gap:8px; margin-bottom:12px;">
-                <button class="btn-action-ghost">Tudo</button>
-                <button class="btn-action-ghost">Salvo</button>
-                <button class="btn-action-ghost">Não salvo</button>
-            </div>
-        </div>
-    </div>
-
-    <!-- Sheet 4: Filtros de Personagem (Seta Verde Personagem) -->
-    <div class="bottom-sheet" id="sheetCharModal">
-        <div class="sheet-top">
-            <span>Ordenação de Conteúdo</span>
-            <button class="btn-icon-tool" onclick="closeSheet('sheetCharModal')">✕</button>
-        </div>
-        <div class="sheet-inner">
-            <p style="font-size:11px; color:var(--text-muted); margin-bottom:6px;">Gênero</p>
-            <div style="display:flex; gap:8px;">
-                <button class="btn-action-ghost">Masculino</button>
-                <button class="btn-action-ghost">Feminino</button>
-                <button class="btn-action-ghost">Outro</button>
-            </div>
-        </div>
-    </div>
-
-    <!-- Sheet 5: Opções do Perfil (Seta Ciano Perfil) -->
-    <div class="bottom-sheet" id="sheetProfileModal">
-        <div class="sheet-top">
-            <span>Menu da Conta</span>
-            <button class="btn-icon-tool" onclick="closeSheet('sheetProfileModal')">✕</button>
-        </div>
-        <div class="sheet-inner">
-            <ul class="drawer-menu-list">
-                <li class="drawer-menu-item"><span>🔗 Compartilhar</span></li>
-                <li class="drawer-menu-item"><span>🆔 User ID (85541618)</span></li>
-                <li class="drawer-menu-item"><span>🛒 Loja</span></li>
-                <li class="drawer-menu-item"><span>⚙️ Configurações pessoais</span></li>
-            </ul>
-        </div>
-    </div>
-
-    <!-- Modal Central: Boas-Vindas Login (Seta Vermelha Boas-Vindas) -->
-    <div class="dialog-overlay" id="dialogLogin">
-        <div class="dialog-card">
-            <button style="position:absolute; top:10px; right:10px; background:none; border:none; color:var(--text-muted); font-size:16px; cursor:pointer;" onclick="closeLoginDialog()">✕</button>
-            <div style="font-size:32px; margin-bottom:6px;">🔮</div>
-            <h3 style="font-size:16px; font-weight:700;">Welcome to SeaArt AI</h3>
-            <p style="font-size:11px; color:var(--text-secondary); margin-bottom:12px;">Log in or Sign up to Continue</p>
-            <button class="btn-social-auth" onclick="alert('Login Google')">Continue with Google</button>
-            <button class="btn-social-auth" onclick="alert('Login Facebook')">Continue with Facebook</button>
-            <button class="btn-social-auth" onclick="alert('Login Apple')">Continue with Apple</button>
-        </div>
-    </div>
-
-    <!-- Tela Cheia: Centro de Notificações (Seta Roxa Notificações) -->
-    <div class="fullscreen-view" id="viewNotificationsFull">
-        <div style="padding:10px; display:flex; align-items:center; gap:8px; border-bottom:1px solid var(--border-subtle); background:var(--bg-navbar);">
-            <button class="btn-icon-tool" onclick="closeNotifications()">←</button>
-            <span style="font-size:14px; font-weight:700;">Centro de Mensagens</span>
-        </div>
-        <div class="nav-tabs-horizontal">
-            <div class="tab-h-item active">Notificação</div>
-            <div class="tab-h-item">Interações</div>
-            <div class="tab-h-item">Comentário</div>
-        </div>
-        <div style="padding:12px; display:flex; flex-direction:column; gap:8px;">
-            <div style="background:var(--bg-surface); padding:10px; border-radius:8px; font-size:12px;">
-                <b>SeaArt - V2.6.9.1 Anúncio de Atualização</b>
-                <p style="color:var(--text-muted); font-size:10px; margin-top:2px;">Prezado(a) criador(a), novos fluxos e LoRAs do FLUX e Minimax disponíveis.</p>
-            </div>
-            <div style="background:var(--bg-surface); padding:10px; border-radius:8px; font-size:12px;">
-                <b>Free MiniMax H3 Video Generation</b>
-                <p style="color:var(--text-muted); font-size:10px; margin-top:2px;">Experimente a geração de vídeos hiper-realistas gratuita hoje.</p>
-            </div>
-        </div>
-    </div>
-
-    <!-- Tela Cheia: Detalhes da Arte & Remix (Seta Rosa das Artes) -->
-    <div class="fullscreen-view" id="viewArtworkDetail">
-        <div style="position:absolute; top:8px; left:8px; z-index:2;">
-            <button class="btn-icon-tool" style="background:rgba(0,0,0,0.6);" onclick="closeArtworkDetail()">←</button>
-        </div>
-        <img src="" id="imgHeroDetail" class="detail-cover-hero" alt="Detail Art">
-        <div class="detail-meta-container">
-            <div style="display:flex; justify-content:space-between; align-items:center;">
-                <div style="display:flex; align-items:center; gap:8px;">
-                    <div class="avatar-initial" style="width:32px; height:32px; font-size:12px;">A</div>
-                    <span style="font-size:13px; font-weight:600;" id="labelDetailAuthor">Autor</span>
-                </div>
-                <button class="btn-action-ghost">+ Seguir</button>
-            </div>
-
-            <div class="prompt-view-card" id="textDetailPrompt">Prompt descritivo...</div>
-
-            <div style="display:flex; flex-wrap:wrap; gap:6px; margin-bottom:16px;">
-                <span class="chip-model" id="labelDetailModel">Modelo: FLUX</span>
-                <span class="chip-model">Steps: 30</span>
-                <span class="chip-model">CFG: 7.5</span>
-            </div>
-
-            <div class="section-header" style="padding:0; margin-bottom:8px;">
-                <span>Recomendações relacionadas</span>
-            </div>
-            <div class="masonry-wrap">
-                <div class="masonry-col" id="relDetailLeft"></div>
-                <div class="masonry-col" id="relDetailRight"></div>
-            </div>
-        </div>
-        <div class="remix-footer-dock">
-            <button class="btn-action-ghost" style="flex:0.6;">Vídeo</button>
-            <button class="btn-cyan-remix" id="btnRemixTrigger">✨ Remix</button>
-        </div>
-    </div>
-
-    <!-- Navegação Inferior Fixa -->
-    <nav class="seaart-bottom-nav">
-        <div class="nav-button active" onclick="navigate('pageHome', this)">
-            <svg viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
-            <span>Início</span>
-        </div>
-        <div class="nav-button" onclick="navigate('pageCharacters', this)">
-            <svg viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
-            <span>Personagem</span>
-        </div>
-        <!-- Seta Verde Menu Inferior -> Criar -->
-        <div class="nav-button" id="tabNavCreate" onclick="navigate('pageCreate', this)">
-            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M21.5 12c0-.38-.04-.75-.12-1.12l1.62-1.26a.5.5 0 0 0 .12-.64l-1.54-2.66a.5.5 0 0 0-.6-.22l-1.91.77a7.6 7.6 0 0 0-1.94-1.12l-.29-2.02A.5.5 0 0 0 16.34 2h-3.08a.5.5 0 0 0-.49.42l-.29 2.02c-.68.27-1.33.65-1.94 1.12l-1.91-.77a.5.5 0 0 0-.6.22L6.49 7.67a.5.5 0 0 0 .12.64l1.62 1.26c-.08.37-.12.74-.12 1.12s.04.75.12 1.12l-1.62 1.26a.5.5 0 0 0-.12.64l1.54 2.66c.14.24.43.34.6.22l1.91-.77c.61.47 1.26.85 1.94 1.12l.29 2.02c.04.24.25.42.49.42h3.08c.24 0 .45-.18.49-.42l.29-2.02c.68-.27 1.33-.65 1.94-1.12l1.91.77c.17.12.46.02.6-.22l1.54-2.66a.5.5 0 0 0-.12-.64l-1.62-1.26c.08-.37.12-.74.12-1.12z"/></svg>
-            <span>Criar</span>
-        </div>
-        <!-- Seta Vermelha Menu Inferior -> Apps de IA -->
-        <div class="nav-button" onclick="navigate('pageApps', this)">
-            <svg viewBox="0 0 24 24"><path d="M4 8h4V4H4v4zm6 12h4v-4h-4v4zm-6 0h4v-4H4v4zm0-6h4v-4H4v4zm6 0h4v-4h-4v4zm6-10v4h4V4h-4zm-6 4h4V4h-4v4zm6 6h4v-4h-4v4zm0 6h4v-4h-4v4z"/></svg>
-            <span>Apps IA</span>
-        </div>
-        <!-- Seta Vermelha Menu Inferior -> Pessoal -->
-        <div class="nav-button" onclick="navigate('pageProfile', this)">
-            <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z"/></svg>
-            <span>Pessoal</span>
-        </div>
-    </nav>
-
-    <!-- Javascript de Interações & Mapeamento -->
-    <script>
-        // Banco de Dados Simulado
-        const ARTWORKS = [
-            {
-                id: '1',
-                title: 'Cute Anime Girl Magic Orb',
-                author: 'Captain We...',
-                prompt: 'beautiful anime girl holding a glowing cyan magical orb, ethereal lighting, masterpiece, 8k resolution',
-                model: 'FLUX.1 Cute Asian Face',
-                image: 'https://picsum.photos/seed/animegirl1/400/550',
-                likes: 11500
-            },
-            {
-                id: '2',
-                title: 'Photorealistic Dog in Field',
-                author: 'Oriora',
-                prompt: 'golden retriever running through flowers, bright sunny daylight, 85mm portrait, high shutter speed, photorealistic',
-                model: 'SDXL Realistic',
-                image: 'https://picsum.photos/seed/retrieverdog/400/480',
-                likes: 163
-            },
-            {
-                id: '3',
-                title: 'Cyberpunk Ninja Assassin',
-                author: 'Ziperto',
-                prompt: 'cyberpunk red oni masked warrior with katana, neon reflections, rain, dark alley, octane render',
-                model: 'FLUX Dev',
-                image: 'https://picsum.photos/seed/ninjaoni/400/600',
-                likes: 49200
-            },
-            {
-                id: '4',
-                title: 'Western Portrait Elegance',
-                author: 'Takeshi Yamada',
-                prompt: 'de frente para o espectador, contato visual, retrato elegante, luz natural suave, 50mm f1.8',
-                model: 'FLUX.1 Schnell',
-                image: 'https://picsum.photos/seed/westernface/400/520',
-                likes: 25
-            },
-            {
-                id: '5',
-                title: 'Retro 90s Anime Heroine',
-                author: 'Melmoth',
-                prompt: 'retro 90s classic cel anime style, cute heroine ready to battle, nostalgic colors, grain texture',
-                model: 'ColorMax Anime',
-                image: 'https://picsum.photos/seed/retro90s/400/460',
-                likes: 7900
-            }
-        ];
-
-        // Roteador de Views (SPA)
-        function navigate(pageId, navButtonNode = null) {
-            document.querySelectorAll('.spa-view').forEach(p => p.classList.remove('active-view'));
-            const target = document.getElementById(pageId);
-            if (target) target.classList.add('active-view');
-
-            if (navButtonNode) {
-                document.querySelectorAll('.nav-button').forEach(btn => btn.classList.remove('active'));
-                navButtonNode.classList.add('active');
-            }
-        }
-
-        // Renderizador Masonry
-        function fillMasonry(items, leftId, rightId) {
-            const left = document.getElementById(leftId);
-            const right = document.getElementById(rightId);
-            if (!left || !right) return;
-            left.innerHTML = '';
-            right.innerHTML = '';
-
-            items.forEach((item, idx) => {
-                const card = document.createElement('div');
-                card.className = 'art-card';
-                card.onclick = () => openArtworkDetail(item);
-                card.innerHTML = `
-                    <img src="${item.image}" alt="${item.title}" loading="lazy">
-                    <div class="art-card-body">
-                        <div class="art-card-title">${item.title}</div>
-                        <div class="art-card-author">
-                            <span>${item.author}</span>
-                            <span>❤️ ${item.likes}</span>
-                        </div>
-                    </div>
-                `;
-                if (idx % 2 === 0) left.appendChild(card);
-                else right.appendChild(card);
-            });
-        }
-
-        // Drawer / Menu Lateral
-        const sidebarBackdrop = document.getElementById('sidebarBackdrop');
-        document.getElementById('btnOpenSidebar').onclick = () => {
-            sidebarBackdrop.classList.add('is-visible');
-            openDrawerSub('subpageDrawerRoot');
-        };
-        sidebarBackdrop.onclick = (e) => {
-            if (e.target === sidebarBackdrop) closeDrawer();
-        };
-        function closeDrawer() {
-            sidebarBackdrop.classList.remove('is-visible');
-        }
-        function openDrawerSub(subId) {
-            document.querySelectorAll('.drawer-subpage').forEach(sub => sub.classList.remove('is-open'));
-            document.getElementById(subId).classList.add('is-open');
-        }
-        document.getElementById('triggerSubMore').onclick = () => openDrawerSub('subpageDrawerMore');
-        document.getElementById('triggerSubOther').onclick = () => openDrawerSub('subpageDrawerOther');
-
-        // Bottom Sheets
-        function openSheet(id) { document.getElementById(id).classList.add('is-open'); }
-        function closeSheet(id) { document.getElementById(id).classList.remove('is-open'); }
-
-        // Mapeamento das Ações:
-        // Seta azul clara Criação -> Ferramentas
-        document.getElementById('triggerAiTools').onclick = () => openSheet('sheetToolsModal');
-        // Seta amarela Criação -> Missões
-        document.getElementById('triggerDailyQuests').onclick = () => openSheet('sheetQuestsModal');
-        // Seta azul Criação -> Filtro Workspace
-        document.getElementById('triggerWorkspaceFilter').onclick = () => openSheet('sheetWorkspaceModal');
-        // Seta verde Personagem -> Filtro
-        document.getElementById('triggerCharFilter').onclick = () => openSheet('sheetCharModal');
-        // Seta ciano Perfil -> Menu Pessoal
-        document.getElementById('triggerProfileMenu').onclick = () => openSheet('sheetProfileModal');
-
-        // Modal Login (Seta vermelha)
-        const dialogLogin = document.getElementById('dialogLogin');
-        document.getElementById('triggerLoginModal').onclick = () => dialogLogin.classList.add('is-active');
-        function closeLoginDialog() { dialogLogin.classList.remove('is-active'); }
-
-        // Centro de Mensagens (Seta roxa)
-        const viewNotificationsFull = document.getElementById('viewNotificationsFull');
-        document.getElementById('triggerNotifications').onclick = () => {
-            closeDrawer();
-            viewNotificationsFull.classList.add('is-active');
-        };
-        function closeNotifications() { viewNotificationsFull.classList.remove('is-active'); }
-
-        // Seleção de Lote na Criação (Seta amarela)
-        let batchCount = 0;
-        function toggleBatchItem(cardId) {
-            const card = document.getElementById(cardId);
-            const batchBar = document.getElementById('batchActionBar');
-            card.classList.toggle('is-selected');
-
-            batchCount = document.querySelectorAll('.job-card.is-selected').length;
-            if (batchCount > 0) {
-                batchBar.classList.add('active');
-                document.getElementById('batchSelectedText').innerText = `${batchCount} imagens selecionadas.`;
-            } else {
-                batchBar.classList.remove('active');
-            }
-        }
-        document.getElementById('btnExitBatch').onclick = () => {
-            document.querySelectorAll('.job-card.is-selected').forEach(c => c.classList.remove('is-selected'));
-            document.getElementById('batchActionBar').classList.remove('active');
-            batchCount = 0;
+        // Configuração mantida do seu projeto Firebase
+        const firebaseConfig = {
+            apiKey: "AIzaSyCiqgGY0ufivG7jMWfNaC3mfZSyKgpM_cs",
+            authDomain: "cronosartai.firebaseapp.com",
+            projectId: "cronosartai",
+            storageBucket: "cronosartai.firebasestorage.app",
+            messagingSenderId: "85541618478",
+            appId: "1:85541618478:web:004c6d71cf6f82d18b30bf"
         };
 
-        // Geração no Canvas
-        document.getElementById('btnSubmitGen').onclick = () => {
-            const input = document.getElementById('dockedInputPrompt');
-            const val = input.value.trim();
-            if (!val) return;
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const provider = new GoogleAuthProvider();
 
-            const feed = document.getElementById('studioWorkspaceFeed');
-            const uid = 'task_' + Date.now();
-            const newJob = document.createElement('div');
-            newJob.className = 'job-card';
-            newJob.id = uid;
-            newJob.innerHTML = `
-                <div class="job-preview">
-                    <div class="select-circle-btn" onclick="toggleBatchItem('${uid}')">✓</div>
-                    <img src="https://picsum.photos/seed/${encodeURIComponent(val)}/600/350" alt="New Generated">
-                </div>
-                <div class="job-details">
-                    <p class="job-prompt">${val}</p>
-                    <div class="job-actions">
-                        <button class="btn-action-ghost">Reeditar</button>
-                        <button class="btn-action-ghost">Regenerar</button>
-                        <button class="btn-action-ghost">Vídeo</button>
-                    </div>
-                </div>
-            `;
-            feed.prepend(newJob);
-            input.value = '';
+        // Elementos DOM
+        const drawerBackdrop = document.getElementById('drawerBackdrop');
+        const pageRoot = document.getElementById('pageRoot');
+        const pageMais = document.getElementById('pageMais');
+        const pageOutro = document.getElementById('pageOutro');
+
+        const wrapHeaderLoggedOut = document.getElementById('wrapHeaderLoggedOut');
+        const wrapHeaderLoggedIn = document.getElementById('wrapHeaderLoggedIn');
+        const wrapFooterLoggedOut = document.getElementById('wrapFooterLoggedOut');
+        const wrapMenuCriarLogado = document.getElementById('wrapMenuCriarLogado');
+        const itemSignOutReal = document.getElementById('itemSignOutReal');
+
+        const userAvatarNode = document.getElementById('userAvatarNode');
+        const userNameNode = document.getElementById('userNameNode');
+        const btnTopLogin = document.getElementById('btnTopLogin');
+
+        // Controle de Abertura e Fechamento do Drawer
+        document.getElementById('btnToggleDrawer').onclick = () => {
+            drawerBackdrop.classList.add('open');
+            showPage(pageRoot);
         };
 
-        // Detalhe da Arte & Remix (Seta Rosa)
-        const viewArtworkDetail = document.getElementById('viewArtworkDetail');
-        function openArtworkDetail(item) {
-            document.getElementById('imgHeroDetail').src = item.image;
-            document.getElementById('labelDetailAuthor').innerText = item.author;
-            document.getElementById('textDetailPrompt').innerText = item.prompt;
-            document.getElementById('labelDetailModel').innerText = `Modelo: ${item.model}`;
+        window.closeAppDrawer = () => {
+            drawerBackdrop.classList.remove('open');
+        };
 
-            fillMasonry(ARTWORKS, 'relDetailLeft', 'relDetailRight');
-            viewArtworkDetail.classList.add('is-active');
+        drawerBackdrop.onclick = (e) => {
+            if (e.target === drawerBackdrop) window.closeAppDrawer();
+        };
 
-            document.getElementById('btnRemixTrigger').onclick = () => {
-                viewArtworkDetail.classList.remove('is-active');
-                navigate('pageCreate', document.getElementById('tabNavCreate'));
-                document.getElementById('dockedInputPrompt').value = item.prompt;
+        // Navegação entre Submenus
+        function showPage(targetPage) {
+            [pageRoot, pageMais, pageOutro].forEach(p => p.classList.remove('current'));
+            targetPage.classList.add('current');
+        }
+
+        document.getElementById('btnGoToMais').onclick = () => showPage(pageMais);
+        document.getElementById('btnGoToOutro').onclick = () => showPage(pageOutro);
+        document.getElementById('btnBackFromMais').onclick = () => showPage(pageRoot);
+        document.getElementById('btnBackFromOutro').onclick = () => showPage(pageRoot);
+
+        // Sanfonas (Dropdowns)
+        const btnToggleCriar = document.getElementById('btnToggleCriar');
+        const listCriarSub = document.getElementById('listCriarSub');
+        const chevronCriar = document.getElementById('chevronCriar');
+        if (btnToggleCriar) {
+            btnToggleCriar.onclick = () => {
+                const isOpen = listCriarSub.classList.toggle('expanded');
+                chevronCriar.style.transform = isOpen ? 'rotate(180deg)' : 'rotate(0deg)';
             };
         }
-        function closeArtworkDetail() { viewArtworkDetail.classList.remove('is-active'); }
 
-        // Busca
-        document.getElementById('triggerSearch').onclick = () => {
-            navigate('pageSearch');
-            document.getElementById('mainSearchInput').focus();
-        };
-        document.getElementById('btnExecuteSearch').onclick = () => {
-            const q = document.getElementById('mainSearchInput').value.toLowerCase();
-            const filtered = ARTWORKS.filter(a => a.title.toLowerCase().includes(q) || a.prompt.toLowerCase().includes(q));
-            fillMasonry(filtered.length ? filtered : ARTWORKS, 'searchLeftCol', 'searchRightCol');
+        const btnToggleExplorar = document.getElementById('btnToggleExplorar');
+        const listExplorarSub = document.getElementById('listExplorarSub');
+        const chevronExplorar = document.getElementById('chevronExplorar');
+        btnToggleExplorar.onclick = () => {
+            const isOpen = listExplorarSub.classList.toggle('expanded');
+            chevronExplorar.style.transform = isOpen ? 'rotate(180deg)' : 'rotate(0deg)';
         };
 
-        // Subtabs do Perfil
-        function switchProfileSub(tab, type) {
-            document.querySelectorAll('.tab-h-item').forEach(t => t.classList.remove('active'));
-            tab.classList.add('active');
-            const container = document.getElementById('profileBodyContent');
-            if (type === 'profGrid') {
-                container.innerHTML = `
-                    <div class="masonry-wrap">
-                        <div class="masonry-col" id="profLeftCol"></div>
-                        <div class="masonry-col" id="profRightCol"></div>
-                    </div>
-                `;
-                fillMasonry(ARTWORKS.slice(0, 3), 'profLeftCol', 'profRightCol');
-            } else {
-                container.innerHTML = `
-                    <div style="text-align:center; padding:40px; color:var(--text-muted); font-size:12px;">
-                        <div style="font-size:30px; margin-bottom:8px;">📁</div>
-                        Sem dados disponíveis nesta seção
-                    </div>
-                `;
+        // Autenticação Real com o Google
+        async function triggerGoogleLogin() {
+            try {
+                await signInWithPopup(auth, provider);
+                window.closeAppDrawer();
+            } catch (error) {
+                console.error("Erro na autenticação:", error);
+                alert("Falha no login com Google. Verifique se o domínio está autorizado no Firebase Console.");
             }
         }
 
-        // Inicializar feeds
-        window.addEventListener('DOMContentLoaded', () => {
-            fillMasonry(ARTWORKS, 'feedHomeLeft', 'feedHomeRight');
-            fillMasonry(ARTWORKS, 'feedCharLeft', 'feedCharRight');
-            fillMasonry(ARTWORKS, 'feedAppsLeft', 'feedAppsRight');
-            fillMasonry(ARTWORKS.slice(0, 2), 'profLeftCol', 'profRightCol');
+        document.getElementById('btnTopLogin').onclick = triggerGoogleLogin;
+        document.getElementById('btnOpenAuthLogin').onclick = triggerGoogleLogin;
+        document.getElementById('btnOpenAuthSignup').onclick = triggerGoogleLogin;
+
+        itemSignOutReal.onclick = async () => {
+            try {
+                await signOut(auth);
+                showPage(pageRoot);
+                window.closeAppDrawer();
+            } catch (err) {
+                console.error("Erro ao sair:", err);
+            }
+        };
+
+        // Observador de Sessão (Troca os estados da interface 1:1)
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+                // Modo Logado
+                wrapHeaderLoggedOut.style.display = 'none';
+                wrapFooterLoggedOut.style.display = 'none';
+                wrapHeaderLoggedIn.style.display = 'block';
+                wrapMenuCriarLogado.style.display = 'block';
+                itemSignOutReal.style.display = 'flex';
+
+                userNameNode.innerText = user.displayName || "Usuário Thyme";
+                if (user.photoURL) {
+                    userAvatarNode.innerHTML = `<img src="${user.photoURL}" alt="Avatar">`;
+                } else {
+                    userAvatarNode.innerText = (user.displayName || "U")[0].toUpperCase();
+                }
+
+                btnTopLogin.innerText = "Conectado";
+                btnTopLogin.style.background = "#15803d";
+            } else {
+                // Modo Deslogado
+                wrapHeaderLoggedOut.style.display = 'flex';
+                wrapFooterLoggedOut.style.display = 'flex';
+                wrapHeaderLoggedIn.style.display = 'none';
+                wrapMenuCriarLogado.style.display = 'none';
+                itemSignOutReal.style.display = 'none';
+
+                btnTopLogin.innerText = "Entrar";
+                btnTopLogin.style.background = "var(--purple-main)";
+            }
         });
     </script>
 </body>
-    </html>
+        </html>
