@@ -1231,11 +1231,11 @@
                     </button>
                 </div>
 
-                <!-- Facebook -->
-                <button class="auth-provider-btn" onclick="alert('Login Facebook')">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="#1877F2"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
-                    <span>Continuar com Facebook</span>
-                </button>
+                <!-- Facebook Real -->
+<button class="auth-provider-btn" id="btnAuthFacebook">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="#1877F2"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+    <span>Continuar com Facebook</span>
+</button>
 
                 <!-- Apple -->
                 <button class="auth-provider-btn" onclick="alert('Login Apple')">
@@ -1389,14 +1389,15 @@
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
         import { 
-            getAuth, 
-            signInWithPopup, 
-            GoogleAuthProvider, 
-            signOut, 
-            onAuthStateChanged,
-            signInWithEmailAndPassword,
-            createUserWithEmailAndPassword
-        } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+    getAuth, 
+    signInWithPopup, 
+    GoogleAuthProvider, 
+    FacebookAuthProvider, // <--- ADICIONADO
+    signOut, 
+    onAuthStateChanged,
+    signInWithEmailAndPassword,
+    createUserWithEmailAndPassword
+} from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
         import { 
             getFirestore, 
             doc, 
@@ -1417,9 +1418,10 @@
         };
 
         const app = initializeApp(firebaseConfig);
-        const auth = getAuth(app);
-        const db = getFirestore(app);
-        const provider = new GoogleAuthProvider();
+const auth = getAuth(app);
+const db = getFirestore(app);
+const provider = new GoogleAuthProvider();
+const fbProvider = new FacebookAuthProvider(); // <--- INSTANCIADO AQUI
 
         // Obras Mock da Comunidade com Tags Específicas (Usuário B)
         const COMMUNITY_POSTS = [
@@ -1560,17 +1562,35 @@
         document.getElementById('btnBackToSocial').onclick = () => showAuthStep('social');
 
         // ================= FLUXO DE LOGIN REAL =================
-        // 1. Google Popup
-        document.getElementById('btnAuthGoogle').onclick = async () => {
-            try {
-                const res = await signInWithPopup(auth, provider);
-                closeLoginModal();
-                await handlePostLoginCheck(res.user);
-            } catch (err) {
-                console.error(err);
-                alert("Erro ao autenticar com o Google: " + err.message);
-            }
-        };
+        // ... mais abaixo no código ...
+
+// 1. Google Popup
+document.getElementById('btnAuthGoogle').onclick = async () => {
+    try {
+        const res = await signInWithPopup(auth, provider);
+        closeLoginModal();
+        await handlePostLoginCheck(res.user);
+    } catch (err) {
+        console.error(err);
+        alert("Erro ao autenticar com o Google: " + err.message);
+    }
+};
+
+// 1.1 Facebook Popup (ADICIONADO)
+document.getElementById('btnAuthFacebook').onclick = async () => {
+    try {
+        const res = await signInWithPopup(auth, fbProvider);
+        closeLoginModal();
+        await handlePostLoginCheck(res.user);
+    } catch (err) {
+        console.error("Erro Facebook Auth:", err);
+        if (err.code === 'auth/account-exists-with-different-credential') {
+            alert("Esse e-mail já foi registrado via Google ou E-mail/Senha. Entre pelo método original!");
+        } else {
+            alert("Erro ao autenticar com o Facebook: " + err.message);
+        }
+    }
+};
 
         // 2. Email & Senha (Cria conta se não existir, ou faz login se já existir)
         document.getElementById('btnSubmitEmailAuth').onclick = async () => {
