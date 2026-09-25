@@ -1264,6 +1264,281 @@ nav.app-bottom-navbar {
     outline: none;
     cursor: pointer;
 }
+
+/* ================= TELA CRIAR / ESTÚDIO OFICIAL ================= */
+.studio-viewport {
+    background: #090a10;
+    min-height: 100%;
+    display: flex;
+    flex-direction: column;
+    padding-bottom: calc(var(--bottom-nav-h) + 85px);
+    position: relative;
+}
+
+/* Header Superior do Estúdio */
+.studio-top-header {
+    height: 48px;
+    background: #0e1017;
+    border-bottom: 1px solid var(--border-subtle);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 10px;
+    position: sticky;
+    top: 0;
+    z-index: 40;
+}
+
+.studio-model-chip {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: #171924;
+    border: 1px solid var(--border-subtle);
+    padding: 4px 8px;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.studio-model-thumb {
+    width: 24px;
+    height: 24px;
+    border-radius: 4px;
+    object-fit: cover;
+}
+
+.studio-model-text {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+}
+
+.studio-model-label {
+    font-size: 8px;
+    color: var(--purple-main);
+    font-weight: 700;
+}
+
+.studio-model-name {
+    font-size: 11px;
+    font-weight: 700;
+    max-width: 120px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.studio-right-tools {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.studio-balance-pill {
+    background: #171924;
+    color: #c084fc;
+    font-size: 11px;
+    font-weight: 800;
+    padding: 3px 8px;
+    border-radius: 12px;
+    border: 1px solid rgba(168, 85, 247, 0.3);
+}
+
+/* Sub-banner SVIP */
+.studio-svip-subbanner {
+    background: rgba(245, 158, 11, 0.08);
+    border-bottom: 1px solid rgba(245, 158, 11, 0.2);
+    padding: 6px 12px;
+    font-size: 10px;
+    color: #fbbf24;
+    text-align: center;
+    font-weight: 600;
+}
+
+/* Feed das Obras Postadas */
+.studio-feed-container {
+    padding: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.studio-date-separator {
+    font-size: 14px;
+    font-weight: 800;
+    color: #fff;
+    margin: 4px 0 2px 2px;
+}
+
+.studio-job-card {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.studio-job-meta-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 10px;
+    color: var(--text-dim);
+}
+
+.badge-txt2img {
+    background: #1e2235;
+    color: #94a3b8;
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-size: 10px;
+    font-weight: 700;
+}
+
+.studio-job-prompt {
+    font-size: 12px;
+    color: #e2e8f0;
+    line-height: 1.4;
+    text-align: left;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.studio-job-media-wrapper {
+    position: relative;
+    width: 100%;
+    border-radius: 8px;
+    overflow: hidden;
+    background: #000;
+    border: 1px solid var(--border-subtle);
+}
+
+.studio-job-media-wrapper img {
+    width: 100%;
+    max-height: 520px;
+    object-fit: contain;
+    display: block;
+}
+
+.badge-media-video {
+    position: absolute;
+    bottom: 8px;
+    right: 8px;
+    background: rgba(0, 0, 0, 0.7);
+    color: #fff;
+    font-size: 10px;
+    font-weight: 700;
+    padding: 3px 8px;
+    border-radius: 6px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+/* Barra de Ações do Card */
+.studio-actions-toolbar {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    overflow-x: auto;
+}
+
+.btn-studio-action {
+    background: #151824;
+    border: 1px solid var(--border-subtle);
+    color: #cbd5e1;
+    font-size: 11px;
+    font-weight: 600;
+    padding: 6px 10px;
+    border-radius: 6px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    white-space: nowrap;
+}
+
+.btn-studio-action:hover {
+    background: #1e2235;
+    color: #fff;
+}
+
+.btn-studio-icon-only {
+    background: #151824;
+    border: 1px solid var(--border-subtle);
+    color: #cbd5e1;
+    padding: 6px 8px;
+    border-radius: 6px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+}
+
+/* Dock Inferior Flutuante */
+.studio-dock-bottom {
+    position: fixed;
+    bottom: var(--bottom-nav-h);
+    left: 0;
+    right: 0;
+    background: linear-gradient(180deg, transparent 0%, #090a10 40%);
+    padding: 10px 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    z-index: 45;
+}
+
+.studio-pills-shortcuts {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+
+.btn-dock-shortcut {
+    background: rgba(20, 23, 36, 0.85);
+    backdrop-filter: blur(8px);
+    border: 1px solid var(--border-subtle);
+    color: #fff;
+    font-size: 11px;
+    font-weight: 600;
+    padding: 5px 12px;
+    border-radius: 16px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.studio-input-bar-row {
+    background: #141724;
+    border: 1px solid #282d42;
+    border-radius: 24px;
+    display: flex;
+    align-items: center;
+    padding: 4px 6px 4px 10px;
+    gap: 8px;
+}
+
+.studio-dock-input {
+    flex: 1;
+    background: none;
+    border: none;
+    color: #fff;
+    font-size: 12px;
+    outline: none;
+    font-family: inherit;
+}
+
+.btn-dock-submit-round {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: #fff;
+    color: #000;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
     </style>
 </head>
 <body>
@@ -1376,25 +1651,92 @@ nav.app-bottom-navbar {
             </div>
         </section>
 
-        <!-- 2. VIEW CRIAR -->
+        <!-- 2. VIEW CRIAR (ESTÚDIO COM FEED REAL DO USUÁRIO) -->
         <section class="view-section" id="viewCreate">
-            <div style="height:44px; background:var(--bg-navbar); border-bottom:1px solid var(--border-subtle); display:flex; align-items:center; justify-content:space-between; padding:0 12px;">
-                <span style="font-size:12px; font-weight:700;">Estúdio de Produção</span>
-                <button class="btn-icon-plain" onclick="alert('Opções de Canvas')">
-                    <svg class="svg-icon" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
-                </button>
-            </div>
-            <div style="padding:16px;" id="workspaceCardsFeed">
-                <div style="background:var(--bg-surface); border:1px solid var(--border-subtle); border-radius:10px; overflow:hidden;">
-                    <img src="https://picsum.photos/seed/thymegarden/600/350" style="width:100%; height:200px; object-fit:cover;" alt="Generated">
-                    <div style="padding:10px;">
-                        <p style="font-size:12px; color:var(--text-secondary); margin-bottom:8px;">Abandoned ancient greenhouses overtaken by enchanted flora, cinematic twilight illumination...</p>
-                        <div style="display:flex; gap:8px;">
-                            <button class="btn-outline-login" style="padding:4px 8px; font-size:11px; width:auto;">Reeditar</button>
-                            <button class="btn-outline-login" style="padding:4px 8px; font-size:11px; width:auto;">Regenerar</button>
+            <div class="studio-viewport">
+                
+                <!-- Top Header Fiel do Estúdio -->
+                <div class="studio-top-header">
+                    <button class="btn-icon-plain" onclick="switchNav('viewHome', document.getElementById('tabHome'))">
+                        <svg class="svg-icon" viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"></polyline></svg>
+                    </button>
+
+                    <!-- Modelo Selecionado com miniatura -->
+                    <div class="studio-model-chip">
+                        <img src="https://picsum.photos/seed/animemodel/100/100" class="studio-model-thumb" alt="Model">
+                        <div class="studio-model-text">
+                            <span class="studio-model-label">Modelo</span>
+                            <span class="studio-model-name">WAI-illustrious-SDXL</span>
                         </div>
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                    </div>
+
+                    <!-- Ferramentas do Header -->
+                    <div class="studio-right-tools">
+                        <span class="studio-balance-pill">0 🔮</span>
+                        
+                        <!-- Filtros -->
+                        <button class="btn-icon-plain">
+                            <svg class="svg-icon" style="width:16px; height:16px;" viewBox="0 0 24 24"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"></polygon></svg>
+                        </button>
+                        
+                        <!-- Energia -->
+                        <button class="btn-icon-plain">
+                            <svg class="svg-icon" style="width:16px; height:16px; stroke:#eab308;" viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>
+                        </button>
+
+                        <!-- Lote / Grid -->
+                        <button class="btn-icon-plain">
+                            <svg class="svg-icon" style="width:16px; height:16px;" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
+                        </button>
                     </div>
                 </div>
+
+                <!-- Sub-banner SVIP -->
+                <div class="studio-svip-subbanner">
+                    Desconto de 20% por tempo limitado no SVIP · Experimente grátis agora
+                </div>
+
+                <!-- Feed Onde Aparecem as Fotos Postadas do Usuário -->
+                <div class="studio-feed-container" id="studioUserCreationsFeed">
+                    <div id="studioEmptyStateMsg" style="text-align:center; padding: 60px 16px; color: var(--text-dim); display:none;">
+                        <svg class="svg-icon" style="width:40px; height:40px; margin-bottom:10px;" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
+                        <p style="font-size:13px; font-weight:600;">Nenhuma imagem criada ou postada ainda.</p>
+                        <p style="font-size:11px; margin-top:4px;">Crie seu primeiro post na aba Início para vê-lo aqui!</p>
+                    </div>
+                </div>
+
+                <!-- Dock Inferior Flutuante -->
+                <div class="studio-dock-bottom">
+                    <div class="studio-pills-shortcuts">
+                        <button class="btn-dock-shortcut">
+                            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                            <span>Biblioteca de Inspiração</span>
+                        </button>
+                        <button class="btn-dock-shortcut">
+                            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+                            <span>Assistente</span>
+                        </button>
+                    </div>
+
+                    <div class="studio-input-bar-row">
+                        <button class="btn-icon-plain" style="color:var(--text-dim);">
+                            <svg class="svg-icon" style="width:16px; height:16px;" viewBox="0 0 24 24"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path><circle cx="12" cy="13" r="4"></circle></svg>
+                        </button>
+
+                        <div style="display:flex; align-items:center; gap:4px; font-size:11px; font-weight:700; color:#fff;">
+                            <span>Imagem</span>
+                            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="7 10 12 15 17 10"></polyline></svg>
+                        </div>
+
+                        <input type="text" class="studio-dock-input" id="studioQuickPromptDock" placeholder="Descreva para criar instantaneamente...">
+                        
+                        <button class="btn-dock-submit-round" onclick="document.getElementById('quickGenInput').value = document.getElementById('studioQuickPromptDock').value; switchNav('viewHome', document.getElementById('tabHome'));">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><line x1="12" y1="19" x2="12" y2="5"></line><polyline points="5 12 12 5 19 12"></polyline></svg>
+                        </button>
+                    </div>
+                </div>
+
             </div>
         </section>
 <!-- 3. VIEW PESSOAL (CENTRO PESSOAL DO USUÁRIO) -->
@@ -2256,7 +2598,95 @@ const fbProvider = new FacebookAuthProvider(); // <--- INSTANCIADO AQUI
             }
             kebabDropdown.classList.remove('open');
         };
+// ================= CARREGAMENTO DE POSTS DO USUÁRIO NA TELA "CRIAR" =================
+        const studioUserCreationsFeed = document.getElementById('studioUserCreationsFeed');
+        const studioEmptyStateMsg = document.getElementById('studioEmptyStateMsg');
 
+        // Cria o card de imagem no mesmo padrão 1:1 do SeaArt
+        function createStudioCardHTML(postData) {
+            const dateStr = postData.createdAt ? new Date(postData.createdAt.toDate ? postData.createdAt.toDate() : postData.createdAt).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }) : "Hoje";
+
+            const card = document.createElement('div');
+            card.className = 'studio-job-card';
+            card.innerHTML = `
+                <div class="studio-date-separator">${dateStr}</div>
+                
+                <div class="studio-job-meta-top">
+                    <span class="badge-txt2img">Txt2Img</span>
+                    <span>WAI-illustrious-SDXL · 864×1536</span>
+                </div>
+
+                <div class="studio-job-prompt" title="${postData.prompt || postData.title}">
+                    ${postData.prompt || postData.title}
+                </div>
+
+                <div class="studio-job-media-wrapper">
+                    <img src="${postData.image}" alt="${postData.title}" loading="lazy">
+                    <span class="badge-media-video">Vídeo</span>
+                </div>
+
+                <div class="studio-actions-toolbar">
+                    <button class="btn-studio-action" onclick="document.getElementById('quickGenInput').value = '${(postData.prompt || postData.title).replace(/'/g, "\\'")}'; switchNav('viewHome', document.getElementById('tabHome'));">
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9"></path><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path></svg>
+                        <span>Reeditar</span>
+                    </button>
+                    <button class="btn-studio-action" onclick="alert('Regenerando variante...');">
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 4 23 10 17 10"></polyline><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"></path></svg>
+                        <span>Regenerar</span>
+                    </button>
+                    <button class="btn-studio-icon-only" title="Ver Prompt">
+                        <span style="font-size:10px; font-weight:800;">T</span>
+                    </button>
+                    <button class="btn-studio-icon-only" title="Informações">
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
+                    </button>
+                    <button class="btn-studio-icon-only" title="Gostei">
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3zM7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"></path></svg>
+                    </button>
+                    <button class="btn-studio-icon-only">
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="1"></circle><circle cx="19" cy="12" r="1"></circle><circle cx="5" cy="12" r="1"></circle></svg>
+                    </button>
+                </div>
+            `;
+            return card;
+        }
+
+        // Puxa do Firestore exclusivamente os posts do usuário autenticado
+        async function loadUserStudioCreations() {
+            if (!auth.currentUser) {
+                studioUserCreationsFeed.innerHTML = '';
+                studioUserCreationsFeed.appendChild(studioEmptyStateMsg);
+                studioEmptyStateMsg.style.display = 'block';
+                return;
+            }
+
+            try {
+                const { collection, query, where, getDocs } = await import("https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js");
+                
+                const q = query(
+                    collection(db, "community_posts"),
+                    where("authorId", "==", auth.currentUser.uid)
+                );
+
+                const snapshot = await getDocs(q);
+
+                studioUserCreationsFeed.innerHTML = '';
+
+                if (snapshot.empty) {
+                    studioUserCreationsFeed.appendChild(studioEmptyStateMsg);
+                    studioEmptyStateMsg.style.display = 'block';
+                    return;
+                }
+
+                studioEmptyStateMsg.style.display = 'none';
+
+                snapshot.forEach(docSnap => {
+                    studioUserCreationsFeed.appendChild(createStudioCardHTML({ id: docSnap.id, ...docSnap.data() }));
+                });
+            } catch (err) {
+                console.error("Erro ao carregar estúdio do usuário:", err);
+            }
+        }
         // Navegação de Views (SPA)
         window.switchNav = function(viewId, node = null) {
             document.querySelectorAll('.view-section').forEach(v => v.classList.remove('active'));
@@ -2265,6 +2695,11 @@ const fbProvider = new FacebookAuthProvider(); // <--- INSTANCIADO AQUI
             if (node) {
                 document.querySelectorAll('.nav-node-btn').forEach(b => b.classList.remove('active'));
                 node.classList.add('active');
+            }
+
+            // Recarrega o feed pessoal do estúdio ao clicar em "Criar"
+            if (viewId === 'viewCreate') {
+                loadUserStudioCreations();
             }
         };
 
@@ -2640,7 +3075,7 @@ document.getElementById('btnAuthFacebook').onclick = async () => {
                 });
 
                 renderFeed(currentUserProfile?.tags || []);
-
+                loadUserStudioCreations(); // <--- ADICIONE ESTA LINHA AQUI!
                 // Limpa os campos
                 document.getElementById('quickGenInput').value = '';
                 document.getElementById('postTitleInput').value = '';
