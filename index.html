@@ -1610,6 +1610,294 @@ nav.app-bottom-navbar {
     cursor: pointer;
 }
 
+/* ================= ESTRUTURA DO FEED INÍCIO (OFICIAL 1, 2, 3, 4) ================= */
+
+/* Carrossel Redondo: Usado Recentemente (Tags Originais) */
+.section-recent-tags {
+    padding: 12px 16px 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+.section-mini-title {
+    font-size: 13px;
+    font-weight: 700;
+    color: #fff;
+}
+.recent-circles-scroll {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    overflow-x: auto;
+    padding-bottom: 4px;
+}
+.circle-tag-node {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    cursor: pointer;
+    flex-shrink: 0;
+}
+.circle-tag-thumb {
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    border: 2px solid var(--purple-main);
+    overflow: hidden;
+    background: #141724;
+    position: relative;
+}
+.circle-tag-thumb img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+.circle-tag-label {
+    font-size: 10px;
+    font-weight: 600;
+    color: var(--text-secondary);
+    max-width: 56px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+/* (1) Carrossel Horizontal: Comunidade Tudo-em-Um */
+.horizontal-scroll-section {
+    display: flex;
+    gap: 10px;
+    overflow-x: auto;
+    padding: 0 16px 14px;
+}
+.community-model-card {
+    min-width: 145px;
+    width: 145px;
+    background: #141724;
+    border: 1px solid var(--border-subtle);
+    border-radius: 12px;
+    overflow: hidden;
+    flex-shrink: 0;
+    cursor: pointer;
+}
+.community-model-card img {
+    width: 100%;
+    height: 160px;
+    object-fit: cover;
+    display: block;
+}
+.community-model-card-body {
+    padding: 8px;
+}
+.community-model-card-title {
+    font-size: 12px;
+    font-weight: 700;
+    color: #fff;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.community-model-card-sub {
+    font-size: 10px;
+    color: var(--text-dim);
+    margin-top: 2px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* (2) Concurso de Criatividade (Banner Mockup) */
+.contest-banner-card {
+    margin: 0 16px 16px;
+    background: #141724;
+    border: 1px solid var(--border-subtle);
+    border-radius: 14px;
+    overflow: hidden;
+    cursor: pointer;
+}
+.contest-banner-card img {
+    width: 100%;
+    height: 140px;
+    object-fit: cover;
+    display: block;
+}
+.contest-card-body {
+    padding: 10px 12px;
+}
+.contest-card-title {
+    font-size: 13px;
+    font-weight: 700;
+    color: #fff;
+}
+.contest-card-sub {
+    font-size: 11px;
+    color: var(--text-dim);
+    margin-top: 2px;
+}
+
+/* (3) Sub-abas: Apps de IA, Modelo, Inspiração, Atividade */
+.feed-nav-sections-tabs {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    padding: 0 16px;
+    overflow-x: auto;
+    border-bottom: 1px solid var(--border-subtle);
+}
+.feed-sec-tab {
+    padding: 10px 0;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text-dim);
+    cursor: pointer;
+    white-space: nowrap;
+    position: relative;
+}
+.feed-sec-tab.active {
+    color: #fff;
+    font-weight: 700;
+}
+.feed-sec-tab.active::after {
+    content: '';
+    position: absolute;
+    bottom: -1px;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: var(--purple-main);
+}
+
+.feed-filter-chips-row {
+    display: flex;
+    gap: 8px;
+    padding: 10px 16px;
+    overflow-x: auto;
+}
+.feed-chip-btn {
+    background: #141724;
+    border: 1px solid var(--border-subtle);
+    color: var(--text-secondary);
+    font-size: 11px;
+    font-weight: 600;
+    padding: 5px 12px;
+    border-radius: 8px;
+    cursor: pointer;
+    white-space: nowrap;
+}
+.feed-chip-btn.active {
+    background: #e2e8f0;
+    color: #000;
+    border-color: #fff;
+}
+
+/* (4) Cards da Grade Masonry com Proporções 16:9 / 9:16 e Bordas Redondas */
+.main-feed-card {
+    background: #141724;
+    border: 1px solid var(--border-subtle);
+    border-radius: 12px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 10px;
+    break-inside: avoid;
+}
+.main-feed-thumb-box {
+    position: relative;
+    width: 100%;
+    background: #000;
+}
+.main-feed-thumb-box.ratio-16-9 {
+    aspect-ratio: 16 / 9;
+}
+.main-feed-thumb-box.ratio-9-16 {
+    aspect-ratio: 9 / 16;
+}
+.main-feed-thumb-box img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+.feed-video-badge-pill {
+    position: absolute;
+    bottom: 8px;
+    left: 8px;
+    background: rgba(0, 0, 0, 0.7);
+    color: #fff;
+    font-size: 10px;
+    font-weight: 700;
+    padding: 2px 6px;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.main-feed-card-body {
+    padding: 8px 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+.main-feed-post-title {
+    font-size: 12px;
+    font-weight: 600;
+    color: #fff;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis; /* Corta e adiciona reticências */
+}
+.main-feed-author-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.main-feed-author-cluster {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    min-width: 0;
+}
+.main-feed-author-avatar {
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: #0f766e;
+    color: #fff;
+    font-size: 9px;
+    font-weight: 800;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    flex-shrink: 0;
+}
+.main-feed-author-avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+.main-feed-author-name {
+    font-size: 11px;
+    color: var(--text-dim);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 70px;
+}
+.main-feed-like-action {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 11px;
+    color: var(--text-dim);
+    cursor: pointer;
+    background: none;
+    border: none;
+}
+.main-feed-like-action:hover, .main-feed-like-action.liked {
+    color: var(--purple-main);
+}
     </style>
 </head>
 <body>
@@ -1712,11 +2000,71 @@ nav.app-bottom-navbar {
                 </div>
             </div> <!-- Adicionada para fechar o container do topo -->
 
-            <div style="padding: 16px 16px 8px; display:flex; justify-content:space-between; align-items:center;">
-                <span style="font-size: 14px; font-weight: 700;" id="feedCategoryLabel">Comunidade Tudo-em-Um de Criação</span>
-                <span id="activeUserFilterBadge" style="font-size:10px; color:#38bdf8; font-weight:700;"></span>
+            <!-- Carrossel Redondo: Usado Recentemente (Tags Principais) -->
+            <div class="section-recent-tags">
+                <span class="section-mini-title">Usado recentemente</span>
+                <div class="recent-circles-scroll" id="recentTagsContainer"></div>
             </div>
-            <div class="masonry-layout">
+
+            <!-- (1) Comunidade Tudo-em-Um de Criação de IA -->
+            <div style="padding: 12px 16px 8px; display:flex; align-items:center; gap:6px;">
+                <span style="font-size: 14px; font-weight: 700;">Comunidade Tudo-em-Um de Criação de IA</span>
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="#facc15"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+            </div>
+            <div class="horizontal-scroll-section">
+                <div class="community-model-card">
+                    <img src="https://picsum.photos/seed/stardream5/300/350" alt="Seedream">
+                    <div class="community-model-card-body">
+                        <div class="community-model-card-title">Seedream 5.0 Flash</div>
+                        <div class="community-model-card-sub">Geração Rápida, Edição...</div>
+                    </div>
+                </div>
+                <div class="community-model-card">
+                    <img src="https://picsum.photos/seed/claudeopus/300/350" alt="Claude">
+                    <div class="community-model-card-body">
+                        <div class="community-model-card-title">Claude Opus 5.5</div>
+                        <div class="community-model-card-sub">Codificação de agente...</div>
+                    </div>
+                </div>
+                <div class="community-model-card">
+                    <img src="https://picsum.photos/seed/gpt6/300/350" alt="GPT-6">
+                    <div class="community-model-card-body">
+                        <div class="community-model-card-title">GPT-6 Sol8</div>
+                        <div class="community-model-card-sub">Lê com nitidez...</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- (2) Concurso de Criatividade (Banner Mockup) -->
+            <div style="padding: 6px 16px 8px; display:flex; align-items:center; gap:6px;">
+                <span style="font-size: 14px; font-weight: 700;">Concurso de criatividade</span>
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="2"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"></path><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"></path><path d="M4 22h16"></path><path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"></path></svg>
+            </div>
+            <div class="contest-banner-card" onclick="alert('Concurso MiniMax H3 em andamento!')">
+                <img src="https://picsum.photos/seed/minimaxbanner/600/250" alt="Banner Concurso">
+                <div class="contest-card-body">
+                    <div class="contest-card-title">MiniMax H3 Geração de Vídeo Gratuita às 20h</div>
+                    <div class="contest-card-sub">Encaminhe o sorteio para dividir um vale-presente de US$ 400</div>
+                </div>
+            </div>
+
+            <!-- (3) Abas de Conteúdo e Filtros Rápidos -->
+            <div class="feed-nav-sections-tabs">
+                <div class="feed-sec-tab">Apps de IA</div>
+                <div class="feed-sec-tab">Modelo</div>
+                <div class="feed-sec-tab active">Inspiração</div>
+                <div class="feed-sec-tab">Atividade</div>
+            </div>
+
+            <div class="feed-filter-chips-row">
+                <button class="feed-chip-btn active" onclick="renderDynamicHomeFeed(null)">Recomendar</button>
+                <button class="feed-chip-btn">Imagem</button>
+                <button class="feed-chip-btn">Vídeo</button>
+                <button class="feed-chip-btn">Modelos populares</button>
+            </div>
+
+            <!-- (4) Grade Dupla Masonry (Feed Real + Algoritmo 1 a cada 10) -->
+            <div class="masonry-layout" style="padding: 0 12px;">
                 <div class="masonry-column" id="colLeftHome"></div>
                 <div class="masonry-column" id="colRightHome"></div>
             </div>
@@ -2534,43 +2882,181 @@ const fbProvider = new FacebookAuthProvider(); // <--- INSTANCIADO AQUI
 
         let currentUserProfile = null;
 
-        // Renderizador de Feed Filtrado pelas Tags do Usuário
-        function renderFeed(userTags = []) {
+        // ================= ALGORITMO DO FEED, TAGS E LIKES REAIS =================
+        let preferredTag = localStorage.getItem('thyme_preferred_tag') || null;
+
+        // 1. Renderiza o carrossel redondo "Usado recentemente" com a foto mais curtida de cada tag/pasta
+        function renderRecentTagsCircles(posts) {
+            const container = document.getElementById('recentTagsContainer');
+            if (!container) return;
+            container.innerHTML = '';
+
+            // Agrupa os posts por tag
+            const tagGroups = {};
+            posts.forEach(p => {
+                const primaryTag = (p.tags && p.tags.length > 0) ? p.tags[0] : (p.tag || "Geral");
+                if (!tagGroups[primaryTag]) tagGroups[primaryTag] = [];
+                tagGroups[primaryTag].push(p);
+            });
+
+            // Para cada tag/pasta, escolhe a foto com mais curtidas
+            Object.keys(tagGroups).forEach(tagName => {
+                const group = tagGroups[tagName];
+                group.sort((a, b) => (b.likes || 0) - (a.likes || 0));
+                const topPost = group[0];
+
+                const circleNode = document.createElement('div');
+                circleNode.className = 'circle-tag-node';
+                circleNode.onclick = () => filterFeedByTagFolder(tagName);
+
+                circleNode.innerHTML = `
+                    <div class="circle-tag-thumb">
+                        <img src="${topPost.image}" alt="${tagName}">
+                    </div>
+                    <span class="circle-tag-label">${tagName}</span>
+                `;
+                container.appendChild(circleNode);
+            });
+        }
+
+        // Filtra para abrir a "pasta" daquela tag
+        window.filterFeedByTagFolder = function(selectedTag) {
+            renderDynamicHomeFeed(selectedTag);
+        };
+
+        // 2. Algoritmo de montagem: se curtiu 'Gato', 1 a cada 10 posts será com a tag 'Gato'
+        function buildRecommendedFeedList(allPosts, filterTag = null) {
+            if (filterTag) {
+                return allPosts.filter(p => (p.tags && p.tags.includes(filterTag)) || p.tag === filterTag);
+            }
+
+            if (!preferredTag) {
+                // Embaralhamento aleatório inicial
+                return [...allPosts].sort(() => Math.random() - 0.5);
+            }
+
+            const preferredPosts = allPosts.filter(p => (p.tags && p.tags.includes(preferredTag)) || p.tag === preferredTag);
+            const otherPosts = allPosts.filter(p => !(p.tags && p.tags.includes(preferredTag)) && p.tag !== preferredTag);
+
+            const result = [];
+            let prefIndex = 0;
+
+            for (let i = 0; i < otherPosts.length; i++) {
+                result.push(otherPosts[i]);
+                // A cada 9 posts normais inseridos, insere 1 post da tag curtida (completando 1 a cada 10)
+                if (result.length % 10 === 9 && prefIndex < preferredPosts.length) {
+                    result.push(preferredPosts[prefIndex++]);
+                }
+            }
+
+            return result;
+        }
+
+        // 3. Renderiza a grade de 2 colunas
+        async function renderDynamicHomeFeed(tagFilter = null) {
             const leftCol = document.getElementById('colLeftHome');
             const rightCol = document.getElementById('colRightHome');
-            const badgeLabel = document.getElementById('activeUserFilterBadge');
             if (!leftCol || !rightCol) return;
 
             leftCol.innerHTML = '';
             rightCol.innerHTML = '';
 
-            // Se o usuário tem tags configuradas, filtra as obras do "Usuário B"
-            let filteredItems = COMMUNITY_POSTS;
-            if (userTags && userTags.length > 0) {
-                filteredItems = COMMUNITY_POSTS.filter(post => userTags.includes(post.tag));
-                if (filteredItems.length === 0) filteredItems = COMMUNITY_POSTS; // fallback se nada coincidir
-                badgeLabel.innerText = `Tags: [${userTags.join(', ')}]`;
-            } else {
-                badgeLabel.innerText = '';
+            // Busca os posts públicos mais recentes do Firestore
+            let posts = [];
+            try {
+                const q = query(collection(db, "community_posts"), where("privacy", "==", "publico"));
+                const snapshot = await getDocs(q);
+
+                snapshot.forEach(docSnap => {
+                    posts.push({ id: docSnap.id, ...docSnap.data() });
+                });
+            } catch (err) {
+                posts = COMMUNITY_POSTS;
             }
 
-            filteredItems.forEach((item, idx) => {
+            if (posts.length === 0) posts = COMMUNITY_POSTS;
+
+            renderRecentTagsCircles(posts);
+            const feedItems = buildRecommendedFeedList(posts, tagFilter);
+
+            feedItems.forEach((item, idx) => {
+                const isVertical = idx % 3 === 0; // Alterna proporcionalmente entre 9:16 e 16:9
+                const ratioClass = isVertical ? 'ratio-9-16' : 'ratio-16-9';
+
                 const card = document.createElement('div');
-                card.className = 'art-card-item';
+                card.className = 'main-feed-card';
+
+                const authorInitial = (item.author || "U")[0].toUpperCase();
+                const authorAvatarHTML = item.authorAvatar 
+                    ? `<img src="${item.authorAvatar}" alt="Avatar">` 
+                    : authorInitial;
+
                 card.innerHTML = `
-                    <img src="${item.image}" alt="${item.title}">
-                    <div class="art-card-body">
-                        <div class="art-card-title">${item.title}</div>
-                        <div class="art-card-meta">
-                            <span>#${item.tag}</span>
-                            <span>❤️ ${item.likes}</span>
+                    <div class="main-feed-thumb-box ${ratioClass}">
+                        <img src="${item.image}" alt="${item.title}" loading="lazy">
+                        ${item.videoUrl ? `
+                            <span class="feed-video-badge-pill">
+                                <svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+                                <span>00:15</span>
+                            </span>
+                        ` : ''}
+                    </div>
+
+                    <div class="main-feed-card-body">
+                        <div class="main-feed-post-title" title="${item.title}">${item.title}</div>
+                        <div class="main-feed-author-row">
+                            <div class="main-feed-author-cluster">
+                                <div class="main-feed-author-avatar">${authorAvatarHTML}</div>
+                                <span class="main-feed-author-name">${item.author || "Criador"}</span>
+                            </div>
+
+                            <!-- Botão SVG de Like Real -->
+                            <button class="main-feed-like-action" onclick="handleRealPostLike('${item.id}', this, '${item.tag || (item.tags ? item.tags[0] : '')}')">
+                                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3zM7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"></path>
+                                </svg>
+                                <span class="like-counter-val">${item.likes || 0}</span>
+                            </button>
                         </div>
                     </div>
                 `;
+
                 if (idx % 2 === 0) leftCol.appendChild(card);
                 else rightCol.appendChild(card);
             });
         }
+
+        // 4. Like Real: Grava no Firestore e aciona a preferência de 1 em 10
+        window.handleRealPostLike = async function(postId, btnEl, tag) {
+            if (!auth.currentUser) {
+                openLoginModal();
+                return;
+            }
+
+            const counterSpan = btnEl.querySelector('.like-counter-val');
+            let currentLikes = parseInt(counterSpan.innerText) || 0;
+            currentLikes++;
+            counterSpan.innerText = currentLikes;
+            btnEl.classList.add('liked');
+
+            // Salva a tag curtida para acionar a regra de 1 a cada 10 no feed
+            if (tag) {
+                preferredTag = tag;
+                localStorage.setItem('thyme_preferred_tag', tag);
+            }
+
+            try {
+                const { doc, updateDoc, increment } = await import("https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js");
+                await updateDoc(doc(db, "community_posts", postId), {
+                    likes: increment(1)
+                });
+            } catch (err) {
+                console.warn("Like computado localmente:", err.message);
+            }
+        };
+
+        // Mantém compatibilidade com chamadas anteriores
+        window.renderFeed = () => renderDynamicHomeFeed();
 
         // ================= CONTROLE DA TELA PESSOAL (PERFIL) =================
         const pBannerHero = document.getElementById('pBannerHero');
@@ -3265,7 +3751,7 @@ document.getElementById('btnAuthFacebook').onclick = async () => {
                 btnExecutePublish.innerText = "Postar";
             }
         };
-        window.addEventListener('DOMContentLoaded', () => renderFeed());
+        window.addEventListener('DOMContentLoaded', () => renderDynamicHomeFeed());
     </script>
 </body>
 </html>
