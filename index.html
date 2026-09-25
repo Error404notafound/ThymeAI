@@ -197,39 +197,104 @@
             flex-direction: column;
             gap: 10px;
         }
-        .art-card-item {
-            background: var(--bg-surface);
-            border: 1px solid var(--border-subtle);
-            border-radius: 10px;
-            overflow: hidden;
-            cursor: pointer;
-        }
-        .art-card-item img {
-            width: 100%;
-            display: block;
-            object-fit: cover;
-        }
-        .art-card-body {
-            padding: 8px;
-        }
-        .art-card-title {
-            font-size: 11px;
-            line-height: 1.3;
-            color: #fff;
-            display: -webkit-box;
-            -webkit-line-clamp: 2;
-            line-clamp: 2;
-            -webkit-box-orient: vertical;
-            overflow: hidden;
-            margin-bottom: 6px;
-        }
-        .art-card-meta {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            font-size: 10px;
-            color: var(--text-dim);
-        }
+        /* Card Oficial da Grade do Perfil */
+.profile-post-card {
+    background: #141724;
+    border: 1px solid var(--border-subtle);
+    border-radius: 12px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+
+.profile-post-thumb-wrap {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 1 / 1.35;
+    background: #090a10;
+}
+
+.profile-post-thumb-wrap img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+/* Botão de 3 pontinhos flutuante sobre a imagem */
+.btn-thumb-more-dots {
+    position: absolute;
+    bottom: 8px;
+    right: 8px;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: rgba(0, 0, 0, 0.6);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+/* Barra inferior com foto de perfil + nome + joinha */
+.profile-post-bottom-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 8px 10px;
+    background: #141724;
+}
+
+.author-chip-info {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    min-width: 0;
+}
+
+.author-mini-avatar {
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: #0f766e;
+    color: #fff;
+    font-size: 9px;
+    font-weight: 800;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    flex-shrink: 0;
+}
+
+.author-mini-avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.author-name-text {
+    font-size: 11px;
+    color: #94a3b8;
+    font-weight: 600;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 80px;
+}
+
+.post-likes-badge {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 11px;
+    color: #94a3b8;
+    font-weight: 600;
+    flex-shrink: 0;
+}
 
         /* Drawer Overlay */
         .drawer-overlay-backdrop {
@@ -1818,7 +1883,7 @@ nav.app-bottom-navbar {
                     </div>
                 </div>
 
-                <!-- Métricas -->
+                <!-- Métricas Reais do Usuário -->
                 <div class="profile-stats-row">
                     <div>
                         <div class="pstat-val" id="pStatFollow">0</div>
@@ -1829,7 +1894,7 @@ nav.app-bottom-navbar {
                         <div class="pstat-lbl">Conectores</div>
                     </div>
                     <div>
-                        <div class="pstat-val" id="pStatFav">153</div>
+                        <div class="pstat-val" id="pStatFav">0</div>
                         <div class="pstat-lbl">Favoritos</div>
                     </div>
                     <div>
@@ -1859,20 +1924,28 @@ nav.app-bottom-navbar {
                     </div>
                 </div>
 
-                <!-- Abas do Perfil -->
+                <!-- Abas do Perfil com Cadeado SVG -->
                 <div class="profile-nav-tabs">
                     <div class="ptab-btn active" onclick="switchProfileMainTab('inicio', this)">Início</div>
                     <div class="ptab-btn" onclick="switchProfileMainTab('colecoes', this)">Série de coleções</div>
                     <div class="ptab-btn" onclick="switchProfileMainTab('favoritar', this)">Favoritar</div>
-                    <div class="ptab-btn" onclick="switchProfileMainTab('apoiando', this)">Apoiando 🔒</div>
+                    <div class="ptab-btn" onclick="switchProfileMainTab('apoiando', this)" style="display:inline-flex; align-items:center; gap:4px;">
+                        <span>Apoiando</span>
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+                    </div>
                 </div>
 
-                <!-- Sub-pílulas (Visão Geral, Post, Obras, Modelo) -->
+                <!-- Sub-pílulas com Contadores Dinâmicos -->
                 <div class="profile-sub-pills-row" id="pPillsRow">
-                    <button class="ppill-btn active">Visão geral 57</button>
-                    <button class="ppill-btn">Post 40</button>
-                    <button class="ppill-btn">Obras 16</button>
-                    <button class="ppill-btn">Modelo 1</button>
+                    <button class="ppill-btn active" id="btnFilterOverview" onclick="filterProfileCreations('todos', this)">Visão geral <span id="countOverview">0</span></button>
+                    <button class="ppill-btn" id="btnFilterPosts" onclick="filterProfileCreations('publico', this)">Post <span id="countPosts">0</span></button>
+                    <button class="ppill-btn" id="btnFilterObras" onclick="filterProfileCreations('obras', this)">Obras <span id="countObras">0</span></button>
+                    <button class="ppill-btn" id="btnFilterModelos" onclick="filterProfileCreations('modelo', this)">Modelo 0</button>
+                </div>
+
+                <div style="display:flex; justify-content:space-between; align-items:center; padding: 12px 4px 6px;">
+                    <span style="font-size:14px; font-weight:700;" id="labelProfileSection">Post</span>
+                    <span style="font-size:11px; color:var(--text-dim); cursor:pointer;">Mais ›</span>
                 </div>
 
                 <!-- Conteúdo do Perfil -->
@@ -2541,24 +2614,133 @@ const fbProvider = new FacebookAuthProvider(); // <--- INSTANCIADO AQUI
             renderProfileMasonry();
         }
 
-        // Renderiza as obras no feed do perfil
-        function renderProfileMasonry() {
+        // ================= GESTÃO REAL DO CENTRO PESSOAL DO USUÁRIO =================
+        let userRealCreations = [];
+
+        // Atualiza a interface da tela pessoal com dados reais do Firebase
+        async function updateProfileViewUI() {
+            if (!auth.currentUser) return;
+
+            // 1. Dados cadastrais do usuário
+            const currentName = currentUserProfile?.name || auth.currentUser.displayName || "Criador";
+            const currentAvatar = currentUserProfile?.avatarUrl || auth.currentUser.photoURL || "";
+            const currentCover = currentUserProfile?.coverUrl || "https://picsum.photos/seed/nebula/800/400";
+
+            pNameText.innerText = currentName;
+
+            if (currentAvatar) {
+                pAvatarBox.innerHTML = `<img src="${currentAvatar}" alt="Avatar">`;
+            } else {
+                pAvatarBox.innerText = currentName[0].toUpperCase();
+            }
+
+            pBannerHero.style.backgroundImage = `url('${currentCover}')`;
+
+            // 2. Busca apenas as obras REAIS postadas pelo usuário logado
+            try {
+                const { collection, query, where, getDocs } = await import("https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js");
+                
+                const q = query(
+                    collection(db, "community_posts"),
+                    where("authorId", "==", auth.currentUser.uid)
+                );
+
+                const snapshot = await getDocs(q);
+                userRealCreations = [];
+
+                snapshot.forEach(docSnap => {
+                    userRealCreations.push({ id: docSnap.id, ...docSnap.data() });
+                });
+
+                // 3. Cálculo dos Contadores Reais
+                // Posts = Públicos
+                const publicPostsCount = userRealCreations.filter(p => p.privacy === 'publico').length;
+                // Obras = Privadas ou Apenas Seguidores
+                const obrasCount = userRealCreations.filter(p => p.privacy === 'privado' || p.privacy === 'seguidores').length;
+                // Visão Geral = Soma de tudo que o usuário já postou
+                const overviewCount = userRealCreations.length;
+
+                document.getElementById('countOverview').innerText = overviewCount;
+                document.getElementById('countPosts').innerText = publicPostsCount;
+                document.getElementById('countObras').innerText = obrasCount;
+
+                // Renderiza o filtro atual
+                filterProfileCreations('todos', document.getElementById('btnFilterOverview'));
+            } catch (err) {
+                console.error("Erro ao carregar posts do perfil:", err);
+            }
+        }
+
+        // Filtra entre Visão Geral, Posts públicos e Obras privadas/seguidores
+        window.filterProfileCreations = function(filterType, btnEl) {
+            document.querySelectorAll('.ppill-btn').forEach(b => b.classList.remove('active'));
+            if (btnEl) btnEl.classList.add('active');
+
+            let filtered = [];
+            if (filterType === 'todos') {
+                filtered = userRealCreations;
+                document.getElementById('labelProfileSection').innerText = "Visão geral";
+            } else if (filterType === 'publico') {
+                filtered = userRealCreations.filter(p => p.privacy === 'publico');
+                document.getElementById('labelProfileSection').innerText = "Post";
+            } else if (filterType === 'obras') {
+                filtered = userRealCreations.filter(p => p.privacy === 'privado' || p.privacy === 'seguidores');
+                document.getElementById('labelProfileSection').innerText = "Obras";
+            }
+
+            renderProfileCards(filtered);
+        };
+
+        // Renderiza os cards reais com o design da Kanna/Yunyun (com joinha SVG e foto do autor abaixo)
+        function renderProfileCards(items) {
             const left = document.getElementById('pColLeft');
             const right = document.getElementById('pColRight');
             if (!left || !right) return;
             left.innerHTML = '';
             right.innerHTML = '';
 
-            COMMUNITY_POSTS.slice(0, 4).forEach((item, idx) => {
+            if (items.length === 0) {
+                pEmptyPanel.style.display = 'flex';
+                pGridInicio.style.display = 'none';
+                return;
+            }
+
+            pEmptyPanel.style.display = 'none';
+            pGridInicio.style.display = 'grid';
+
+            items.forEach((item, idx) => {
                 const card = document.createElement('div');
-                card.className = 'art-card-item';
+                card.className = 'profile-post-card';
+                
+                const authorInitial = (item.author || "U")[0].toUpperCase();
+                const authorAvatarHTML = currentUserProfile?.avatarUrl 
+                    ? `<img src="${currentUserProfile.avatarUrl}" alt="Avatar">`
+                    : authorInitial;
+
                 card.innerHTML = `
-                    <img src="${item.image}" alt="${item.title}">
-                    <div class="art-card-body">
-                        <div class="art-card-title">${item.title}</div>
-                        <div class="art-card-meta"><span>Post</span><span>❤️ ${item.likes}</span></div>
+                    <div class="profile-post-thumb-wrap">
+                        <img src="${item.image}" alt="${item.title}" loading="lazy">
+                        <button class="btn-thumb-more-dots" onclick="alert('Opções do post: ${item.title}')">
+                            <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="2"></circle><circle cx="19" cy="12" r="2"></circle><circle cx="5" cy="12" r="2"></circle></svg>
+                        </button>
+                    </div>
+
+                    <!-- Barra inferior: Avatar + Nome + Joinha SVG -->
+                    <div class="profile-post-bottom-bar">
+                        <div class="author-chip-info">
+                            <div class="author-mini-avatar">${authorAvatarHTML}</div>
+                            <span class="author-name-text">${item.author || "Você"}</span>
+                        </div>
+                        <div class="post-likes-badge">
+                            <!-- Ícone Joinha SVG Idêntico ao Oficial -->
+                            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3zM7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"></path>
+                            </svg>
+                            <span>${item.likes || 0}</span>
+                        </div>
                     </div>
                 `;
+
                 if (idx % 2 === 0) left.appendChild(card);
                 else right.appendChild(card);
             });
@@ -3088,7 +3270,8 @@ document.getElementById('btnAuthFacebook').onclick = async () => {
                 });
 
                 renderFeed(currentUserProfile?.tags || []);
-                loadUserStudioCreations(); // <--- ADICIONE ESTA LINHA AQUI!
+                loadUserStudioCreations();
+                updateProfileViewUI(); // <--- Adicione esta chamada aqui!
                 // Limpa os campos
                 document.getElementById('quickGenInput').value = '';
                 document.getElementById('postTitleInput').value = '';
