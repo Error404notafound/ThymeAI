@@ -2591,29 +2591,6 @@ const fbProvider = new FacebookAuthProvider(); // <--- INSTANCIADO AQUI
             }
         };
 
-        // Atualiza elementos visuais do perfil a partir dos dados do Firestore
-        function updateProfileViewUI() {
-            if (!currentUserProfile) return;
-
-            pNameText.innerText = currentUserProfile.name || "Error404 Not afound";
-            
-            // Foto de Perfil
-            if (currentUserProfile.avatarUrl) {
-                pAvatarBox.innerHTML = `<img src="${currentUserProfile.avatarUrl}" alt="Avatar">`;
-            } else {
-                pAvatarBox.innerText = (currentUserProfile.name || "E")[0].toUpperCase();
-            }
-
-            // Foto de Capa (Banner)
-            if (currentUserProfile.coverUrl) {
-                pBannerHero.style.backgroundImage = `url('${currentUserProfile.coverUrl}')`;
-            } else {
-                pBannerHero.style.backgroundImage = `url('https://picsum.photos/seed/spacecover/800/400')`;
-            }
-
-            renderProfileMasonry();
-        }
-
         // ================= GESTÃO REAL DO CENTRO PESSOAL DO USUÁRIO =================
         let userRealCreations = [];
 
@@ -2638,8 +2615,6 @@ const fbProvider = new FacebookAuthProvider(); // <--- INSTANCIADO AQUI
 
             // 2. Busca apenas as obras REAIS postadas pelo usuário logado
             try {
-                const { collection, query, where, getDocs } = await import("https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js");
-                
                 const q = query(
                     collection(db, "community_posts"),
                     where("authorId", "==", auth.currentUser.uid)
@@ -2652,24 +2627,22 @@ const fbProvider = new FacebookAuthProvider(); // <--- INSTANCIADO AQUI
                     userRealCreations.push({ id: docSnap.id, ...docSnap.data() });
                 });
 
-                // 3. Cálculo dos Contadores Reais
-                // Posts = Públicos
+                // 3. Cálculo dos Contadores Reais (Sem simulação)
                 const publicPostsCount = userRealCreations.filter(p => p.privacy === 'publico').length;
-                // Obras = Privadas ou Apenas Seguidores
                 const obrasCount = userRealCreations.filter(p => p.privacy === 'privado' || p.privacy === 'seguidores').length;
-                // Visão Geral = Soma de tudo que o usuário já postou
                 const overviewCount = userRealCreations.length;
 
                 document.getElementById('countOverview').innerText = overviewCount;
                 document.getElementById('countPosts').innerText = publicPostsCount;
                 document.getElementById('countObras').innerText = obrasCount;
 
-                // Renderiza o filtro atual
+                // Renderiza o filtro padrão (Visão Geral)
                 filterProfileCreations('todos', document.getElementById('btnFilterOverview'));
             } catch (err) {
                 console.error("Erro ao carregar posts do perfil:", err);
             }
         }
+                
 
         // Filtra entre Visão Geral, Posts públicos e Obras privadas/seguidores
         window.filterProfileCreations = function(filterType, btnEl) {
@@ -2755,9 +2728,9 @@ const fbProvider = new FacebookAuthProvider(); // <--- INSTANCIADO AQUI
                 pGridInicio.style.display = 'grid';
                 pEmptyPanel.style.display = 'none';
                 pPillsRow.style.display = 'flex';
-                renderProfileMasonry();
+                filterProfileCreations('todos', document.getElementById('btnFilterOverview'));
             } else {
-                // Modo "Série de coleções" ou "Apoiando" -> Exibe "Sem dados" (Fotos 2 e 5)
+                // "Série de coleções" ou "Apoiando"
                 pGridInicio.style.display = 'none';
                 pEmptyPanel.style.display = 'flex';
                 pPillsRow.style.display = 'none';
