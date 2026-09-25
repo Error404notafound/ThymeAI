@@ -1403,19 +1403,25 @@ nav.app-bottom-navbar {
     text-overflow: ellipsis;
 }
 
+/* Container Compacto Alinhado à Esquerda (Estilo SeaArt Oficial) */
 .studio-job-media-wrapper {
     position: relative;
-    width: 100%;
-    border-radius: 8px;
+    width: fit-content;
+    max-width: 220px;       /* Tamanho compacto idêntico à foto da Yunyun */
+    min-height: 140px;
+    max-height: 310px;      /* Trava a altura para não estourar a tela */
+    border-radius: 6px;
     overflow: hidden;
-    background: #000;
+    background: #0d0f17;
     border: 1px solid var(--border-subtle);
+    margin: 4px 0;          /* Alinhado à esquerda */
 }
 
 .studio-job-media-wrapper img {
     width: 100%;
-    max-height: 520px;
-    object-fit: contain;
+    height: 100%;
+    max-height: 310px;
+    object-fit: cover;      /* Enquadra a foto perfeitamente no card */
     display: block;
 }
 
@@ -2620,9 +2626,16 @@ const fbProvider = new FacebookAuthProvider(); // <--- INSTANCIADO AQUI
                     ${postData.prompt || postData.title}
                 </div>
 
-                <div class="studio-job-media-wrapper">
-                    <img src="${postData.image}" alt="${postData.title}" loading="lazy">
-                    <span class="badge-media-video">Vídeo</span>
+                <div style="display: flex; align-items: center; gap: 12px;">
+                    <div class="studio-job-media-wrapper">
+                        <img src="${postData.image}" alt="${postData.title}" loading="lazy">
+                        ${postData.videoUrl ? '<span class="badge-media-video">Vídeo</span>' : ''}
+                    </div>
+
+                    <!-- Botão de Seta para baixo que aparece ao lado na foto oficial -->
+                    <button class="btn-studio-icon-only" style="background:#171924; border-radius:8px; padding:8px;" title="Mais opções">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                    </button>
                 </div>
 
                 <div class="studio-actions-toolbar">
