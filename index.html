@@ -1116,7 +1116,154 @@ nav.app-bottom-navbar {
     background: #1c2032;
     color: #fff;
 }
-        
+
+/* ================= PAINEL DE EXPANSÃO / POSTAGEM ================= */
+.btn-toggle-expand-post {
+    width: 32px;
+    height: 32px;
+    background: rgba(139, 92, 246, 0.15);
+    border: 1px solid var(--purple-main);
+    color: var(--purple-main);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 18px;
+    font-weight: 700;
+    transition: all 0.2s ease;
+}
+
+.btn-toggle-expand-post.active {
+    background: var(--purple-main);
+    color: #fff;
+    transform: rotate(45deg);
+}
+
+/* Container Deslizante de Campos */
+.advanced-post-drawer {
+    display: none;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 12px;
+    padding-top: 12px;
+    border-top: 1px solid var(--border-subtle);
+    animation: fadeInPost 0.25s ease forwards;
+}
+
+.advanced-post-drawer.open {
+    display: flex;
+}
+
+@keyframes fadeInPost {
+    from { opacity: 0; transform: translateY(-6px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.post-field-input {
+    width: 100%;
+    background: #0d0f17;
+    border: 1px solid var(--border-subtle);
+    border-radius: 8px;
+    padding: 9px 12px;
+    font-size: 12px;
+    color: #fff;
+    outline: none;
+    font-family: inherit;
+}
+
+.post-field-input:focus {
+    border-color: var(--purple-main);
+}
+
+/* Área de Criação de Tags Customizadas */
+.custom-tags-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.tag-input-row {
+    display: flex;
+    gap: 6px;
+}
+
+.btn-add-tag {
+    background: var(--bg-card);
+    border: 1px solid var(--border-subtle);
+    color: #fff;
+    border-radius: 8px;
+    padding: 0 12px;
+    font-size: 11px;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.btn-add-tag:hover {
+    border-color: var(--purple-main);
+}
+
+.tags-chips-display {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    max-height: 110px;
+    overflow-y: auto;
+}
+
+.tag-badge-item {
+    background: rgba(139, 92, 246, 0.2);
+    border: 1px solid rgba(139, 92, 246, 0.4);
+    color: #ddd6fe;
+    font-size: 11px;
+    padding: 3px 8px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.tag-remove-x {
+    cursor: pointer;
+    font-size: 12px;
+    font-weight: 800;
+    color: #f87171;
+}
+
+/* Opções de Privacidade e Restrição */
+.post-settings-row {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    background: #0d0f17;
+    padding: 8px 12px;
+    border-radius: 8px;
+    border: 1px solid var(--border-subtle);
+}
+
+.switch-sensitive-label {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 11px;
+    font-weight: 600;
+    color: #cbd5e1;
+    cursor: pointer;
+}
+
+.select-privacy-dropdown {
+    background: #141724;
+    border: 1px solid var(--border-subtle);
+    color: #fff;
+    font-size: 11px;
+    font-weight: 600;
+    padding: 4px 8px;
+    border-radius: 6px;
+    outline: none;
+    cursor: pointer;
+}
     </style>
 </head>
 <body>
@@ -1159,13 +1306,65 @@ nav.app-bottom-navbar {
                         <span style="color:var(--text-dim);">Vídeo</span>
                         <span style="color:var(--text-dim);">Agent Beta</span>
                     </div>
+                    
                     <div style="display:flex; gap:10px; margin-bottom: 10px;">
                         <div style="width:48px; height:48px; border:1px dashed var(--border-subtle); border-radius:8px; display:flex; align-items:center; justify-content:center; color:var(--text-dim); font-size:20px;">+</div>
                         <textarea id="quickGenInput" style="flex:1; background:none; border:none; color:#fff; font-family:inherit; font-size:12px; resize:none; outline:none;" placeholder="Descreva sua arte detalhadamente (ex: jardim botânico bioluminescente, 8k, photorealistic)..."></textarea>
                     </div>
-                    <div style="display:flex; justify-content:space-between; align-items:center;">
+
+                    <!-- Gaveta de Campos Avançados Expansível -->
+                    <div class="advanced-post-drawer" id="advancedPostDrawer">
+                        <!-- 1. Nome do Post -->
+                        <input type="text" class="post-field-input" id="postTitleInput" placeholder="Nome do post...">
+                        
+                        <!-- 2. Link URL da Foto -->
+                        <input type="url" class="post-field-input" id="postPhotoUrlInput" placeholder="Link da foto (URL direta: https://...)">
+                        
+                        <!-- 3. Link URL do Vídeo -->
+                        <input type="url" class="post-field-input" id="postVideoUrlInput" placeholder="Link do vídeo (URL direta / Embed: https://...)">
+
+                        <!-- Sistema de Tags Personalizadas (Máx. 20) -->
+                        <div class="custom-tags-wrapper">
+                            <div style="display:flex; justify-content:space-between; align-items:center; font-size:11px; color:var(--text-dim);">
+                                <span>Tags personalizadas</span>
+                                <span id="tagsCounterLabel">0/20</span>
+                            </div>
+                            <div class="tag-input-row">
+                                <input type="text" class="post-field-input" id="singleTagInput" placeholder="Digite uma tag e clique em + Tag...">
+                                <button type="button" class="btn-add-tag" id="btnPushTag">+ Tag</button>
+                            </div>
+                            <div class="tags-chips-display" id="tagsChipsContainer"></div>
+                        </div>
+
+                        <!-- Opções: Sensível (+18) & Visibilidade (3 opções) -->
+                        <div class="post-settings-row">
+                            <label class="switch-sensitive-label">
+                                <input type="checkbox" id="checkIsSensitive" style="accent-color: var(--purple-main);">
+                                <span>Conteúdo sensível (+18)</span>
+                            </label>
+                            
+                            <div style="display:flex; align-items:center; gap:6px;">
+                                <span style="font-size:11px; color:var(--text-dim);">Visibilidade:</span>
+                                <select class="select-privacy-dropdown" id="selectPostPrivacy">
+                                    <option value="publico">Todo mundo</option>
+                                    <option value="seguidores">Apenas seguidores</option>
+                                    <option value="privado">Só para mim</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Barra de Botões com o [+] e o [Postar] -->
+                    <div style="display:flex; justify-content:space-between; align-items:center; margin-top: 10px;">
                         <div style="background:var(--bg-card); padding:4px 8px; border-radius:12px; font-size:11px; color:var(--text-secondary);">⚡ Thyme SDXL Turbo ▾</div>
-                        <button class="btn-auth-header" onclick="switchNav('viewCreate')">Criar</button>
+                        
+                        <div style="display:flex; align-items:center; gap:8px;">
+                            <!-- Botão '+' Roxo Expansível -->
+                            <button type="button" class="btn-toggle-expand-post" id="btnTogglePostOptions" title="Mais opções">+</button>
+                            
+                            <!-- Botão POSTAR -->
+                            <button type="button" class="btn-auth-header" id="btnExecutePublish" style="padding: 6px 18px;">Postar</button>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -1869,15 +2068,15 @@ nav.app-bottom-navbar {
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
         import { 
-    getAuth, 
-    signInWithPopup, 
-    GoogleAuthProvider, 
-    FacebookAuthProvider, // <--- ADICIONADO
-    signOut, 
-    onAuthStateChanged,
-    signInWithEmailAndPassword,
-    createUserWithEmailAndPassword
-} from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+            getFirestore, 
+            doc, 
+            getDoc, 
+            setDoc, 
+            collection, 
+            getDocs,
+            addDoc,
+            serverTimestamp
+        } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
         import { 
             getFirestore, 
             doc, 
@@ -2326,7 +2525,143 @@ document.getElementById('btnAuthFacebook').onclick = async () => {
         renderFeed();
     }
 });
+// ================= SISTEMA DE POSTAGEM AVANÇADA =================
+        const btnTogglePostOptions = document.getElementById('btnTogglePostOptions');
+        const advancedPostDrawer = document.getElementById('advancedPostDrawer');
+        const btnPushTag = document.getElementById('btnPushTag');
+        const singleTagInput = document.getElementById('singleTagInput');
+        const tagsChipsContainer = document.getElementById('tagsChipsContainer');
+        const tagsCounterLabel = document.getElementById('tagsCounterLabel');
+        const btnExecutePublish = document.getElementById('btnExecutePublish');
 
+        let createdTagsList = [];
+
+        // 1. Abrir/fechar gaveta de opções avançadas
+        btnTogglePostOptions.onclick = () => {
+            const isOpen = advancedPostDrawer.classList.toggle('open');
+            btnTogglePostOptions.classList.toggle('active', isOpen);
+        };
+
+        // 2. Adicionar Tag (Limite de 20)
+        function handleAddTag() {
+            let tagVal = singleTagInput.value.trim().replace(/^#/, '');
+            if (!tagVal) return;
+
+            if (createdTagsList.length >= 20) {
+                alert("Limite máximo de 20 tags atingido.");
+                return;
+            }
+
+            if (!createdTagsList.includes(tagVal)) {
+                createdTagsList.push(tagVal);
+                renderTagChips();
+            }
+            singleTagInput.value = '';
+            singleTagInput.focus();
+        }
+
+        btnPushTag.onclick = handleAddTag;
+        singleTagInput.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                handleAddTag();
+            }
+        });
+
+        // 3. Renderizar chips das tags criadas
+        function renderTagChips() {
+            tagsChipsContainer.innerHTML = '';
+            createdTagsList.forEach((tag, index) => {
+                const chip = document.createElement('span');
+                chip.className = 'tag-badge-item';
+                chip.innerHTML = `
+                    <span>#${tag}</span>
+                    <span class="tag-remove-x" onclick="removeCreatedTag(${index})">×</span>
+                `;
+                tagsChipsContainer.appendChild(chip);
+            });
+            tagsCounterLabel.innerText = `${createdTagsList.length}/20`;
+        }
+
+        window.removeCreatedTag = function(idx) {
+            createdTagsList.splice(idx, 1);
+            renderTagChips();
+        };
+
+        // 4. Gravar a publicação no Firestore
+        btnExecutePublish.onclick = async () => {
+            if (!auth.currentUser) {
+                alert("Você precisa estar conectado para postar!");
+                openLoginModal();
+                return;
+            }
+
+            const promptText = document.getElementById('quickGenInput').value.trim();
+            const postTitle = document.getElementById('postTitleInput').value.trim() || promptText.slice(0, 30) || "Nova Obra";
+            const photoUrl = document.getElementById('postPhotoUrlInput').value.trim();
+            const videoUrl = document.getElementById('postVideoUrlInput').value.trim();
+            const isSensitive = document.getElementById('checkIsSensitive').checked;
+            const privacy = document.getElementById('selectPostPrivacy').value;
+
+            if (!promptText && !photoUrl && !videoUrl) {
+                alert("Preencha a descrição da arte ou insira um link de imagem/vídeo.");
+                return;
+            }
+
+            const finalImage = photoUrl || ("https://picsum.photos/seed/" + encodeURIComponent(postTitle) + "/500/500");
+            const finalTags = createdTagsList.length > 0 ? createdTagsList : ["Geral"];
+
+            btnExecutePublish.disabled = true;
+            btnExecutePublish.innerText = "Postando...";
+
+            try {
+                await addDoc(collection(db, "community_posts"), {
+                    title: postTitle,
+                    prompt: promptText,
+                    author: currentUserProfile?.name || auth.currentUser.displayName || "Criador Thyme",
+                    authorId: auth.currentUser.uid,
+                    image: finalImage,
+                    videoUrl: videoUrl || null,
+                    tag: finalTags[0],
+                    tags: finalTags,
+                    isSensitive: isSensitive,
+                    privacy: privacy, // 'publico', 'seguidores' ou 'privado'
+                    likes: 0,
+                    createdAt: serverTimestamp()
+                });
+
+                // Insere imediatamente no topo do feed local
+                COMMUNITY_POSTS.unshift({
+                    id: "local_" + Date.now(),
+                    title: postTitle,
+                    author: currentUserProfile?.name || "Você",
+                    tag: finalTags[0],
+                    image: finalImage,
+                    likes: 0
+                });
+
+                renderFeed(currentUserProfile?.tags || []);
+
+                // Limpa os campos
+                document.getElementById('quickGenInput').value = '';
+                document.getElementById('postTitleInput').value = '';
+                document.getElementById('postPhotoUrlInput').value = '';
+                document.getElementById('postVideoUrlInput').value = '';
+                document.getElementById('checkIsSensitive').checked = false;
+                createdTagsList = [];
+                renderTagChips();
+                advancedPostDrawer.classList.remove('open');
+                btnTogglePostOptions.classList.remove('active');
+
+                alert("Obra publicada com sucesso!");
+            } catch (err) {
+                console.error("Erro ao postar:", err);
+                alert("Falha ao publicar post: " + err.message);
+            } finally {
+                btnExecutePublish.disabled = false;
+                btnExecutePublish.innerText = "Postar";
+            }
+        };
         window.addEventListener('DOMContentLoaded', () => renderFeed());
     </script>
 </body>
