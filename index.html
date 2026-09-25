@@ -175,15 +175,34 @@
         }
         .view-section {
     position: absolute;
-    inset: 0;
-    overflow-y: auto;
-    overflow-x: hidden; /* <--- Impede scroll lateral fantasma */
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
     width: 100%;
-    max-width: 100vw;
+    height: 100%;
+    overflow-y: scroll !important; /* Força ativação da rolagem vertical */
+    overflow-x: hidden !important;
+    -webkit-overflow-scrolling: touch; /* Habilita rolagem com inércia touch no celular */
     display: none;
     flex-direction: column;
-    padding-bottom: calc(var(--bottom-nav-h) + 16px);
     box-sizing: border-box;
+}
+
+/* Trava Rígida de 2 Colunas no Perfil (Impede o card de ficar gigante sozinho) */
+.profile-two-columns-grid {
+    display: grid !important;
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: 10px !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+}
+
+.profile-two-columns-grid .masonry-column {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    min-width: 0;
 }
         .view-section.active {
             display: flex;
@@ -2596,32 +2615,30 @@ nav.app-bottom-navbar {
                     </div>
                 </div>
 
-                <!-- Abas do Perfil com Cadeado SVG -->
-                <div class="profile-nav-tabs">
-                    <div class="ptab-btn active" onclick="switchProfileMainTab('inicio', this)">Início</div>
-                    <div class="ptab-btn" onclick="switchProfileMainTab('colecoes', this)">Série de coleções</div>
-                    <div class="ptab-btn" onclick="switchProfileMainTab('favoritar', this)">Favoritar</div>
-                    <div class="ptab-btn" onclick="switchProfileMainTab('apoiando', this)" style="display:inline-flex; align-items:center; gap:4px;">
-                        <span>Apoiando</span>
-                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+                <!-- Container de Abas e Pílulas Fixas no Topo ao Rolar (Sticky Header das fotos 1 a 6) -->
+                <div style="position: sticky; top: 0; z-index: 30; background: #090a10; border-bottom: 1px solid var(--border-subtle); width: 100%;">
+                    <!-- Abas do Perfil com Cadeado SVG -->
+                    <div class="profile-nav-tabs">
+                        <div class="ptab-btn active" onclick="switchProfileMainTab('inicio', this)">Início</div>
+                        <div class="ptab-btn" onclick="switchProfileMainTab('colecoes', this)">Série de coleções</div>
+                        <div class="ptab-btn" onclick="switchProfileMainTab('favoritar', this)">Favoritar</div>
+                        <div class="ptab-btn" onclick="switchProfileMainTab('apoiando', this)" style="display:inline-flex; align-items:center; gap:4px;">
+                            <span>Apoiando</span>
+                            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+                        </div>
+                    </div>
+
+                    <!-- Sub-pílulas com Contadores Dinâmicos -->
+                    <div class="profile-sub-pills-row" id="pPillsRow" style="padding: 10px 16px 12px;">
+                        <button class="ppill-btn active" id="btnFilterOverview" onclick="filterProfileCreations('todos', this)">Visão geral <span id="countOverview">0</span></button>
+                        <button class="ppill-btn" id="btnFilterPosts" onclick="filterProfileCreations('publico', this)">Post <span id="countPosts">0</span></button>
+                        <button class="ppill-btn" id="btnFilterObras" onclick="filterProfileCreations('obras', this)">Obras <span id="countObras">0</span></button>
+                        <button class="ppill-btn" id="btnFilterModelos" onclick="filterProfileCreations('modelo', this)">Modelo 0</button>
                     </div>
                 </div>
 
-                <!-- Sub-pílulas com Contadores Dinâmicos -->
-                <div class="profile-sub-pills-row" id="pPillsRow">
-                    <button class="ppill-btn active" id="btnFilterOverview" onclick="filterProfileCreations('todos', this)">Visão geral <span id="countOverview">0</span></button>
-                    <button class="ppill-btn" id="btnFilterPosts" onclick="filterProfileCreations('publico', this)">Post <span id="countPosts">0</span></button>
-                    <button class="ppill-btn" id="btnFilterObras" onclick="filterProfileCreations('obras', this)">Obras <span id="countObras">0</span></button>
-                    <button class="ppill-btn" id="btnFilterModelos" onclick="filterProfileCreations('modelo', this)">Modelo 0</button>
-                </div>
-
-                <div style="display:flex; justify-content:space-between; align-items:center; padding: 12px 4px 6px;">
-                    <span style="font-size:14px; font-weight:700;" id="labelProfileSection">Post</span>
-                    <span style="font-size:11px; color:var(--text-dim); cursor:pointer;">Mais ›</span>
-                </div>
-
-                <!-- Área de Conteúdo Contínuo do Perfil -->
-                <div id="profileDynamicContent">
+                <!-- Área de Conteúdo Contínuo do Perfil (Com rolagem liberada) -->
+                <div id="profileDynamicContent" style="padding-top: 10px;">
                     
                     <!-- 1. BLOCO POST (Públicos) -->
                     <div class="profile-section-block" id="blockSectionPost">
@@ -3461,15 +3478,13 @@ const fbProvider = new FacebookAuthProvider(); // <--- INSTANCIADO AQUI
         let userRealCreations = [];
         let profileUnsubscribe = null;
 
-        // Abre o perfil e dispara o scroll suave do topo
+        // Abre o perfil com rolagem nativa destravada
         window.handleProfileNav = function(btnNode) {
             if (!auth.currentUser) {
                 openLoginModal();
             } else {
                 switchNav('viewProfile', btnNode);
                 updateProfileViewUI();
-                const viewEl = document.getElementById('viewProfile');
-                if (viewEl) viewEl.scrollTo({ top: 0, behavior: 'smooth' });
             }
         };
 
