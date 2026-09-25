@@ -945,10 +945,109 @@ nav.app-bottom-navbar {
         }
 
         /* ================= TELA PESSOAL (PERFIL) ================= */
+/* Viewport Pessoal com Scroll Total Liberado até o Rodapé */
 .profile-viewport {
     background: #090a10;
-    min-height: 100%;
-    padding-bottom: calc(var(--bottom-nav-h) + 20px);
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    padding-bottom: calc(var(--bottom-nav-h) + 60px); /* Espaço extra para nunca cortar o rodapé */
+    box-sizing: border-box;
+}
+
+/* Seções de Categorias Dentro de Visão Geral (Post, Obras, Modelo) */
+.profile-section-block {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 24px;
+    padding: 0 12px;
+}
+
+.profile-section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 6px 4px;
+}
+
+.profile-section-title {
+    font-size: 15px;
+    font-weight: 700;
+    color: #fff;
+}
+
+.profile-section-more-link {
+    font-size: 12px;
+    color: var(--text-dim);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 2px;
+}
+
+/* Badge LoRA | IL específico da seção Modelo */
+.badge-lora-model {
+    position: absolute;
+    top: 8px;
+    left: 8px;
+    background: rgba(15, 23, 42, 0.75);
+    backdrop-filter: blur(4px);
+    color: #cbd5e1;
+    font-size: 10px;
+    font-weight: 800;
+    padding: 2px 6px;
+    border-radius: 4px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    letter-spacing: 0.5px;
+}
+
+/* Rodapé Oficial (Foto 1) */
+.profile-footer-copyright {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    padding: 30px 16px 20px;
+    font-size: 11px;
+    color: #475569;
+    text-align: center;
+}
+
+.profile-footer-links {
+    display: flex;
+    gap: 8px;
+}
+
+.profile-footer-links a {
+    color: #64748b;
+    text-decoration: none;
+}
+
+/* Botão Flutuante Roxo/Azul para Subir a Página (▲) */
+.btn-scroll-to-top {
+    position: fixed;
+    bottom: calc(var(--bottom-nav-h) + 16px);
+    right: 16px;
+    width: 38px;
+    height: 38px;
+    background: #2a2e47;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+    z-index: 40;
+    transition: opacity 0.2s;
+}
+
+.btn-scroll-to-top:hover {
+    background: var(--purple-main);
 }
 
 /* Banner de Capa e Header Flutuante */
@@ -2461,22 +2560,87 @@ nav.app-bottom-navbar {
                     <span style="font-size:11px; color:var(--text-dim); cursor:pointer;">Mais ›</span>
                 </div>
 
-                <!-- Conteúdo do Perfil -->
-                <div id="profileDynamicContent" style="padding: 0 12px;">
-                    <!-- Obras do usuário / Masonry -->
-                    <div class="masonry-layout" id="pGridInicio">
-                        <div class="masonry-column" id="pColLeft"></div>
-                        <div class="masonry-column" id="pColRight"></div>
+                <!-- Área de Conteúdo Contínuo do Perfil -->
+                <div id="profileDynamicContent">
+                    
+                    <!-- 1. BLOCO POST (Públicos) -->
+                    <div class="profile-section-block" id="blockSectionPost">
+                        <div class="profile-section-header">
+                            <span class="profile-section-title">Post</span>
+                            <span class="profile-section-more-link" onclick="filterProfileCreations('publico', document.getElementById('btnFilterPosts'))">Mais ›</span>
+                        </div>
+                        <div class="masonry-layout">
+                            <div class="masonry-column" id="pColPostsLeft"></div>
+                            <div class="masonry-column" id="pColPostsRight"></div>
+                        </div>
                     </div>
 
-                    <!-- Estado Vazio (Para Coleções / Apoiando) -->
+                    <!-- 2. BLOCO OBRAS (Privadas ou Seguidores) -->
+                    <div class="profile-section-block" id="blockSectionObras">
+                        <div class="profile-section-header">
+                            <span class="profile-section-title">Obras</span>
+                            <span class="profile-section-more-link" onclick="filterProfileCreations('obras', document.getElementById('btnFilterObras'))">Mais ›</span>
+                        </div>
+                        <div class="masonry-layout">
+                            <div class="masonry-column" id="pColObrasLeft"></div>
+                            <div class="masonry-column" id="pColObrasRight"></div>
+                        </div>
+                    </div>
+
+                    <!-- 3. BLOCO MODELO (LoRA / Checkpoints) -->
+                    <div class="profile-section-block" id="blockSectionModelo">
+                        <div class="profile-section-header">
+                            <span class="profile-section-title">Modelo</span>
+                            <span class="profile-section-more-link">Mais ›</span>
+                        </div>
+                        <div class="masonry-layout">
+                            <div class="masonry-column" id="pColModeloLeft">
+                                <!-- Card de Modelo com Badge LoRA | IL (Foto 1) -->
+                                <div class="profile-post-card">
+                                    <div class="profile-post-thumb-wrap" style="aspect-ratio: 1 / 1.5; background: #ffffff;">
+                                        <span class="badge-lora-model">LoRA | IL</span>
+                                        <button class="btn-thumb-more-dots">
+                                            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="2"></circle><circle cx="19" cy="12" r="2"></circle><circle cx="5" cy="12" r="2"></circle></svg>
+                                        </button>
+                                    </div>
+                                    <div class="profile-post-bottom-bar">
+                                        <div class="author-chip-info">
+                                            <div class="author-mini-avatar" id="modelCardMiniAvatar">E</div>
+                                            <span class="author-name-text" id="modelCardAuthorName">Você</span>
+                                        </div>
+                                        <div class="post-likes-badge" style="gap:2px;">
+                                            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+                                            <span>0</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="masonry-column" id="pColModeloRight"></div>
+                        </div>
+                    </div>
+
+                    <!-- Estado Vazio (Para "Série de coleções" ou "Apoiando") -->
                     <div class="profile-empty-panel" id="pEmptyPanel" style="display:none;">
                         <div class="empty-clipboard-box">
                             <svg class="svg-icon" style="width:28px; height:28px;" viewBox="0 0 24 24"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path><rect x="8" y="2" width="8" height="4" rx="1" ry="1"></rect></svg>
                         </div>
                         <span style="font-size:12px; font-weight:600;">Sem dados</span>
                     </div>
+
+                    <!-- 4. RODAPÉ DE COPYRIGHT OFICIAL (Foto 1) -->
+                    <div class="profile-footer-copyright" id="profileFooterCopyright">
+                        <div>© 2026 ThymeAI, Inc. | Copyright Policy | Termos</div>
+                        <div class="profile-footer-links">
+                            <a href="#">Política de Privacidade</a>
+                        </div>
+                    </div>
+
                 </div>
+
+                <!-- Botão Flutuante de Subir a Página (▲) -->
+                <button class="btn-scroll-to-top" id="btnScrollProfileTop" onclick="document.getElementById('viewProfile').scrollTo({ top: 0, behavior: 'smooth' });">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 6 5 18 19 18"></polygon></svg>
+                </button>
 
             </div>
         </section>
@@ -3233,25 +3397,59 @@ const fbProvider = new FacebookAuthProvider(); // <--- INSTANCIADO AQUI
         const pPillsRow = document.getElementById('pPillsRow');
 
         // Botão "Pessoal" da barra inferior: Abre o Centro Pessoal
-        // ================= GESTÃO REAL DO CENTRO PESSOAL DO USUÁRIO =================
+        // ================= GESTÃO CONTÍNUA DO CENTRO PESSOAL (POST + OBRAS + MODELO) =================
         let userRealCreations = [];
         let profileUnsubscribe = null;
 
-        // Botão "Pessoal" da barra inferior: Abre o Centro Pessoal
+        // Abre o perfil e dispara o scroll suave do topo
         window.handleProfileNav = function(btnNode) {
             if (!auth.currentUser) {
                 openLoginModal();
             } else {
                 switchNav('viewProfile', btnNode);
                 updateProfileViewUI();
+                const viewEl = document.getElementById('viewProfile');
+                if (viewEl) viewEl.scrollTo({ top: 0, behavior: 'smooth' });
             }
         };
 
-        // Atualiza a interface da tela pessoal com dados reais do Firebase em tempo real
+        // Função utilitária para gerar o HTML do card de imagem idêntico à Kanna e Yunyun
+        function buildProfileCardHTML(item) {
+            const card = document.createElement('div');
+            card.className = 'profile-post-card';
+            
+            const authorInitial = (item.author || "U")[0].toUpperCase();
+            const authorAvatarHTML = currentUserProfile?.avatarUrl 
+                ? `<img src="${currentUserProfile.avatarUrl}" alt="Avatar">`
+                : authorInitial;
+
+            card.innerHTML = `
+                <div class="profile-post-thumb-wrap">
+                    <img src="${item.image}" alt="${item.title}" loading="lazy">
+                    <button class="btn-thumb-more-dots" onclick="alert('Opções: ${item.title}')">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="2"></circle><circle cx="19" cy="12" r="2"></circle><circle cx="5" cy="12" r="2"></circle></svg>
+                    </button>
+                </div>
+                <div class="profile-post-bottom-bar">
+                    <div class="author-chip-info">
+                        <div class="author-mini-avatar">${authorAvatarHTML}</div>
+                        <span class="author-name-text">${item.author || "Você"}</span>
+                    </div>
+                    <div class="post-likes-badge">
+                        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3zM7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"></path>
+                        </svg>
+                        <span>${item.likes || 0}</span>
+                    </div>
+                </div>
+            `;
+            return card;
+        }
+
+        // Puxa do Firestore em tempo real (onSnapshot) e alimenta os blocos empilhados
         async function updateProfileViewUI() {
             if (!auth.currentUser) return;
 
-            // 1. Dados cadastrais do usuário
             const currentName = currentUserProfile?.name || auth.currentUser.displayName || "Criador";
             const currentAvatar = currentUserProfile?.avatarUrl || auth.currentUser.photoURL || "";
             const currentCover = currentUserProfile?.coverUrl || "https://picsum.photos/seed/nebula/800/400";
@@ -3260,16 +3458,16 @@ const fbProvider = new FacebookAuthProvider(); // <--- INSTANCIADO AQUI
 
             if (currentAvatar) {
                 pAvatarBox.innerHTML = `<img src="${currentAvatar}" alt="Avatar">`;
+                const mini = document.getElementById('modelCardMiniAvatar');
+                if (mini) mini.innerHTML = `<img src="${currentAvatar}" alt="Avatar">`;
             } else {
                 pAvatarBox.innerText = currentName[0].toUpperCase();
             }
 
             pBannerHero.style.backgroundImage = `url('${currentCover}')`;
 
-            // Cancela ouvinte anterior para não duplicar requisições
             if (profileUnsubscribe) profileUnsubscribe();
 
-            // 2. Busca em tempo real todas as postagens reais do usuário
             try {
                 const { collection, query, where, onSnapshot } = await import("https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js");
                 
@@ -3284,121 +3482,100 @@ const fbProvider = new FacebookAuthProvider(); // <--- INSTANCIADO AQUI
                         userRealCreations.push({ id: docSnap.id, ...docSnap.data() });
                     });
 
-                    // 3. Contadores Reais
-                    const publicPostsCount = userRealCreations.filter(p => !p.privacy || p.privacy === 'publico').length;
-                    const obrasCount = userRealCreations.filter(p => p.privacy === 'privado' || p.privacy === 'seguidores').length;
-                    const overviewCount = userRealCreations.length;
+                    // Separação real de categorias
+                    const publicPosts = userRealCreations.filter(p => !p.privacy || p.privacy === 'publico');
+                    const obrasPosts = userRealCreations.filter(p => p.privacy === 'privado' || p.privacy === 'seguidores');
 
-                    // Atualiza os contadores na tela
+                    // Atualiza os contadores no topo
                     const elOverview = document.getElementById('countOverview');
                     const elPosts = document.getElementById('countPosts');
                     const elObras = document.getElementById('countObras');
 
-                    if (elOverview) elOverview.innerText = overviewCount;
-                    if (elPosts) elPosts.innerText = publicPostsCount;
-                    if (elObras) elObras.innerText = obrasCount;
+                    if (elOverview) elOverview.innerText = userRealCreations.length;
+                    if (elPosts) elPosts.innerText = publicPosts.length;
+                    if (elObras) elObras.innerText = obrasPosts.length;
 
-                    // 4. Renderiza as fotos (começa na Visão geral)
-                    filterProfileCreations('todos', document.getElementById('btnFilterOverview'));
+                    // Renderiza os blocos empilhados
+                    renderAllProfileSections(publicPosts, obrasPosts);
                 });
             } catch (err) {
-                console.error("Erro ao carregar posts do perfil:", err);
+                console.error("Erro ao carregar perfil contínuo:", err);
             }
         }
-                
 
-        // Filtra entre Visão Geral, Posts públicos e Obras privadas/seguidores
+        // Distribui os cards nos blocos sequenciais (Post e Obras)
+        function renderAllProfileSections(publicPosts, obrasPosts) {
+            const postsLeft = document.getElementById('pColPostsLeft');
+            const postsRight = document.getElementById('pColPostsRight');
+            const obrasLeft = document.getElementById('pColObrasLeft');
+            const obrasRight = document.getElementById('pColObrasRight');
+
+            if (!postsLeft || !obrasLeft) return;
+
+            postsLeft.innerHTML = '';
+            postsRight.innerHTML = '';
+            obrasLeft.innerHTML = '';
+            obrasRight.innerHTML = '';
+
+            // Seção 1: Posts
+            publicPosts.forEach((post, idx) => {
+                const card = buildProfileCardHTML(post);
+                if (idx % 2 === 0) postsLeft.appendChild(card);
+                else postsRight.appendChild(card);
+            });
+
+            // Seção 2: Obras
+            obrasPosts.forEach((obra, idx) => {
+                const card = buildProfileCardHTML(obra);
+                if (idx % 2 === 0) obrasLeft.appendChild(card);
+                else obrasRight.appendChild(card);
+            });
+        }
+
+        // Filtra para exibir apenas uma categoria ou todas juntas
         window.filterProfileCreations = function(filterType, btnEl) {
             document.querySelectorAll('.ppill-btn').forEach(b => b.classList.remove('active'));
             if (btnEl) btnEl.classList.add('active');
 
-            let filtered = [];
-            const labelSection = document.getElementById('labelProfileSection');
+            const blockPost = document.getElementById('blockSectionPost');
+            const blockObras = document.getElementById('blockSectionObras');
+            const blockModelo = document.getElementById('blockSectionModelo');
+
+            if (!blockPost || !blockObras || !blockModelo) return;
 
             if (filterType === 'todos') {
-                filtered = userRealCreations;
-                if (labelSection) labelSection.innerText = "Visão geral";
+                blockPost.style.display = 'flex';
+                blockObras.style.display = 'flex';
+                blockModelo.style.display = 'flex';
             } else if (filterType === 'publico') {
-                filtered = userRealCreations.filter(p => !p.privacy || p.privacy === 'publico');
-                if (labelSection) labelSection.innerText = "Post";
+                blockPost.style.display = 'flex';
+                blockObras.style.display = 'none';
+                blockModelo.style.display = 'none';
             } else if (filterType === 'obras') {
-                filtered = userRealCreations.filter(p => p.privacy === 'privado' || p.privacy === 'seguidores');
-                if (labelSection) labelSection.innerText = "Obras";
+                blockPost.style.display = 'none';
+                blockObras.style.display = 'flex';
+                blockModelo.style.display = 'none';
             }
-
-            renderProfileCards(filtered);
         };
 
-        // Renderiza os cards reais com o design da Kanna/Yunyun (com joinha SVG e foto do autor abaixo)
-        function renderProfileCards(items) {
-            const left = document.getElementById('pColLeft');
-            const right = document.getElementById('pColRight');
-            if (!left || !right) return;
-            left.innerHTML = '';
-            right.innerHTML = '';
-
-            if (items.length === 0) {
-                pEmptyPanel.style.display = 'flex';
-                pGridInicio.style.display = 'none';
-                return;
-            }
-
-            pEmptyPanel.style.display = 'none';
-            pGridInicio.style.display = 'grid';
-
-            items.forEach((item, idx) => {
-                const card = document.createElement('div');
-                card.className = 'profile-post-card';
-                
-                const authorInitial = (item.author || "U")[0].toUpperCase();
-                const authorAvatarHTML = currentUserProfile?.avatarUrl 
-                    ? `<img src="${currentUserProfile.avatarUrl}" alt="Avatar">`
-                    : authorInitial;
-
-                card.innerHTML = `
-                    <div class="profile-post-thumb-wrap">
-                        <img src="${item.image}" alt="${item.title}" loading="lazy">
-                        <button class="btn-thumb-more-dots" onclick="alert('Opções do post: ${item.title}')">
-                            <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="2"></circle><circle cx="19" cy="12" r="2"></circle><circle cx="5" cy="12" r="2"></circle></svg>
-                        </button>
-                    </div>
-
-                    <!-- Barra inferior: Avatar + Nome + Joinha SVG -->
-                    <div class="profile-post-bottom-bar">
-                        <div class="author-chip-info">
-                            <div class="author-mini-avatar">${authorAvatarHTML}</div>
-                            <span class="author-name-text">${item.author || "Você"}</span>
-                        </div>
-                        <div class="post-likes-badge">
-                            <!-- Ícone Joinha SVG Idêntico ao Oficial -->
-                            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                <path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3zM7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"></path>
-                            </svg>
-                            <span>${item.likes || 0}</span>
-                        </div>
-                    </div>
-                `;
-
-                if (idx % 2 === 0) left.appendChild(card);
-                else right.appendChild(card);
-            });
-        }
-
-        // Alternador de Abas do Perfil (Início, Coleções, Favoritar, Apoiando)
+        // Alterna entre abas principais (Início, Coleções, Favoritos, Apoiando)
         window.switchProfileMainTab = function(tabName, el) {
             document.querySelectorAll('.ptab-btn').forEach(b => b.classList.remove('active'));
             el.classList.add('active');
 
-            if (tabName === 'inicio' || tabName === 'favoritar') {
-                pGridInicio.style.display = 'grid';
-                pEmptyPanel.style.display = 'none';
-                pPillsRow.style.display = 'flex';
+            const contentBlocks = document.querySelectorAll('.profile-section-block, #profileFooterCopyright');
+            const emptyPanel = document.getElementById('pEmptyPanel');
+            const pillsRow = document.getElementById('pPillsRow');
+
+            if (tabName === 'inicio') {
+                contentBlocks.forEach(b => b.style.display = 'flex');
+                if (emptyPanel) emptyPanel.style.display = 'none';
+                if (pillsRow) pillsRow.style.display = 'flex';
                 filterProfileCreations('todos', document.getElementById('btnFilterOverview'));
             } else {
-                // "Série de coleções" ou "Apoiando"
-                pGridInicio.style.display = 'none';
-                pEmptyPanel.style.display = 'flex';
-                pPillsRow.style.display = 'none';
+                contentBlocks.forEach(b => b.style.display = 'none');
+                if (emptyPanel) emptyPanel.style.display = 'flex';
+                if (pillsRow) pillsRow.style.display = 'none';
             }
         };
 
