@@ -174,29 +174,69 @@
             overflow: hidden;
         }
         .view-section {
-            position: absolute;
-            inset: 0;
-            overflow-y: auto;
-            display: none;
-            flex-direction: column;
-            padding-bottom: calc(var(--bottom-nav-h) + 16px);
-        }
+    position: absolute;
+    inset: 0;
+    overflow-y: auto;
+    overflow-x: hidden; /* <--- Impede scroll lateral fantasma */
+    width: 100%;
+    max-width: 100vw;
+    display: none;
+    flex-direction: column;
+    padding-bottom: calc(var(--bottom-nav-h) + 16px);
+    box-sizing: border-box;
+}
         .view-section.active {
             display: flex;
         }
 
-        /* Masonry Grid Duplo */
-        .masonry-layout {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 10px;
-            padding: 0 12px;
-        }
-        .masonry-column {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
+        /* Masonry Grid Duplo com Trava de Tela Mobile (100% Responsivo) */
+.masonry-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); /* <--- O minmax(0, 1fr) impede a coluna de estourar a tela */
+    gap: 8px;
+    padding: 0 10px;
+    width: 100%;
+    max-width: 100vw;
+    box-sizing: border-box;
+}
+
+.masonry-column {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    min-width: 0; /* <--- Obriga a coluna a respeitar a largura calculada */
+    width: 100%;
+}
+
+/* Trava para que os cards e as fotos nunca ultrapassem a coluna */
+.main-feed-card {
+    background: #141724;
+    border: 1px solid var(--border-subtle);
+    border-radius: 10px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 8px;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+}
+
+.main-feed-thumb-box {
+    position: relative;
+    width: 100%;
+    max-width: 100%;
+    overflow: hidden;
+    background: #000;
+}
+
+.main-feed-thumb-box img {
+    width: 100%;
+    height: 100%;
+    max-width: 100%;
+    object-fit: cover;
+    display: block;
+}
         /* Card Oficial da Grade do Perfil */
 .profile-post-card {
     background: #141724;
@@ -2063,8 +2103,8 @@ nav.app-bottom-navbar {
                 <button class="feed-chip-btn">Modelos populares</button>
             </div>
 
-            <!-- (4) Grade Dupla Masonry (Feed Real + Algoritmo 1 a cada 10) -->
-            <div class="masonry-layout" style="padding: 0 12px;">
+            <!-- (4) Grade Dupla Masonry 100% Adaptada à Tela -->
+            <div class="masonry-layout">
                 <div class="masonry-column" id="colLeftHome"></div>
                 <div class="masonry-column" id="colRightHome"></div>
             </div>
