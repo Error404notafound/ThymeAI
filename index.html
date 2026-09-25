@@ -838,6 +838,285 @@ nav.app-bottom-navbar {
             cursor: pointer;
             margin-top: 10px;
         }
+
+        /* ================= TELA PESSOAL (PERFIL) ================= */
+.profile-viewport {
+    background: #090a10;
+    min-height: 100%;
+    padding-bottom: calc(var(--bottom-nav-h) + 20px);
+}
+
+/* Banner de Capa e Header Flutuante */
+.profile-hero-banner {
+    position: relative;
+    width: 100%;
+    height: 170px;
+    background: #141724 center/cover no-repeat;
+}
+
+.profile-hero-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(9, 10, 16, 0.4) 0%, rgba(9, 10, 16, 0.95) 100%);
+}
+
+.profile-top-controls {
+    position: absolute;
+    top: 10px;
+    left: 12px;
+    right: 12px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 5;
+}
+
+.profile-top-chips {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.profile-chip-stat {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 11px;
+    font-weight: 700;
+    color: #fff;
+    background: rgba(0, 0, 0, 0.4);
+    padding: 3px 8px;
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.btn-kebab-menu {
+    background: none;
+    border: none;
+    color: #fff;
+    cursor: pointer;
+    display: flex;
+    padding: 4px;
+}
+
+/* Identidade do Usuário */
+.profile-info-strip {
+    position: relative;
+    padding: 0 16px;
+    margin-top: -38px;
+    display: flex;
+    align-items: flex-end;
+    gap: 14px;
+    z-index: 6;
+}
+
+.profile-avatar-node {
+    width: 72px;
+    height: 72px;
+    border-radius: 50%;
+    background: #0f766e;
+    border: 3px solid #090a10;
+    color: #fff;
+    font-size: 26px;
+    font-weight: 800;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    flex-shrink: 0;
+}
+
+.profile-avatar-node img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.profile-name-cluster {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    margin-bottom: 6px;
+}
+
+.profile-user-title {
+    font-size: 16px;
+    font-weight: 800;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+/* Métricas do Perfil */
+.profile-stats-row {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    text-align: center;
+    padding: 16px 8px 12px;
+}
+
+.pstat-val {
+    font-size: 15px;
+    font-weight: 800;
+    color: #fff;
+}
+
+.pstat-lbl {
+    font-size: 10px;
+    color: var(--text-dim);
+    margin-top: 2px;
+}
+
+/* Card VIP Estreito */
+.profile-vip-slim-card {
+    margin: 4px 12px 14px;
+    background: #141724;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 12px;
+    padding: 10px 14px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.pvip-left-title {
+    font-size: 12px;
+    font-weight: 800;
+    color: #fff;
+}
+
+.pvip-left-sub {
+    font-size: 9px;
+    color: var(--text-dim);
+}
+
+.pvip-right-balances {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+/* Abas de Navegação do Perfil */
+.profile-nav-tabs {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    padding: 0 16px;
+    border-bottom: 1px solid var(--border-subtle);
+    overflow-x: auto;
+}
+
+.ptab-btn {
+    padding: 10px 0;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text-dim);
+    cursor: pointer;
+    white-space: nowrap;
+    position: relative;
+}
+
+.ptab-btn.active {
+    color: #fff;
+}
+
+.ptab-btn.active::after {
+    content: '';
+    position: absolute;
+    bottom: -1px;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: var(--purple-main);
+}
+
+/* Sub-pílulas de filtro */
+.profile-sub-pills-row {
+    display: flex;
+    gap: 8px;
+    padding: 12px 16px;
+    overflow-x: auto;
+}
+
+.ppill-btn {
+    background: #141724;
+    border: 1px solid var(--border-subtle);
+    color: #fff;
+    padding: 5px 12px;
+    border-radius: 8px;
+    font-size: 11px;
+    font-weight: 600;
+    cursor: pointer;
+    white-space: nowrap;
+}
+
+.ppill-btn.active {
+    background: #202438;
+    border-color: #3b4260;
+}
+
+/* Estado Vazio */
+.profile-empty-panel {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 48px 16px;
+    color: var(--text-dim);
+    gap: 12px;
+}
+
+.empty-clipboard-box {
+    width: 60px;
+    height: 60px;
+    background: #181b29;
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #475569;
+}
+
+/* ================= POPUP FLUTUANTE KEBAB MENU ================= */
+.kebab-dropdown-modal {
+    position: absolute;
+    top: 42px;
+    right: 12px;
+    width: 210px;
+    background: #141622;
+    border: 1px solid #282d42;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7);
+    padding: 6px 0;
+    z-index: 100;
+    display: none;
+}
+
+.kebab-dropdown-modal.open {
+    display: block;
+}
+
+.kebab-menu-list {
+    list-style: none;
+}
+
+.kebab-menu-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 16px;
+    font-size: 12px;
+    font-weight: 600;
+    color: #cbd5e1;
+    cursor: pointer;
+    transition: background 0.15s;
+}
+
+.kebab-menu-item:hover {
+    background: #1c2032;
+    color: #fff;
+}
+        
     </style>
 </head>
 <body>
@@ -922,7 +1201,156 @@ nav.app-bottom-navbar {
                 </div>
             </div>
         </section>
+<!-- 3. VIEW PESSOAL (CENTRO PESSOAL DO USUÁRIO) -->
+        <section class="view-section" id="viewProfile">
+            <div class="profile-viewport">
+                
+                <!-- Banner de Capa com Controles Flutuantes -->
+                <div class="profile-hero-banner" id="pBannerHero">
+                    <div class="profile-hero-overlay"></div>
+                    
+                    <div class="profile-top-controls">
+                        <!-- Botão Hambúrguer do perfil -->
+                        <button class="btn-icon-plain" onclick="document.getElementById('btnOpenDrawer').click();">
+                            <svg class="svg-icon" viewBox="0 0 24 24"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+                        </button>
 
+                        <div class="profile-top-chips">
+                            <div class="profile-chip-stat">
+                                <svg class="svg-icon" style="width:12px; height:12px; stroke:#a855f7;" viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>
+                                <span>1.4K</span>
+                            </div>
+                            <div class="profile-chip-stat">
+                                <svg class="svg-icon" style="width:12px; height:12px; stroke:#eab308;" viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>
+                                <span>130</span>
+                            </div>
+                            
+                            <!-- Kebab Menu (⋯) - Seta Azul -->
+                            <button class="btn-kebab-menu" id="btnToggleKebab">
+                                <svg class="svg-icon" style="width:20px; height:20px;" viewBox="0 0 24 24"><circle cx="12" cy="12" r="1.5"></circle><circle cx="19" cy="12" r="1.5"></circle><circle cx="5" cy="12" r="1.5"></circle></svg>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Dropdown Kebab Flutuante (Fiel às Fotos) -->
+                    <div class="kebab-dropdown-modal" id="kebabDropdown">
+                        <ul class="kebab-menu-list">
+                            <li class="kebab-menu-item" onclick="alert('Link do perfil copiado!')">
+                                <svg class="svg-icon" viewBox="0 0 24 24"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"></path><polyline points="16 6 12 2 8 6"></polyline><line x1="12" y1="2" x2="12" y2="15"></line></svg>
+                                <span>Compartilhar</span>
+                            </li>
+                            <li class="kebab-menu-item" id="btnCopyUserId">
+                                <svg class="svg-icon" viewBox="0 0 24 24"><circle cx="12" cy="7" r="4"></circle><path d="M6 21v-2a4 4 0 0 1 4-4h4a4 4 0 0 1 4 4v2"></path><line x1="18" y1="11" x2="22" y2="11"></line></svg>
+                                <span>User ID</span>
+                            </li>
+                            <li class="kebab-menu-item" onclick="alert('Loja de Créditos')">
+                                <svg class="svg-icon" viewBox="0 0 24 24"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
+                                <span>Loja</span>
+                            </li>
+                            <li class="kebab-menu-item" onclick="alert('Centro de Criadores')">
+                                <svg class="svg-icon" viewBox="0 0 24 24"><rect width="20" height="14" x="2" y="5" rx="2"></rect><line x1="2" y1="10" x2="22" y2="10"></line></svg>
+                                <span>Centro de Criadores</span>
+                            </li>
+                            <li class="kebab-menu-item" onclick="document.getElementById('btnNavOutro').click(); document.getElementById('kebabDropdown').classList.remove('open');">
+                                <svg class="svg-icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
+                                <span>Configurações pessoais</span>
+                            </li>
+                            <li class="kebab-menu-item" onclick="alert('Centro da Conta')">
+                                <svg class="svg-icon" viewBox="0 0 24 24"><path d="M20 7h-7L10 4H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2z"></path></svg>
+                                <span>Centro da Conta</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Foto de Perfil + Nome -->
+                <div class="profile-info-strip">
+                    <div class="profile-avatar-node" id="pAvatarBox">E</div>
+                    <div class="profile-name-cluster">
+                        <div class="profile-user-title">
+                            <span id="pNameText">Error404 Not afound</span>
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#a855f7" stroke-width="2.5"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Métricas -->
+                <div class="profile-stats-row">
+                    <div>
+                        <div class="pstat-val" id="pStatFollow">0</div>
+                        <div class="pstat-lbl">Seguindo</div>
+                    </div>
+                    <div>
+                        <div class="pstat-val" id="pStatConn">0</div>
+                        <div class="pstat-lbl">Conectores</div>
+                    </div>
+                    <div>
+                        <div class="pstat-val" id="pStatFav">153</div>
+                        <div class="pstat-lbl">Favoritos</div>
+                    </div>
+                    <div>
+                        <div class="pstat-val" id="pStatSub">0</div>
+                        <div class="pstat-lbl">Assinatura</div>
+                    </div>
+                </div>
+
+                <!-- Card VIP Slim -->
+                <div class="profile-vip-slim-card">
+                    <div>
+                        <div class="pvip-left-title">Activate M...</div>
+                        <div class="pvip-left-sub">Plano exclusivo para membros</div>
+                    </div>
+                    <div class="pvip-right-balances">
+                        <div class="balance-item" style="font-size:11px;">
+                            <svg class="svg-icon" style="width:12px; height:12px; stroke:#a855f7;" viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>
+                            <span>1.4K</span>
+                            <span style="color:var(--text-dim); cursor:pointer;">+</span>
+                        </div>
+                        <div class="balance-item" style="font-size:11px;">
+                            <svg class="svg-icon" style="width:12px; height:12px; stroke:#eab308;" viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>
+                            <span>130</span>
+                            <small style="font-size:8px;">20:13:24</small>
+                            <span style="color:var(--text-dim); cursor:pointer;">+</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Abas do Perfil -->
+                <div class="profile-nav-tabs">
+                    <div class="ptab-btn active" onclick="switchProfileMainTab('inicio', this)">Início</div>
+                    <div class="ptab-btn" onclick="switchProfileMainTab('colecoes', this)">Série de coleções</div>
+                    <div class="ptab-btn" onclick="switchProfileMainTab('favoritar', this)">Favoritar</div>
+                    <div class="ptab-btn" onclick="switchProfileMainTab('apoiando', this)">Apoiando 🔒</div>
+                </div>
+
+                <!-- Sub-pílulas (Visão Geral, Post, Obras, Modelo) -->
+                <div class="profile-sub-pills-row" id="pPillsRow">
+                    <button class="ppill-btn active">Visão geral 57</button>
+                    <button class="ppill-btn">Post 40</button>
+                    <button class="ppill-btn">Obras 16</button>
+                    <button class="ppill-btn">Modelo 1</button>
+                </div>
+
+                <!-- Conteúdo do Perfil -->
+                <div id="profileDynamicContent" style="padding: 0 12px;">
+                    <!-- Obras do usuário / Masonry -->
+                    <div class="masonry-layout" id="pGridInicio">
+                        <div class="masonry-column" id="pColLeft"></div>
+                        <div class="masonry-column" id="pColRight"></div>
+                    </div>
+
+                    <!-- Estado Vazio (Para Coleções / Apoiando) -->
+                    <div class="profile-empty-panel" id="pEmptyPanel" style="display:none;">
+                        <div class="empty-clipboard-box">
+                            <svg class="svg-icon" style="width:28px; height:28px;" viewBox="0 0 24 24"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path><rect x="8" y="2" width="8" height="4" rx="1" ry="1"></rect></svg>
+                        </div>
+                        <span style="font-size:12px; font-weight:600;">Sem dados</span>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+        
     </main>
 
     <!-- Drawer Lateral com Estados Logado e Deslogado -->
@@ -1525,15 +1953,110 @@ const fbProvider = new FacebookAuthProvider(); // <--- INSTANCIADO AQUI
             });
         }
 
-        // Controle de ação para o botão Pessoal
+        // ================= CONTROLE DA TELA PESSOAL (PERFIL) =================
+        const pBannerHero = document.getElementById('pBannerHero');
+        const pAvatarBox = document.getElementById('pAvatarBox');
+        const pNameText = document.getElementById('pNameText');
+        const kebabDropdown = document.getElementById('kebabDropdown');
+        const pGridInicio = document.getElementById('pGridInicio');
+        const pEmptyPanel = document.getElementById('pEmptyPanel');
+        const pPillsRow = document.getElementById('pPillsRow');
+
+        // Botão "Pessoal" da barra inferior: Abre o Centro Pessoal
         window.handleProfileNav = function(btnNode) {
             if (!auth.currentUser) {
-                // Se estiver deslogado, abre o modal de login
                 openLoginModal();
             } else {
-                // Se já estiver logado, abre o menu hambúrguer com o perfil
-                document.getElementById('btnOpenDrawer').click();
+                switchNav('viewProfile', btnNode);
+                updateProfileViewUI();
             }
+        };
+
+        // Atualiza elementos visuais do perfil a partir dos dados do Firestore
+        function updateProfileViewUI() {
+            if (!currentUserProfile) return;
+
+            pNameText.innerText = currentUserProfile.name || "Error404 Not afound";
+            
+            // Foto de Perfil
+            if (currentUserProfile.avatarUrl) {
+                pAvatarBox.innerHTML = `<img src="${currentUserProfile.avatarUrl}" alt="Avatar">`;
+            } else {
+                pAvatarBox.innerText = (currentUserProfile.name || "E")[0].toUpperCase();
+            }
+
+            // Foto de Capa (Banner)
+            if (currentUserProfile.coverUrl) {
+                pBannerHero.style.backgroundImage = `url('${currentUserProfile.coverUrl}')`;
+            } else {
+                pBannerHero.style.backgroundImage = `url('https://picsum.photos/seed/spacecover/800/400')`;
+            }
+
+            renderProfileMasonry();
+        }
+
+        // Renderiza as obras no feed do perfil
+        function renderProfileMasonry() {
+            const left = document.getElementById('pColLeft');
+            const right = document.getElementById('pColRight');
+            if (!left || !right) return;
+            left.innerHTML = '';
+            right.innerHTML = '';
+
+            COMMUNITY_POSTS.slice(0, 4).forEach((item, idx) => {
+                const card = document.createElement('div');
+                card.className = 'art-card-item';
+                card.innerHTML = `
+                    <img src="${item.image}" alt="${item.title}">
+                    <div class="art-card-body">
+                        <div class="art-card-title">${item.title}</div>
+                        <div class="art-card-meta"><span>Post</span><span>❤️ ${item.likes}</span></div>
+                    </div>
+                `;
+                if (idx % 2 === 0) left.appendChild(card);
+                else right.appendChild(card);
+            });
+        }
+
+        // Alternador de Abas do Perfil (Início, Coleções, Favoritar, Apoiando)
+        window.switchProfileMainTab = function(tabName, el) {
+            document.querySelectorAll('.ptab-btn').forEach(b => b.classList.remove('active'));
+            el.classList.add('active');
+
+            if (tabName === 'inicio' || tabName === 'favoritar') {
+                pGridInicio.style.display = 'grid';
+                pEmptyPanel.style.display = 'none';
+                pPillsRow.style.display = 'flex';
+                renderProfileMasonry();
+            } else {
+                // Modo "Série de coleções" ou "Apoiando" -> Exibe "Sem dados" (Fotos 2 e 5)
+                pGridInicio.style.display = 'none';
+                pEmptyPanel.style.display = 'flex';
+                pPillsRow.style.display = 'none';
+            }
+        };
+
+        // Kebab Menu Toggle (Seta Azul)
+        const btnToggleKebab = document.getElementById('btnToggleKebab');
+        btnToggleKebab.onclick = (e) => {
+            e.stopPropagation();
+            kebabDropdown.classList.toggle('open');
+        };
+
+        // Fechar kebab ao clicar fora dele
+        document.addEventListener('click', (e) => {
+            if (!kebabDropdown.contains(e.target) && e.target !== btnToggleKebab) {
+                kebabDropdown.classList.remove('open');
+            }
+        });
+
+        // Copiar User ID (UID do Firebase)
+        document.getElementById('btnCopyUserId').onclick = () => {
+            if (auth.currentUser) {
+                navigator.clipboard.writeText(auth.currentUser.uid);
+                alert("UID copiado: " + auth.currentUser.uid);
+            }
+            kebabDropdown.classList.remove('open');
         };
 
         // Navegação de Views (SPA)
@@ -1635,6 +2158,7 @@ document.getElementById('btnAuthGoogle').onclick = async () => {
         await handlePostLoginCheck(res.user);
     } catch (err) {
         console.error(err);
+        
         alert("Erro ao autenticar com o Google: " + err.message);
     }
 };
@@ -1766,8 +2290,8 @@ document.getElementById('btnAuthFacebook').onclick = async () => {
             if (profile.avatarUrl) {
                 uAvatarBox.innerHTML = `<img src="${profile.avatarUrl}" alt="Avatar">`;
             }
+            updateProfileViewUI(); // <--- Sincroniza a tela pessoal
         }
-
         // ================= OBSERVAÇÃO DO FIREBASE AUTH =================
         const wrapHeaderLoggedOut = document.getElementById('wrapHeaderLoggedOut');
         const wrapFooterLoggedOut = document.getElementById('wrapFooterLoggedOut');
