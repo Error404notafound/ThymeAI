@@ -1144,20 +1144,23 @@ nav.app-bottom-navbar {
 }
 
 .ppill-btn {
-    background: #141724;
-    border: 1px solid var(--border-subtle);
-    color: #fff;
-    padding: 5px 12px;
+    background: #181b28;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    color: #94a3b8;
+    padding: 6px 14px;
     border-radius: 8px;
-    font-size: 11px;
+    font-size: 12px;
     font-weight: 600;
     cursor: pointer;
     white-space: nowrap;
+    transition: all 0.2s ease;
 }
 
 .ppill-btn.active {
-    background: #202438;
-    border-color: #3b4260;
+    background: #ffffff !important;  /* Fundo branco sólido oficial */
+    color: #0b0c10 !important;       /* Texto preto */
+    border-color: #ffffff !important;
+    font-weight: 800;
 }
 
 /* Estado Vazio */
@@ -3230,6 +3233,11 @@ const fbProvider = new FacebookAuthProvider(); // <--- INSTANCIADO AQUI
         const pPillsRow = document.getElementById('pPillsRow');
 
         // Botão "Pessoal" da barra inferior: Abre o Centro Pessoal
+        // ================= GESTÃO REAL DO CENTRO PESSOAL DO USUÁRIO =================
+        let userRealCreations = [];
+        let profileUnsubscribe = null;
+
+        // Botão "Pessoal" da barra inferior: Abre o Centro Pessoal
         window.handleProfileNav = function(btnNode) {
             if (!auth.currentUser) {
                 openLoginModal();
@@ -3239,10 +3247,7 @@ const fbProvider = new FacebookAuthProvider(); // <--- INSTANCIADO AQUI
             }
         };
 
-        // ================= GESTÃO REAL DO CENTRO PESSOAL DO USUÁRIO =================
-        let userRealCreations = [];
-
-        // Atualiza a interface da tela pessoal com dados reais do Firebase
+        // Atualiza a interface da tela pessoal com dados reais do Firebase em tempo real
         async function updateProfileViewUI() {
             if (!auth.currentUser) return;
 
@@ -3261,31 +3266,41 @@ const fbProvider = new FacebookAuthProvider(); // <--- INSTANCIADO AQUI
 
             pBannerHero.style.backgroundImage = `url('${currentCover}')`;
 
-            // 2. Busca apenas as obras REAIS postadas pelo usuário logado
+            // Cancela ouvinte anterior para não duplicar requisições
+            if (profileUnsubscribe) profileUnsubscribe();
+
+            // 2. Busca em tempo real todas as postagens reais do usuário
             try {
+                const { collection, query, where, onSnapshot } = await import("https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js");
+                
                 const q = query(
                     collection(db, "community_posts"),
                     where("authorId", "==", auth.currentUser.uid)
                 );
 
-                const snapshot = await getDocs(q);
-                userRealCreations = [];
+                profileUnsubscribe = onSnapshot(q, (snapshot) => {
+                    userRealCreations = [];
+                    snapshot.forEach(docSnap => {
+                        userRealCreations.push({ id: docSnap.id, ...docSnap.data() });
+                    });
 
-                snapshot.forEach(docSnap => {
-                    userRealCreations.push({ id: docSnap.id, ...docSnap.data() });
+                    // 3. Contadores Reais
+                    const publicPostsCount = userRealCreations.filter(p => !p.privacy || p.privacy === 'publico').length;
+                    const obrasCount = userRealCreations.filter(p => p.privacy === 'privado' || p.privacy === 'seguidores').length;
+                    const overviewCount = userRealCreations.length;
+
+                    // Atualiza os contadores na tela
+                    const elOverview = document.getElementById('countOverview');
+                    const elPosts = document.getElementById('countPosts');
+                    const elObras = document.getElementById('countObras');
+
+                    if (elOverview) elOverview.innerText = overviewCount;
+                    if (elPosts) elPosts.innerText = publicPostsCount;
+                    if (elObras) elObras.innerText = obrasCount;
+
+                    // 4. Renderiza as fotos (começa na Visão geral)
+                    filterProfileCreations('todos', document.getElementById('btnFilterOverview'));
                 });
-
-                // 3. Cálculo dos Contadores Reais (Sem simulação)
-                const publicPostsCount = userRealCreations.filter(p => p.privacy === 'publico').length;
-                const obrasCount = userRealCreations.filter(p => p.privacy === 'privado' || p.privacy === 'seguidores').length;
-                const overviewCount = userRealCreations.length;
-
-                document.getElementById('countOverview').innerText = overviewCount;
-                document.getElementById('countPosts').innerText = publicPostsCount;
-                document.getElementById('countObras').innerText = obrasCount;
-
-                // Renderiza o filtro padrão (Visão Geral)
-                filterProfileCreations('todos', document.getElementById('btnFilterOverview'));
             } catch (err) {
                 console.error("Erro ao carregar posts do perfil:", err);
             }
@@ -3298,15 +3313,17 @@ const fbProvider = new FacebookAuthProvider(); // <--- INSTANCIADO AQUI
             if (btnEl) btnEl.classList.add('active');
 
             let filtered = [];
+            const labelSection = document.getElementById('labelProfileSection');
+
             if (filterType === 'todos') {
                 filtered = userRealCreations;
-                document.getElementById('labelProfileSection').innerText = "Visão geral";
+                if (labelSection) labelSection.innerText = "Visão geral";
             } else if (filterType === 'publico') {
-                filtered = userRealCreations.filter(p => p.privacy === 'publico');
-                document.getElementById('labelProfileSection').innerText = "Post";
+                filtered = userRealCreations.filter(p => !p.privacy || p.privacy === 'publico');
+                if (labelSection) labelSection.innerText = "Post";
             } else if (filterType === 'obras') {
                 filtered = userRealCreations.filter(p => p.privacy === 'privado' || p.privacy === 'seguidores');
-                document.getElementById('labelProfileSection').innerText = "Obras";
+                if (labelSection) labelSection.innerText = "Obras";
             }
 
             renderProfileCards(filtered);
@@ -3739,7 +3756,7 @@ document.getElementById('btnAuthFacebook').onclick = async () => {
             if (profile.avatarUrl) {
                 uAvatarBox.innerHTML = `<img src="${profile.avatarUrl}" alt="Avatar">`;
             }
-            updateProfileViewUI(); // <--- Sincroniza a tela pessoal
+            updateProfileViewUI(); // Dispara o carregamento do perfil real
         }
         // ================= OBSERVAÇÃO DO FIREBASE AUTH =================
         const wrapHeaderLoggedOut = document.getElementById('wrapHeaderLoggedOut');
