@@ -1807,11 +1807,147 @@ nav.app-bottom-navbar {
     background: var(--purple-main);
 }
 
+/* Correção 1: Garantir que a barra de abas e pílulas NUNCA sejam engolidas */
+.feed-nav-sections-tabs {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    padding: 6px 16px 0;
+    overflow-x: auto;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    position: relative;
+    z-index: 10;
+    background: var(--bg-canvas);
+    flex-shrink: 0;
+}
+
 .feed-filter-chips-row {
     display: flex;
     gap: 8px;
-    padding: 10px 16px;
+    padding: 12px 16px;
     overflow-x: auto;
+    position: relative;
+    z-index: 10;
+    background: var(--bg-canvas);
+    margin-bottom: 8px; /* Espaço para não colar no grid */
+    flex-shrink: 0;
+}
+
+/* Correção 2: O item do feed NÃO tem fundo nem bordas globais */
+.main-feed-card {
+    background: transparent; /* Transparente: tira a caixa de card */
+    border: none;             /* Sem borda de container */
+    border-radius: 0;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 14px;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+}
+
+/* Apenas a IMAGEM tem bordas arredondadas e contorno suave */
+.main-feed-thumb-box {
+    position: relative;
+    width: 100%;
+    max-width: 100%;
+    border-radius: 12px;      /* Bordas arredondadas fiéis na foto */
+    overflow: hidden;
+    background: #12131a;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.main-feed-thumb-box.ratio-16-9 {
+    aspect-ratio: 16 / 9;
+}
+
+.main-feed-thumb-box.ratio-9-16 {
+    aspect-ratio: 9 / 16;
+}
+
+.main-feed-thumb-box img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+/* Dados do autor soltos ABAIXO da foto (sem divisão interna) */
+.main-feed-card-body {
+    padding: 6px 2px 0; /* Solto no fundo preto da página */
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    background: transparent;
+}
+
+.main-feed-post-title {
+    font-size: 11px;
+    font-weight: 600;
+    color: #e2e8f0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    line-height: 1.3;
+}
+
+.main-feed-author-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.main-feed-author-cluster {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    min-width: 0;
+}
+
+.main-feed-author-avatar {
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: #0f766e;
+    color: #fff;
+    font-size: 8px;
+    font-weight: 800;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    flex-shrink: 0;
+}
+
+.main-feed-author-avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.main-feed-author-name {
+    font-size: 11px;
+    color: var(--text-dim);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 75px;
+}
+
+.main-feed-like-action {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 11px;
+    color: var(--text-dim);
+    cursor: pointer;
+    background: none;
+    border: none;
+    padding: 0;
+}
+
+.main-feed-like-action:hover, .main-feed-like-action.liked {
+    color: var(--purple-main);
 }
 .feed-chip-btn {
     background: #141724;
@@ -1831,16 +1967,6 @@ nav.app-bottom-navbar {
 }
 
 /* (4) Cards da Grade Masonry com Proporções 16:9 / 9:16 e Bordas Redondas */
-.main-feed-card {
-    background: #141724;
-    border: 1px solid var(--border-subtle);
-    border-radius: 12px;
-    overflow: hidden;
-    display: flex;
-    flex-direction: column;
-    margin-bottom: 10px;
-    break-inside: avoid;
-}
 .main-feed-thumb-box {
     position: relative;
     width: 100%;
@@ -1851,12 +1977,6 @@ nav.app-bottom-navbar {
 }
 .main-feed-thumb-box.ratio-9-16 {
     aspect-ratio: 9 / 16;
-}
-.main-feed-thumb-box img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
 }
 .feed-video-badge-pill {
     position: absolute;
@@ -2088,22 +2208,24 @@ nav.app-bottom-navbar {
                 </div>
             </div>
 
-            <!-- (3) Abas de Conteúdo e Filtros Rápidos -->
-            <div class="feed-nav-sections-tabs">
-                <div class="feed-sec-tab">Apps de IA</div>
-                <div class="feed-sec-tab">Modelo</div>
-                <div class="feed-sec-tab active">Inspiração</div>
-                <div class="feed-sec-tab">Atividade</div>
+            <!-- (3) Abas de Conteúdo e Filtros Rápidos (Protegidas contra sobreposição) -->
+            <div style="width: 100%; position: relative; z-index: 5;">
+                <div class="feed-nav-sections-tabs">
+                    <div class="feed-sec-tab">Apps de IA</div>
+                    <div class="feed-sec-tab">Modelo</div>
+                    <div class="feed-sec-tab active">Inspiração</div>
+                    <div class="feed-sec-tab">Atividade</div>
+                </div>
+
+                <div class="feed-filter-chips-row">
+                    <button class="feed-chip-btn active" onclick="renderDynamicHomeFeed(null)">Recomendar</button>
+                    <button class="feed-chip-btn">Imagem</button>
+                    <button class="feed-chip-btn">Vídeo</button>
+                    <button class="feed-chip-btn">Modelos populares</button>
+                </div>
             </div>
 
-            <div class="feed-filter-chips-row">
-                <button class="feed-chip-btn active" onclick="renderDynamicHomeFeed(null)">Recomendar</button>
-                <button class="feed-chip-btn">Imagem</button>
-                <button class="feed-chip-btn">Vídeo</button>
-                <button class="feed-chip-btn">Modelos populares</button>
-            </div>
-
-            <!-- (4) Grade Dupla Masonry 100% Adaptada à Tela -->
+            <!-- (4) Grade Dupla Masonry com Imagens Arredondadas e Autores Soltos Abaixo -->
             <div class="masonry-layout">
                 <div class="masonry-column" id="colLeftHome"></div>
                 <div class="masonry-column" id="colRightHome"></div>
