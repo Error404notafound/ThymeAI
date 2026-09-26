@@ -3288,9 +3288,9 @@ nav.app-bottom-navbar {
                     <div class="tag-tab-item">Trabalhos relacionados</div>
                 </div>
 
-                <!-- Banner Hero da Tag -->
-                <div class="tag-hero-preview">
-                    <img id="tagPageHeroImg" src="" alt="Tag Principal">
+                <!-- Banner Hero da Tag (Forçado a 260px com foto completa) -->
+                <div class="tag-hero-preview" style="width: 100%; height: 260px !important; min-height: 260px !important; background: #000000 !important; display: flex !important; align-items: center !important; justify-content: center !important; overflow: hidden !important; position: relative !important;">
+                    <img id="tagPageHeroImg" src="" alt="Tag Principal" style="width: 100% !important; height: 100% !important; max-height: 260px !important; object-fit: contain !important; display: block !important;">
                 </div>
 
                 <!-- Bloco de Informações da Tag -->
@@ -4161,19 +4161,29 @@ const fbProvider = new FacebookAuthProvider(); // <--- INSTANCIADO AQUI
 
             const normalizedTargetTag = tagName.trim().toLowerCase();
 
-            // Imagem que deve ser exibida no topo
+            // Pega a URL da foto de capa
             const heroImageUrl = topPost.image || topPost.cover || "";
 
             document.getElementById('tagPageTitle').innerText = tagName;
             
-            // Força a imagem a aparecer no banner principal
+            // Força o container e a imagem a abrirem na tela
+            const heroContainer = document.querySelector('.tag-hero-preview');
+            if (heroContainer) {
+                heroContainer.style.display = 'flex';
+                heroContainer.style.height = '260px';
+                heroContainer.style.width = '100%';
+                heroContainer.style.background = '#000000';
+            }
+
             const heroImgEl = document.getElementById('tagPageHeroImg');
             if (heroImgEl) {
                 heroImgEl.src = heroImageUrl;
                 heroImgEl.style.display = 'block';
+                heroImgEl.style.width = '100%';
+                heroImgEl.style.height = '100%';
+                heroImgEl.style.objectFit = 'contain';
             }
 
-            // Miniatura do card
             const miniImgEl = document.getElementById('tagPageCardMiniImg');
             if (miniImgEl) {
                 miniImgEl.src = heroImageUrl;
@@ -4231,7 +4241,7 @@ const fbProvider = new FacebookAuthProvider(); // <--- INSTANCIADO AQUI
                         return pOrig === normalizedTargetTag || pTag === normalizedTargetTag || pTagsList.includes(normalizedTargetTag);
                     });
 
-                    // Caso a foto de capa principal esteja vazia, usa a foto da primeira postagem encontrada
+                    // Se a imagem de capa não tiver sido carregada, usa a foto do primeiro post
                     if (heroImgEl && (!heroImgEl.src || heroImgEl.src === window.location.href) && sameTagPosts.length > 0) {
                         heroImgEl.src = sameTagPosts[0].image;
                         if (miniImgEl) miniImgEl.src = sameTagPosts[0].image;
