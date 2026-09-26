@@ -2345,11 +2345,31 @@ nav.app-bottom-navbar {
 /* ================= PÁGINA COMPLETA DA TAG ORIGINAL (YUNYUN) ================= */
 .tag-page-viewport {
     background: #090a10;
+    width: 100%;
     min-height: 100%;
+    height: auto !important;
     display: flex;
     flex-direction: column;
-    padding-bottom: calc(var(--bottom-nav-h) + 70px);
+    padding-bottom: calc(var(--bottom-nav-h) + 140px) !important; /* Espaço de sobra para rolar até o final */
     position: relative;
+    box-sizing: border-box;
+    overflow: visible !important;
+}
+
+.btn-tag-dock-create {
+    flex: 1;
+    background: var(--purple-gradient);
+    border: none;
+    color: #fff;
+    padding: 10px;
+    border-radius: 10px;
+    font-size: 13px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    cursor: pointer;
 }
 
 .tag-page-header {
@@ -2634,21 +2654,6 @@ nav.app-bottom-navbar {
     cursor: pointer;
 }
 
-.btn-tag-dock-create {
-    flex: 1;
-    background: var(--purple-gradient);
-    border: none;
-    color: #fff;
-    padding: 10px;
-    border-radius: 10px;
-    font-size: 13px;
-    font-weight: 700;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 6px;
-    cursor: pointer;
-}
 .feed-chip-btn {
     background: #141724;
     border: 1px solid var(--border-subtle);
@@ -3252,7 +3257,17 @@ nav.app-bottom-navbar {
                         <div class="tag-author-thumb" id="tagPageAuthorAvatar">M</div>
                         <div class="tag-author-meta">
                             <span class="tag-author-name" id="tagPageAuthorName">MetalChromeX</span>
-                            <span class="tag-author-followers">👤 675 · 👁️ 78.3K</span>
+                            <div class="tag-author-followers" style="display:flex; align-items:center; gap:8px;">
+                                <span style="display:inline-flex; align-items:center; gap:3px;">
+                                    <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M22 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+                                    <span>675</span>
+                                </span>
+                                <span>·</span>
+                                <span style="display:inline-flex; align-items:center; gap:3px;">
+                                    <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"></path><circle cx="12" cy="12" r="3"></circle></svg>
+                                    <span>78.3K</span>
+                                </span>
+                            </div>
                         </div>
                     </div>
 
@@ -3339,14 +3354,20 @@ nav.app-bottom-navbar {
 
                 <div class="tag-end-divider">Não há mais conteúdo</div>
 
-                <!-- Barra Inferior Fixa da Página da Tag -->
+                <!-- Barra Inferior Fixa da Página da Tag com Varinha Mágica SVG -->
                 <div class="tag-page-bottom-dock">
                     <button class="btn-tag-dock-like" id="btnTagPageLike">
                         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"></path></svg>
                         <span id="tagPageBottomLikeCount">0</span>
                     </button>
                     <button class="btn-tag-dock-create" id="btnTagPageCreateDirect" onclick="document.getElementById('quickGenInput').value = document.getElementById('tagPageTitle').innerText; switchNav('viewHome', document.getElementById('tabHome'));">
-                        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 4-2 4 2 4 4-2-4-2z"></path><path d="m9 9-5 3 5 3 3-5-3-1z"></path><line x1="2" y1="2" x2="22" y2="22"></line></svg>
+                        <!-- SVG da Varinha Mágica Oficial do SeaArt -->
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="m15 4-2 4 2 4 4-2-4-2z"></path>
+                            <path d="M11.5 12.5 4 20"></path>
+                            <path d="m18 15 1.5 3 3 1.5-3 1.5L18 24l-1.5-3-3-1.5 3-1.5L18 15z"></path>
+                            <path d="M6 3 7.5 6 10.5 7.5 7.5 9 6 12 4.5 9 1.5 7.5 4.5 6 6 3z"></path>
+                        </svg>
                         <span>Criar</span>
                     </button>
                 </div>
@@ -4124,9 +4145,17 @@ const fbProvider = new FacebookAuthProvider(); // <--- INSTANCIADO AQUI
             }
         };
 
-        // 3. Abertura da Página Completa da Tag (Layout 1:1 com a Yunyun e Busca no Firestore)
+        let tagPageUnsubscribe = null;
+
+        // 3. Abertura da Página Completa da Tag (Layout 1:1 com a Yunyun e Sincronização em Tempo Real)
         window.openOriginalTagPage = async function(tagName, topPost) {
             switchNav('viewTagPage');
+
+            const viewTagPageEl = document.getElementById('viewTagPage');
+            if (viewTagPageEl) {
+                viewTagPageEl.style.overflowY = "scroll";
+                viewTagPageEl.scrollTo({ top: 0, behavior: 'smooth' });
+            }
 
             const normalizedTargetTag = tagName.trim().toLowerCase();
 
@@ -4149,73 +4178,74 @@ const fbProvider = new FacebookAuthProvider(); // <--- INSTANCIADO AQUI
                 tagsContainer.appendChild(pill);
             });
 
-            // Busca no Firestore todas as fotos da comunidade que tenham essa tag
-            let allPostsPool = [];
+            // Cancela ouvinte anterior para não vazar memória
+            if (tagPageUnsubscribe) tagPageUnsubscribe();
+
+            // Busca em TEMPO REAL (onSnapshot): os posts nunca mais somem da página!
             try {
-                const { collection, getDocs } = await import("https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js");
-                const snap = await getDocs(collection(db, "community_posts"));
-                snap.forEach(d => {
-                    allPostsPool.push({ id: d.id, ...d.data() });
+                const { collection, onSnapshot } = await import("https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js");
+                
+                tagPageUnsubscribe = onSnapshot(collection(db, "community_posts"), (snapshot) => {
+                    const allPostsPool = [];
+                    snapshot.forEach(d => {
+                        allPostsPool.push({ id: d.id, ...d.data() });
+                    });
+
+                    // Filtra insensível a maiúsculas (Macaco == macaco)
+                    const sameTagPosts = allPostsPool.filter(p => {
+                        const pOrig = (p.originalTag || "").trim().toLowerCase();
+                        const pTag = (p.tag || "").trim().toLowerCase();
+                        const pTagsList = (p.tags || []).map(t => String(t).trim().toLowerCase());
+
+                        return pOrig === normalizedTargetTag || pTag === normalizedTargetTag || pTagsList.includes(normalizedTargetTag);
+                    });
+
+                    // Algoritmo de Proximidade por Tags Simples
+                    const targetTags = (topPost.tags || []).map(t => String(t).trim().toLowerCase());
+
+                    sameTagPosts.sort((a, b) => {
+                        const aTags = (a.tags || []).map(t => String(t).trim().toLowerCase());
+                        const bTags = (b.tags || []).map(t => String(t).trim().toLowerCase());
+                        const aCommon = aTags.filter(t => targetTags.includes(t)).length;
+                        const bCommon = bTags.filter(t => targetTags.includes(t)).length;
+                        return bCommon - aCommon;
+                    });
+
+                    // Renderiza na grade dupla
+                    const leftCol = document.getElementById('tagRelatedColLeft');
+                    const rightCol = document.getElementById('tagRelatedColRight');
+                    if (!leftCol || !rightCol) return;
+                    leftCol.innerHTML = '';
+                    rightCol.innerHTML = '';
+
+                    sameTagPosts.forEach((post, idx) => {
+                        const card = document.createElement('div');
+                        card.className = 'main-feed-card';
+                        card.innerHTML = `
+                            <div class="main-feed-thumb-box ratio-9-16">
+                                <img src="${post.image}" alt="${post.title}" loading="lazy">
+                            </div>
+                            <div class="main-feed-card-body">
+                                <div class="main-feed-post-title">${post.title}</div>
+                                <div class="main-feed-author-row">
+                                    <div class="main-feed-author-cluster">
+                                        <div class="main-feed-author-avatar">${(post.author || "U")[0].toUpperCase()}</div>
+                                        <span class="main-feed-author-name">${post.author || "Criador"}</span>
+                                    </div>
+                                    <div class="post-likes-badge">
+                                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3zM7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"></path></svg>
+                                        <span>${post.likes || 0}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        `;
+                        if (idx % 2 === 0) leftCol.appendChild(card);
+                        else rightCol.appendChild(card);
+                    });
                 });
             } catch (err) {
-                allPostsPool = allGlobalPosts;
+                console.error("Erro ao sincronizar tag page:", err);
             }
-
-            if (allPostsPool.length === 0) allPostsPool = allGlobalPosts;
-
-            // Filtra aceitando:
-            // 1. Se a originalTag for igual (independente de maiúsculas)
-            // 2. OU se a tag simples estiver dentro do array 'tags' do post
-            // 3. OU se for igual ao campo 'tag'
-            const sameTagPosts = allPostsPool.filter(p => {
-                const pOrig = (p.originalTag || "").trim().toLowerCase();
-                const pTag = (p.tag || "").trim().toLowerCase();
-                const pTagsList = (p.tags || []).map(t => String(t).trim().toLowerCase());
-
-                return pOrig === normalizedTargetTag || pTag === normalizedTargetTag || pTagsList.includes(normalizedTargetTag);
-            });
-
-            // ALGORITMO DE PROXIMIDADE DAS TAGS SIMPLES:
-            const targetTags = (topPost.tags || []).map(t => String(t).trim().toLowerCase());
-
-            sameTagPosts.sort((a, b) => {
-                const aTags = (a.tags || []).map(t => String(t).trim().toLowerCase());
-                const bTags = (b.tags || []).map(t => String(t).trim().toLowerCase());
-                const aCommon = aTags.filter(t => targetTags.includes(t)).length;
-                const bCommon = bTags.filter(t => targetTags.includes(t)).length;
-                return bCommon - aCommon; // Posts com mais tags simples em comum ficam mais próximos
-            });
-
-            // Renderiza na grade dupla da página da tag
-            const leftCol = document.getElementById('tagRelatedColLeft');
-            const rightCol = document.getElementById('tagRelatedColRight');
-            leftCol.innerHTML = '';
-            rightCol.innerHTML = '';
-
-            sameTagPosts.forEach((post, idx) => {
-                const card = document.createElement('div');
-                card.className = 'main-feed-card';
-                card.innerHTML = `
-                    <div class="main-feed-thumb-box ratio-9-16">
-                        <img src="${post.image}" alt="${post.title}" loading="lazy">
-                    </div>
-                    <div class="main-feed-card-body">
-                        <div class="main-feed-post-title">${post.title}</div>
-                        <div class="main-feed-author-row">
-                            <div class="main-feed-author-cluster">
-                                <div class="main-feed-author-avatar">${(post.author || "U")[0].toUpperCase()}</div>
-                                <span class="main-feed-author-name">${post.author || "Criador"}</span>
-                            </div>
-                            <div class="post-likes-badge">
-                                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3zM7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"></path></svg>
-                                <span>${post.likes || 0}</span>
-                            </div>
-                        </div>
-                    </div>
-                `;
-                if (idx % 2 === 0) leftCol.appendChild(card);
-                else rightCol.appendChild(card);
-            });
         };
 
         // Filtra para abrir a "pasta" daquela tag
