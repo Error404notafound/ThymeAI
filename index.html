@@ -4161,9 +4161,24 @@ const fbProvider = new FacebookAuthProvider(); // <--- INSTANCIADO AQUI
 
             const normalizedTargetTag = tagName.trim().toLowerCase();
 
+            // Imagem que deve ser exibida no topo
+            const heroImageUrl = topPost.image || topPost.cover || "";
+
             document.getElementById('tagPageTitle').innerText = tagName;
-            document.getElementById('tagPageHeroImg').src = topPost.image || topPost.cover || "";
-            document.getElementById('tagPageCardMiniImg').src = topPost.image || topPost.cover || "";
+            
+            // Força a imagem a aparecer no banner principal
+            const heroImgEl = document.getElementById('tagPageHeroImg');
+            if (heroImgEl) {
+                heroImgEl.src = heroImageUrl;
+                heroImgEl.style.display = 'block';
+            }
+
+            // Miniatura do card
+            const miniImgEl = document.getElementById('tagPageCardMiniImg');
+            if (miniImgEl) {
+                miniImgEl.src = heroImageUrl;
+            }
+
             document.getElementById('tagPageAuthorName').innerText = topPost.author || "Criador";
             document.getElementById('tagPageLikes').innerText = topPost.likes || 0;
             document.getElementById('tagPageBottomLikeCount').innerText = topPost.likes || 0;
@@ -4215,6 +4230,12 @@ const fbProvider = new FacebookAuthProvider(); // <--- INSTANCIADO AQUI
 
                         return pOrig === normalizedTargetTag || pTag === normalizedTargetTag || pTagsList.includes(normalizedTargetTag);
                     });
+
+                    // Caso a foto de capa principal esteja vazia, usa a foto da primeira postagem encontrada
+                    if (heroImgEl && (!heroImgEl.src || heroImgEl.src === window.location.href) && sameTagPosts.length > 0) {
+                        heroImgEl.src = sameTagPosts[0].image;
+                        if (miniImgEl) miniImgEl.src = sameTagPosts[0].image;
+                    }
 
                     // Algoritmo de Proximidade por Tags Simples
                     const targetTags = (topPost.tags || []).map(t => String(t).trim().toLowerCase());
