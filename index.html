@@ -2781,39 +2781,46 @@ nav.app-bottom-navbar {
     box-sizing: border-box;
 }
 
-.post-detail-top-nav {
-    height: 48px;
-    background: #0e1017;
-    border-bottom: 1px solid var(--border-subtle);
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 0 12px;
-    position: sticky;
-    top: 0;
-    z-index: 50;
-}
-
-/* 1. Imagem Principal */
+/* 1. Imagem Principal Fiel à SeaArt (Com bordas arredondadas e botão flutuante) */
 .post-detail-image-stage {
-    width: 100%;
-    min-height: 340px;
-    max-height: 560px;
-    background: #000000;
     position: relative;
+    margin: 10px 10px 0;
+    border-radius: 16px;
     overflow: hidden;
-    display: block;
-    text-align: center;
+    background: #12141f;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.6);
 }
 
 .post-detail-image-stage img {
     width: 100%;
     height: auto;
-    min-height: 340px;
-    max-height: 560px;
-    object-fit: contain;
     display: block;
-    margin: 0 auto;
+    border-radius: 16px;
+    object-fit: cover;
+}
+
+/* Botão Voltar `<` Flutuante no Canto Superior Esquerdo da Foto */
+.btn-floating-post-back {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: rgba(0, 0, 0, 0.45);
+    backdrop-filter: blur(6px);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    color: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 20;
+    transition: background 0.2s ease;
+}
+
+.btn-floating-post-back:active {
+    background: rgba(0, 0, 0, 0.75);
 }
 
 /* 2. Barra do Autor */
@@ -3938,20 +3945,12 @@ nav.app-bottom-navbar {
         <section class="view-section" id="viewPostDetail">
             <div class="post-detail-viewport">
                 
-                <!-- Header Superior com Voltar e Busca -->
-                <div class="post-detail-top-nav">
-                    <button class="btn-icon-plain" id="btnBackFromPostDetail">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"></polyline></svg>
+                <!-- 1. Imagem Principal em Alta Proporção com Botão Voltar Flutuante -->
+                <div class="post-detail-image-stage">
+                    <button class="btn-floating-post-back" id="btnBackFromPostDetail" title="Voltar">
+                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
                     </button>
-                    <span style="font-size: 13px; font-weight: 700; color: #ffffff;">Detalhes da Obra</span>
-                    <button class="btn-icon-plain" id="btnPostDetailHeaderKebab">
-                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="1.5"></circle><circle cx="19" cy="12" r="1.5"></circle><circle cx="5" cy="12" r="1.5"></circle></svg>
-                    </button>
-                </div>
-
-                <!-- 1. Imagem Principal em Alta Proporção -->
-                <div class="post-detail-image-stage" style="width: 100%; min-height: 340px !important; max-height: 560px !important; background: #000000 !important; display: block !important; overflow: hidden !important;">
-                    <img id="postDetailMainImg" src="" alt="Obra de Arte" style="width: 100% !important; height: auto !important; min-height: 340px !important; max-height: 560px !important; object-fit: contain !important; display: block !important; margin: 0 auto !important;">
+                    <img id="postDetailMainImg" src="" alt="Obra de Arte">
                 </div>
 
                 <!-- 2. Barra do Autor (Circulado em Amarelo) -->
@@ -5101,14 +5100,14 @@ const fbProvider = new FacebookAuthProvider(); // <--- INSTANCIADO AQUI
                 viewEl.scrollTo({ top: 0, behavior: 'smooth' });
             }
 
-            // Foto principal
+            // Foto principal com proporção livre e sem corte
             const mainImg = document.getElementById('postDetailMainImg');
             if (mainImg) {
                 mainImg.src = post.image || "";
                 mainImg.style.display = 'block';
                 mainImg.style.width = '100%';
                 mainImg.style.height = 'auto';
-                mainImg.style.minHeight = '340px';
+                mainImg.style.borderRadius = '16px';
             }
 
             // Autor
