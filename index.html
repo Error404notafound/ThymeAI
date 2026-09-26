@@ -2797,20 +2797,23 @@ nav.app-bottom-navbar {
 /* 1. Imagem Principal */
 .post-detail-image-stage {
     width: 100%;
-    max-height: 520px;
+    min-height: 340px;
+    max-height: 560px;
     background: #000000;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    position: relative;
     overflow: hidden;
+    display: block;
+    text-align: center;
 }
 
 .post-detail-image-stage img {
     width: 100%;
     height: auto;
-    max-height: 520px;
+    min-height: 340px;
+    max-height: 560px;
     object-fit: contain;
     display: block;
+    margin: 0 auto;
 }
 
 /* 2. Barra do Autor */
@@ -3947,8 +3950,8 @@ nav.app-bottom-navbar {
                 </div>
 
                 <!-- 1. Imagem Principal em Alta Proporção -->
-                <div class="post-detail-image-stage">
-                    <img id="postDetailMainImg" src="" alt="Obra de Arte">
+                <div class="post-detail-image-stage" style="width: 100%; min-height: 340px !important; max-height: 560px !important; background: #000000 !important; display: block !important; overflow: hidden !important;">
+                    <img id="postDetailMainImg" src="" alt="Obra de Arte" style="width: 100% !important; height: auto !important; min-height: 340px !important; max-height: 560px !important; object-fit: contain !important; display: block !important; margin: 0 auto !important;">
                 </div>
 
                 <!-- 2. Barra do Autor (Circulado em Amarelo) -->
@@ -5100,7 +5103,13 @@ const fbProvider = new FacebookAuthProvider(); // <--- INSTANCIADO AQUI
 
             // Foto principal
             const mainImg = document.getElementById('postDetailMainImg');
-            if (mainImg) mainImg.src = post.image || "";
+            if (mainImg) {
+                mainImg.src = post.image || "";
+                mainImg.style.display = 'block';
+                mainImg.style.width = '100%';
+                mainImg.style.height = 'auto';
+                mainImg.style.minHeight = '340px';
+            }
 
             // Autor
             const authorName = post.author || "Criador";
