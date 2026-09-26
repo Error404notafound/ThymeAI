@@ -3944,12 +3944,9 @@ const fbProvider = new FacebookAuthProvider(); // <--- INSTANCIADO AQUI
         // ================= ALGORITMO DO FEED, TAGS E LIKES REAIS =================
         let preferredTag = localStorage.getItem('thyme_preferred_tag') || null;
 
-        // ================= GESTÃO DA TAG ORIGINAL E TAGS SIMPLES (PROXIMIDADE) =================
-        let allGlobalPosts = [];
-
         // ================= GESTÃO DA TAG ORIGINAL E TAGS SIMPLES =================
         let allGlobalPosts = [];
-        let modalCreatedSimpleTags = []; // Tags simples adicionadas dentro do modal
+        let modalCreatedSimpleTags = [];
 
         // Adicionar tag comum pelo botão [+] do modal
         const btnAddModalSimpleTag = document.getElementById('btnAddModalSimpleTag');
@@ -4065,6 +4062,14 @@ const fbProvider = new FacebookAuthProvider(); // <--- INSTANCIADO AQUI
             container.appendChild(createTagBtn);
         }
 
+        // 2. Modais de Criação de Tag
+        window.openCreateTagModal = function() {
+            document.getElementById('modalCreateTagBackdrop').classList.add('open');
+        };
+        window.closeCreateTagModal = function() {
+            document.getElementById('modalCreateTagBackdrop').classList.remove('open');
+        };
+
         // Salvar Tag Original no Firestore incluindo as Tags Simples
         document.getElementById('btnSubmitNewTag').onclick = async () => {
             if (!auth.currentUser) {
@@ -4089,7 +4094,7 @@ const fbProvider = new FacebookAuthProvider(); // <--- INSTANCIADO AQUI
                     name: tagName,
                     cover: tagCover,
                     description: tagDesc || "",
-                    simpleTags: modalCreatedSimpleTags, // Salva as tags comuns adicionadas
+                    simpleTags: modalCreatedSimpleTags,
                     author: currentUserProfile?.name || auth.currentUser.displayName || "Criador",
                     authorId: auth.currentUser.uid,
                     createdAt: serverTimestamp()
@@ -4101,84 +4106,6 @@ const fbProvider = new FacebookAuthProvider(); // <--- INSTANCIADO AQUI
                 document.getElementById('newOriginalTagDesc').value = '';
                 modalCreatedSimpleTags = [];
                 renderModalSimpleTags();
-
-                alert(`Tag Original "${tagName}" criada com sucesso!`);
-                renderDynamicHomeFeed(); // <--- Recarrega o carrossel imediatamente na tela
-            } catch (err) {
-                console.error("Erro ao salvar tag:", err);
-                alert("Erro ao criar tag: " + err.message);
-            }
-        };
-
-            // Cria os círculos com a foto mais curtida de cada Tag Original
-            Object.keys(tagGroups).forEach(tagName => {
-                const group = tagGroups[tagName];
-                group.sort((a, b) => (b.likes || 0) - (a.likes || 0));
-                const topPost = group[0];
-
-                const circleNode = document.createElement('div');
-                circleNode.className = 'circle-tag-node';
-                circleNode.onclick = () => openOriginalTagPage(tagName, topPost);
-
-                circleNode.innerHTML = `
-                    <div class="circle-tag-thumb">
-                        <img src="${topPost.image}" alt="${tagName}">
-                    </div>
-                    <span class="circle-tag-label">${tagName}</span>
-                `;
-                container.appendChild(circleNode);
-            });
-
-            // Adiciona o Botão Circular [+] Criar Tag ao final do carrossel
-            const createTagBtn = document.createElement('div');
-            createTagBtn.className = 'circle-tag-create-btn';
-            createTagBtn.onclick = () => openCreateTagModal();
-            createTagBtn.innerHTML = `
-                <div class="circle-tag-create-icon">+</div>
-                <span class="circle-tag-label">Criar</span>
-            `;
-            container.appendChild(createTagBtn);
-        }
-
-        // 2. Modais de Criação de Tag
-        window.openCreateTagModal = function() {
-            document.getElementById('modalCreateTagBackdrop').classList.add('open');
-        };
-        window.closeCreateTagModal = function() {
-            document.getElementById('modalCreateTagBackdrop').classList.remove('open');
-        };
-
-        // Salvar Tag Original no Firestore
-        document.getElementById('btnSubmitNewTag').onclick = async () => {
-            if (!auth.currentUser) {
-                alert("Faça login para registrar uma tag original!");
-                openLoginModal();
-                return;
-            }
-
-            const tagName = document.getElementById('newOriginalTagName').value.trim();
-            const tagCover = document.getElementById('newOriginalTagCover').value.trim();
-            const tagDesc = document.getElementById('newOriginalTagDesc').value.trim();
-
-            if (!tagName || !tagCover) {
-                alert("Por favor, preencha o nome da tag e o link da foto de capa!");
-                return;
-            }
-
-            try {
-                await addDoc(collection(db, "original_tags"), {
-                    name: tagName,
-                    cover: tagCover,
-                    description: tagDesc || "",
-                    author: currentUserProfile?.name || auth.currentUser.displayName || "Criador",
-                    authorId: auth.currentUser.uid,
-                    createdAt: serverTimestamp()
-                });
-
-                closeCreateTagModal();
-                document.getElementById('newOriginalTagName').value = '';
-                document.getElementById('newOriginalTagCover').value = '';
-                document.getElementById('newOriginalTagDesc').value = '';
 
                 alert(`Tag Original "${tagName}" criada com sucesso!`);
                 renderDynamicHomeFeed();
@@ -4212,8 +4139,6 @@ const fbProvider = new FacebookAuthProvider(); // <--- INSTANCIADO AQUI
             });
 
             // 4. ALGORITMO DE PROXIMIDADE DAS TAGS SIMPLES:
-            // Todas as fotos pertencem à mesma Tag Original (ex: Banana).
-            // A ordem abaixo calcula quem tem mais tags simples iguais à foto de topo!
             const sameTagPosts = allGlobalPosts.filter(p => {
                 const pOrig = p.originalTag || (p.tags && p.tags[0]) || p.tag;
                 return pOrig === tagName;
@@ -4224,7 +4149,7 @@ const fbProvider = new FacebookAuthProvider(); // <--- INSTANCIADO AQUI
             sameTagPosts.sort((a, b) => {
                 const aCommon = (a.tags || []).filter(t => targetTags.includes(t)).length;
                 const bCommon = (b.tags || []).filter(t => targetTags.includes(t)).length;
-                return bCommon - aCommon; // Obras com mais tags simples em comum vêm primeiro
+                return bCommon - aCommon;
             });
 
             // Renderiza na grade dupla da página da tag
