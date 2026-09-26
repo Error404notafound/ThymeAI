@@ -3291,10 +3291,19 @@ nav.app-bottom-navbar {
                                 <span>Tipo: <b>TAG</b></span>
                                 <span>Modelo básico: <b>Illustrious</b></span>
                             </div>
-                            <div class="tag-stats-indicators">
-                                <span>▶ <span id="tagPageViews">555</span></span>
-                                <span>❤️ <span id="tagPageLikes">74</span></span>
-                                <span>⬇️ 12</span>
+                            <div class="tag-stats-indicators" style="display:flex; align-items:center; gap:12px;">
+                                <span style="display:inline-flex; align-items:center; gap:3px;">
+                                    <svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+                                    <span id="tagPageViews">555</span>
+                                </span>
+                                <span style="display:inline-flex; align-items:center; gap:3px;">
+                                    <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"></path></svg>
+                                    <span id="tagPageLikes">0</span>
+                                </span>
+                                <span style="display:inline-flex; align-items:center; gap:3px;">
+                                    <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+                                    <span>12</span>
+                                </span>
                             </div>
                         </div>
                     </div>
@@ -3333,11 +3342,11 @@ nav.app-bottom-navbar {
                 <!-- Barra Inferior Fixa da Página da Tag -->
                 <div class="tag-page-bottom-dock">
                     <button class="btn-tag-dock-like" id="btnTagPageLike">
-                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"></path></svg>
-                        <span id="tagPageBottomLikeCount">74</span>
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"></path></svg>
+                        <span id="tagPageBottomLikeCount">0</span>
                     </button>
-                    <button class="btn-tag-dock-create" id="btnTagPageCreateDirect">
-                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                    <button class="btn-tag-dock-create" id="btnTagPageCreateDirect" onclick="document.getElementById('quickGenInput').value = document.getElementById('tagPageTitle').innerText; switchNav('viewHome', document.getElementById('tabHome'));">
+                        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 4-2 4 2 4 4-2-4-2z"></path><path d="m9 9-5 3 5 3 3-5-3-1z"></path><line x1="2" y1="2" x2="22" y2="22"></line></svg>
                         <span>Criar</span>
                     </button>
                 </div>
@@ -4115,13 +4124,15 @@ const fbProvider = new FacebookAuthProvider(); // <--- INSTANCIADO AQUI
             }
         };
 
-        // 3. Abertura da Página Completa da Tag (Layout 1:1 com a Yunyun)
-        window.openOriginalTagPage = function(tagName, topPost) {
+        // 3. Abertura da Página Completa da Tag (Layout 1:1 com a Yunyun e Busca no Firestore)
+        window.openOriginalTagPage = async function(tagName, topPost) {
             switchNav('viewTagPage');
 
+            const normalizedTargetTag = tagName.trim().toLowerCase();
+
             document.getElementById('tagPageTitle').innerText = tagName;
-            document.getElementById('tagPageHeroImg').src = topPost.image;
-            document.getElementById('tagPageCardMiniImg').src = topPost.image;
+            document.getElementById('tagPageHeroImg').src = topPost.image || topPost.cover || "";
+            document.getElementById('tagPageCardMiniImg').src = topPost.image || topPost.cover || "";
             document.getElementById('tagPageAuthorName').innerText = topPost.author || "Criador";
             document.getElementById('tagPageLikes').innerText = topPost.likes || 0;
             document.getElementById('tagPageBottomLikeCount').innerText = topPost.likes || 0;
@@ -4138,18 +4149,41 @@ const fbProvider = new FacebookAuthProvider(); // <--- INSTANCIADO AQUI
                 tagsContainer.appendChild(pill);
             });
 
-            // 4. ALGORITMO DE PROXIMIDADE DAS TAGS SIMPLES:
-            const sameTagPosts = allGlobalPosts.filter(p => {
-                const pOrig = p.originalTag || (p.tags && p.tags[0]) || p.tag;
-                return pOrig === tagName;
+            // Busca no Firestore todas as fotos da comunidade que tenham essa tag
+            let allPostsPool = [];
+            try {
+                const { collection, getDocs } = await import("https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js");
+                const snap = await getDocs(collection(db, "community_posts"));
+                snap.forEach(d => {
+                    allPostsPool.push({ id: d.id, ...d.data() });
+                });
+            } catch (err) {
+                allPostsPool = allGlobalPosts;
+            }
+
+            if (allPostsPool.length === 0) allPostsPool = allGlobalPosts;
+
+            // Filtra aceitando:
+            // 1. Se a originalTag for igual (independente de maiúsculas)
+            // 2. OU se a tag simples estiver dentro do array 'tags' do post
+            // 3. OU se for igual ao campo 'tag'
+            const sameTagPosts = allPostsPool.filter(p => {
+                const pOrig = (p.originalTag || "").trim().toLowerCase();
+                const pTag = (p.tag || "").trim().toLowerCase();
+                const pTagsList = (p.tags || []).map(t => String(t).trim().toLowerCase());
+
+                return pOrig === normalizedTargetTag || pTag === normalizedTargetTag || pTagsList.includes(normalizedTargetTag);
             });
 
-            const targetTags = topPost.tags || [];
+            // ALGORITMO DE PROXIMIDADE DAS TAGS SIMPLES:
+            const targetTags = (topPost.tags || []).map(t => String(t).trim().toLowerCase());
 
             sameTagPosts.sort((a, b) => {
-                const aCommon = (a.tags || []).filter(t => targetTags.includes(t)).length;
-                const bCommon = (b.tags || []).filter(t => targetTags.includes(t)).length;
-                return bCommon - aCommon;
+                const aTags = (a.tags || []).map(t => String(t).trim().toLowerCase());
+                const bTags = (b.tags || []).map(t => String(t).trim().toLowerCase());
+                const aCommon = aTags.filter(t => targetTags.includes(t)).length;
+                const bCommon = bTags.filter(t => targetTags.includes(t)).length;
+                return bCommon - aCommon; // Posts com mais tags simples em comum ficam mais próximos
             });
 
             // Renderiza na grade dupla da página da tag
@@ -4173,7 +4207,7 @@ const fbProvider = new FacebookAuthProvider(); // <--- INSTANCIADO AQUI
                                 <span class="main-feed-author-name">${post.author || "Criador"}</span>
                             </div>
                             <div class="post-likes-badge">
-                                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3zM7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"></path></svg>
+                                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3zM7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"></path></svg>
                                 <span>${post.likes || 0}</span>
                             </div>
                         </div>
