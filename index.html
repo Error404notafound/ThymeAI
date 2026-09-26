@@ -2765,6 +2765,560 @@ nav.app-bottom-navbar {
 .main-feed-like-action:hover, .main-feed-like-action.liked {
     color: var(--purple-main);
 }
+
+.main-feed-like-action:hover, .main-feed-like-action.liked {
+    color: var(--purple-main);
+}
+
+/* ================= VIEW DETALHES DO POST (SEAART 1:1) ================= */
+.post-detail-viewport {
+    background: #090a10;
+    width: 100%;
+    min-height: 100%;
+    padding-bottom: calc(var(--bottom-nav-h) + 120px);
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+}
+
+.post-detail-top-nav {
+    height: 48px;
+    background: #0e1017;
+    border-bottom: 1px solid var(--border-subtle);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 12px;
+    position: sticky;
+    top: 0;
+    z-index: 50;
+}
+
+/* 1. Imagem Principal */
+.post-detail-image-stage {
+    width: 100%;
+    max-height: 520px;
+    background: #000000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.post-detail-image-stage img {
+    width: 100%;
+    height: auto;
+    max-height: 520px;
+    object-fit: contain;
+    display: block;
+}
+
+/* 2. Barra do Autor */
+.post-detail-author-strip {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 16px;
+    background: #090a10;
+}
+
+.post-detail-author-left {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.post-detail-avatar-circle {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    background: #1e3a8a;
+    border: 2px solid #ef4444;
+    color: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 800;
+    font-size: 14px;
+    overflow: hidden;
+}
+
+.post-detail-avatar-circle img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.post-detail-author-name {
+    font-size: 14px;
+    font-weight: 700;
+    color: #ffffff;
+}
+
+.post-detail-btn-follow {
+    background: #1e2235;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    color: #ffffff;
+    font-size: 11px;
+    font-weight: 700;
+    padding: 5px 14px;
+    border-radius: 14px;
+    cursor: pointer;
+}
+
+/* 3. Informações de Criação */
+.post-detail-creation-card {
+    margin: 0 12px 14px;
+    background: #12141f;
+    border: 1px solid var(--border-subtle);
+    border-radius: 14px;
+    padding: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.post-detail-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 13px;
+    font-weight: 700;
+    color: #ffffff;
+}
+
+.btn-post-detail-badge-action {
+    background: #1c2032;
+    border: 1px solid var(--border-subtle);
+    color: #94a3b8;
+    padding: 3px 8px;
+    border-radius: 6px;
+    font-size: 10px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    cursor: pointer;
+}
+
+.post-detail-prompt-box {
+    background: #0d0e17;
+    border: 1px solid var(--border-subtle);
+    border-radius: 8px;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.post-detail-prompt-label {
+    font-size: 11px;
+    color: var(--text-dim);
+    font-weight: 600;
+}
+
+.post-detail-prompt-body {
+    font-size: 12px;
+    color: #cbd5e1;
+    line-height: 1.4;
+    max-height: 38px;
+    overflow: hidden;
+    transition: max-height 0.25s ease;
+}
+
+.post-detail-prompt-body.expanded {
+    max-height: 500px;
+}
+
+.post-detail-prompt-toggle {
+    font-size: 11px;
+    color: #38bdf8;
+    cursor: pointer;
+    font-weight: 700;
+    align-self: flex-end;
+}
+
+.post-detail-meta-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 6px;
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
+    padding-top: 8px;
+}
+
+.post-detail-meta-col {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.meta-label {
+    font-size: 10px;
+    color: var(--text-dim);
+}
+
+.meta-value {
+    font-size: 11px;
+    font-weight: 700;
+    color: #e2e8f0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.post-detail-lora-card {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: #0d0e17;
+    border: 1px solid var(--border-subtle);
+    border-radius: 8px;
+    padding: 6px 10px;
+}
+
+.post-detail-lora-thumb {
+    width: 32px;
+    height: 32px;
+    border-radius: 6px;
+    overflow: hidden;
+    flex-shrink: 0;
+}
+
+.post-detail-lora-thumb img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.post-detail-lora-info {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    min-width: 0;
+}
+
+.badge-lora-pill {
+    background: #701a75;
+    color: #f472b6;
+    font-size: 9px;
+    font-weight: 800;
+    padding: 1px 5px;
+    border-radius: 4px;
+    width: fit-content;
+}
+
+.post-detail-lora-title {
+    font-size: 11px;
+    font-weight: 600;
+    color: #cbd5e1;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* 4. Tags e Título */
+.post-detail-tags-section {
+    padding: 0 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.post-detail-work-title {
+    font-size: 16px;
+    font-weight: 800;
+    color: #ffffff;
+    line-height: 1.3;
+}
+
+.post-detail-simple-tags-wrap {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.post-detail-tag-pill {
+    color: #38bdf8;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.post-detail-comments-status {
+    font-size: 12px;
+    font-weight: 700;
+    color: #94a3b8;
+    margin-top: 10px;
+}
+
+.post-detail-empty-comments-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 24px 0;
+    color: var(--text-dim);
+    font-size: 12px;
+    font-weight: 600;
+}
+
+/* 5. Barra de Ações com SVGs */
+.post-detail-actions-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    padding: 10px 14px;
+    border-top: 1px solid var(--border-subtle);
+    border-bottom: 1px solid var(--border-subtle);
+    margin: 8px 0;
+}
+
+.post-detail-action-node {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 12px;
+    font-weight: 700;
+    color: #94a3b8;
+    cursor: pointer;
+}
+
+.post-detail-action-node:hover, .post-detail-action-node.active {
+    color: #ffffff;
+}
+
+/* 6. Campo de Comentário */
+.post-detail-comment-input-bar {
+    margin: 4px 16px 16px;
+    background: #141724;
+    border: 1px solid var(--border-subtle);
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    padding: 6px 12px;
+    gap: 8px;
+}
+
+.post-detail-comment-input-bar input {
+    flex: 1;
+    background: none;
+    border: none;
+    outline: none;
+    color: #ffffff;
+    font-size: 12px;
+    font-family: inherit;
+}
+
+.post-detail-comment-input-tools {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+/* 7. Área de Promoções */
+.post-detail-promo-section {
+    padding: 10px 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.post-detail-section-title {
+    font-size: 14px;
+    font-weight: 800;
+    color: #ffffff;
+}
+
+.post-detail-promo-scroll {
+    display: flex;
+    gap: 10px;
+    overflow-x: auto;
+    padding-bottom: 6px;
+}
+
+.post-detail-promo-card {
+    min-width: 140px;
+    width: 140px;
+    height: 190px;
+    border-radius: 12px;
+    overflow: hidden;
+    position: relative;
+    background: #12141f;
+    border: 1px solid var(--border-subtle);
+    flex-shrink: 0;
+}
+
+.post-detail-promo-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.promo-badge-tag {
+    position: absolute;
+    top: 6px;
+    left: 6px;
+    background: rgba(0, 0, 0, 0.65);
+    color: #e2e8f0;
+    font-size: 9px;
+    font-weight: 800;
+    padding: 2px 6px;
+    border-radius: 4px;
+}
+
+.promo-card-footer {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(180deg, transparent 0%, rgba(9, 10, 16, 0.95) 80%);
+    padding: 8px 6px;
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+}
+
+.promo-card-title {
+    font-size: 11px;
+    font-weight: 700;
+    color: #ffffff;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.promo-card-meta {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 9px;
+    color: var(--text-dim);
+}
+
+.promo-mini-author {
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: #0f766e;
+    color: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 8px;
+    font-weight: 800;
+}
+
+/* 8. Grid Híbrido: Tags na Esquerda + Fotos na Direita */
+.post-detail-related-section {
+    padding: 10px 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.post-detail-hybrid-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.post-detail-tags-sidebar {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.post-tag-banner-card {
+    width: 100%;
+    height: 76px;
+    border-radius: 10px;
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+    background: #141724;
+    border: 1px solid var(--border-subtle);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.post-tag-banner-card img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: brightness(0.5);
+}
+
+.post-tag-banner-card span {
+    position: relative;
+    z-index: 2;
+    font-size: 12px;
+    font-weight: 800;
+    color: #ffffff;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
+    text-align: center;
+    padding: 0 4px;
+}
+
+.post-detail-works-column {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+/* 9. Dock Inferior Flutuante */
+.post-detail-bottom-dock {
+    position: fixed;
+    bottom: var(--bottom-nav-h);
+    left: 0;
+    right: 0;
+    background: #0e1017;
+    border-top: 1px solid var(--border-subtle);
+    padding: 8px 12px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    z-index: 45;
+}
+
+.btn-dock-video-gen {
+    flex: 1;
+    background: #1c2032;
+    border: 1px solid var(--border-subtle);
+    color: #ffffff;
+    padding: 10px;
+    border-radius: 10px;
+    font-size: 12px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    cursor: pointer;
+}
+
+.btn-dock-remix {
+    flex: 1;
+    background: #06b6d4;
+    border: none;
+    color: #000000;
+    padding: 10px;
+    border-radius: 10px;
+    font-size: 12px;
+    font-weight: 800;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    cursor: pointer;
+}
     </style>
 </head>
 <body>
@@ -3371,6 +3925,230 @@ nav.app-bottom-navbar {
                             <path d="M6 3 7.5 6 10.5 7.5 7.5 9 6 12 4.5 9 1.5 7.5 4.5 6 6 3z"></path>
                         </svg>
                         <span>Criar</span>
+                    </button>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- ================= 5. VIEW DETALHES DO POST (ESTILO SEAART) ================= -->
+        <section class="view-section" id="viewPostDetail">
+            <div class="post-detail-viewport">
+                
+                <!-- Header Superior com Voltar e Busca -->
+                <div class="post-detail-top-nav">
+                    <button class="btn-icon-plain" id="btnBackFromPostDetail">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"></polyline></svg>
+                    </button>
+                    <span style="font-size: 13px; font-weight: 700; color: #ffffff;">Detalhes da Obra</span>
+                    <button class="btn-icon-plain" id="btnPostDetailHeaderKebab">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="1.5"></circle><circle cx="19" cy="12" r="1.5"></circle><circle cx="5" cy="12" r="1.5"></circle></svg>
+                    </button>
+                </div>
+
+                <!-- 1. Imagem Principal em Alta Proporção -->
+                <div class="post-detail-image-stage">
+                    <img id="postDetailMainImg" src="" alt="Obra de Arte">
+                </div>
+
+                <!-- 2. Barra do Autor (Circulado em Amarelo) -->
+                <div class="post-detail-author-strip">
+                    <div class="post-detail-author-left">
+                        <div class="post-detail-avatar-circle" id="postDetailAuthorAvatar">U</div>
+                        <span class="post-detail-author-name" id="postDetailAuthorName">Criador</span>
+                    </div>
+                    <button class="post-detail-btn-follow" id="btnFollowAuthor">+ Seguir</button>
+                </div>
+
+                <!-- 3. Informações de Criação (Circulado em Verde) -->
+                <div class="post-detail-creation-card">
+                    <div class="post-detail-card-header">
+                        <div style="display:flex; align-items:center; gap:5px;">
+                            <span>Informações de criação</span>
+                            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
+                        </div>
+                        <button class="btn-post-detail-badge-action">
+                            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"></rect><line x1="9" y1="3" x2="9" y2="21"></line></svg>
+                            <span>Registro</span>
+                        </button>
+                    </div>
+
+                    <!-- Caixa de Prompts com Desdobrar -->
+                    <div class="post-detail-prompt-box">
+                        <span class="post-detail-prompt-label">Prompts</span>
+                        <div class="post-detail-prompt-body" id="postDetailPromptText">
+                            Obra-prima, melhor qualidade, alta resolução, 8k, fotorrealista.
+                        </div>
+                        <span class="post-detail-prompt-toggle" id="btnTogglePromptExpand">Desdobrar</span>
+                    </div>
+
+                    <!-- Metadados em 4 Colunas -->
+                    <div class="post-detail-meta-grid">
+                        <div class="post-detail-meta-col">
+                            <span class="meta-label">Tamanho</span>
+                            <span class="meta-value" id="postDetailMetaSize">1024X1360</span>
+                        </div>
+                        <div class="post-detail-meta-col">
+                            <span class="meta-label">Data</span>
+                            <span class="meta-value" id="postDetailMetaDate">Hoje</span>
+                        </div>
+                        <div class="post-detail-meta-col">
+                            <span class="meta-label">Modo</span>
+                            <span class="meta-value" id="postDetailMetaMode">SDXL</span>
+                        </div>
+                        <div class="post-detail-meta-col">
+                            <span class="meta-label">Tipo</span>
+                            <span class="meta-value" id="postDetailMetaType">Txt2Img</span>
+                        </div>
+                    </div>
+
+                    <!-- Seção Checkpoint & LoRA -->
+                    <div style="font-size:11px; font-weight:700; color:var(--text-dim); margin-top:8px;">Checkpoint & LoRA</div>
+                    <div class="post-detail-lora-card">
+                        <div class="post-detail-lora-thumb">
+                            <img id="postDetailLoraThumb" src="https://picsum.photos/seed/lorathumb/100/100" alt="LoRA">
+                        </div>
+                        <div class="post-detail-lora-info">
+                            <span class="badge-lora-pill">LoRA</span>
+                            <span class="post-detail-lora-title" id="postDetailLoraName">CyberRealistic Negative - Pony v2.0</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 4. Tags e Título da Obra (Circulado em Laranja) -->
+                <div class="post-detail-tags-section">
+                    <h2 class="post-detail-work-title" id="postDetailTitleText">Título da Obra</h2>
+                    
+                    <!-- Pílulas de Tags Simples -->
+                    <div class="post-detail-simple-tags-wrap" id="postDetailTagsContainer"></div>
+
+                    <!-- Contador de Comentários e Estado Vazio -->
+                    <div class="post-detail-comments-status">
+                        <span id="postDetailCommentsCountLabel">0 comentário(s)</span>
+                    </div>
+
+                    <div class="post-detail-empty-comments-box">
+                        <svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="#475569" stroke-width="1.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="12" y1="18" x2="12" y2="12"></line><line x1="9" y1="15" x2="15" y2="15"></line></svg>
+                        <span>Seja o primeiro a comentar!</span>
+                    </div>
+                </div>
+
+                <!-- 5. Barra de Ações com SVGs (Joinha, Coração, Olho, Balão, Kebab e Compartilhar) -->
+                <div class="post-detail-actions-row">
+                    <div class="post-detail-action-node" id="btnActionLikePost">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3zM7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"></path></svg>
+                        <span id="postDetailLikesNum">0</span>
+                    </div>
+
+                    <div class="post-detail-action-node">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"></path></svg>
+                        <span>0</span>
+                    </div>
+
+                    <div class="post-detail-action-node">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"></path><circle cx="12" cy="12" r="3"></circle></svg>
+                        <span>1</span>
+                    </div>
+
+                    <div class="post-detail-action-node">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+                        <span>0</span>
+                    </div>
+
+                    <div class="post-detail-action-node">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="1.5"></circle><circle cx="19" cy="12" r="1.5"></circle><circle cx="5" cy="12" r="1.5"></circle></svg>
+                    </div>
+
+                    <!-- SVG de Compartilhar: Copia a URL do post -->
+                    <div class="post-detail-action-node" id="btnSharePostDetail" title="Copiar Link da Imagem">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"></path><polyline points="16 6 12 2 8 6"></polyline><line x1="12" y1="2" x2="12" y2="15"></line></svg>
+                    </div>
+                </div>
+
+                <!-- 6. Campo de Texto para Comentar -->
+                <div class="post-detail-comment-input-bar">
+                    <input type="text" id="inputPostComment" placeholder="Compartilhe seu comentário" autocomplete="off">
+                    <div class="post-detail-comment-input-tools">
+                        <button class="btn-icon-plain" style="color:var(--text-dim);" title="Carinhas">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><path d="M8 14s1.5 2 4 2 4-2 4-2"></path><line x1="9" y1="9" x2="9.01" y2="9"></line><line x1="15" y1="9" x2="15.01" y2="9"></line></svg>
+                        </button>
+                        <button class="btn-icon-plain" style="color:var(--text-dim);" title="Enviar Foto">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"></rect><circle cx="8.5" cy="8.5" r="1.5"></circle><polyline points="21 15 16 10 5 21"></polyline></svg>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- 7. Área de Promoções (Circulado em Cinza Claro - Mockup de Grupos) -->
+                <div class="post-detail-promo-section">
+                    <span class="post-detail-section-title">Área de promoções</span>
+                    <div class="post-detail-promo-scroll" id="postDetailPromoCardsRow">
+                        
+                        <div class="post-detail-promo-card">
+                            <div class="promo-badge-tag">APP | Image Removal</div>
+                            <img src="https://picsum.photos/seed/promocar1/250/350" alt="Promo">
+                            <div class="promo-card-footer">
+                                <span class="promo-card-title">Removedor de o...</span>
+                                <div class="promo-card-meta">
+                                    <div class="promo-mini-author">S</div>
+                                    <span>▷ 1.8M</span>
+                                    <span>♡ 1.2K</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="post-detail-promo-card">
+                            <div class="promo-badge-tag">APP | Image</div>
+                            <img src="https://picsum.photos/seed/promogirls/250/350" alt="Promo">
+                            <div class="promo-card-footer">
+                                <span class="promo-card-title">Anime para reali...</span>
+                                <div class="promo-card-meta">
+                                    <div class="promo-mini-author">D</div>
+                                    <span>▷ 1.1M</span>
+                                    <span>♡ 9.0K</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="post-detail-promo-card">
+                            <div class="promo-badge-tag">APP | Expand</div>
+                            <img src="https://picsum.photos/seed/promoexpand/250/350" alt="Promo">
+                            <div class="promo-card-footer">
+                                <span class="promo-card-title">Expansão de Foto</span>
+                                <div class="promo-card-meta">
+                                    <div class="promo-mini-author">S</div>
+                                    <span>▷ 950K</span>
+                                    <span>♡ 4.8K</span>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- 8. Recomendações Relacionadas (Coluna Esquerda de Tags Originais + Coluna Direita de Fotos) -->
+                <div class="post-detail-related-section">
+                    <span class="post-detail-section-title">Recomendações relacionadas</span>
+
+                    <div class="post-detail-hybrid-grid">
+                        
+                        <!-- Coluna da Esquerda: Banners com Fotos das Tags Originais (Circuladas em Branco) -->
+                        <div class="post-detail-tags-sidebar" id="postDetailLeftTagCards"></div>
+
+                        <!-- Coluna da Direita: Fotos Recomendadas com Similaridade de Tags (Circuladas em Vermelho) -->
+                        <div class="post-detail-works-column" id="postDetailRightWorksColumn"></div>
+
+                    </div>
+                </div>
+
+                <!-- 9. Dock Inferior Flutuante Oficial (Geração de Vídeos + Remix) -->
+                <div class="post-detail-bottom-dock">
+                    <button class="btn-dock-video-gen" onclick="alert('Geração de vídeos iniciada a partir deste post!')">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="23 7 16 12 23 17 23 7"></polygon><rect x="1" y="5" width="15" height="14" rx="2" ry="2"></rect></svg>
+                        <span>Geração de vídeos</span>
+                    </button>
+                    <button class="btn-dock-remix" id="btnDockRemixAction">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m15 4-2 4 2 4 4-2-4-2z"></path><path d="M11.5 12.5 4 20"></path><path d="m18 15 1.5 3 3 1.5-3 1.5L18 24l-1.5-3-3-1.5 3-1.5L18 15z"></path></svg>
+                        <span>Remix</span>
                     </button>
                 </div>
 
@@ -4273,6 +5051,11 @@ const fbProvider = new FacebookAuthProvider(); // <--- INSTANCIADO AQUI
                     sameTagPosts.forEach((post, idx) => {
                         const card = document.createElement('div');
                         card.className = 'main-feed-card';
+                        card.style.cursor = 'pointer';
+
+                        // Ao clicar na foto dentro da Tag Original, abre a página de detalhes da foto
+                        card.onclick = () => openPostDetail(post);
+
                         card.innerHTML = `
                             <div class="main-feed-thumb-box ratio-9-16">
                                 <img src="${post.image}" alt="${post.title}" loading="lazy">
@@ -4285,7 +5068,7 @@ const fbProvider = new FacebookAuthProvider(); // <--- INSTANCIADO AQUI
                                         <span class="main-feed-author-name">${post.author || "Criador"}</span>
                                     </div>
                                     <div class="post-likes-badge">
-                                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3zM7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"></path></svg>
+                                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3zM7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"></path></svg>
                                         <span>${post.likes || 0}</span>
                                     </div>
                                 </div>
@@ -4299,6 +5082,155 @@ const fbProvider = new FacebookAuthProvider(); // <--- INSTANCIADO AQUI
                 });
             } catch (err) {
                 console.error("Erro ao sincronizar tag page:", err);
+            }
+        };
+
+        // ================= FLUXO DA PÁGINA DE DETALHES DO POST (ESTILO SEAART) =================
+        let currentViewingPost = null;
+
+        // 1. Função que abre a página de detalhes da foto
+        window.openPostDetail = function(post) {
+            currentViewingPost = post;
+            switchNav('viewPostDetail');
+
+            const viewEl = document.getElementById('viewPostDetail');
+            if (viewEl) {
+                viewEl.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+
+            // Foto principal
+            const mainImg = document.getElementById('postDetailMainImg');
+            if (mainImg) mainImg.src = post.image || "";
+
+            // Autor
+            const authorName = post.author || "Criador";
+            document.getElementById('postDetailAuthorName').innerText = authorName;
+            
+            const avatarBox = document.getElementById('postDetailAuthorAvatar');
+            if (post.authorAvatar) {
+                avatarBox.innerHTML = `<img src="${post.authorAvatar}" alt="Avatar">`;
+            } else {
+                avatarBox.innerText = authorName[0].toUpperCase();
+            }
+
+            // Prompts e desdobrar
+            const promptText = post.prompt || post.title || "Obra-prima, melhor qualidade, recorte de decote muito estético, iluminação suave, 8k.";
+            const promptEl = document.getElementById('postDetailPromptText');
+            promptEl.innerText = promptText;
+            promptEl.classList.remove('expanded');
+            document.getElementById('btnTogglePromptExpand').innerText = "Desdobrar";
+
+            // Metadados
+            document.getElementById('postDetailMetaSize').innerText = post.dimensions || "1024X1360";
+            document.getElementById('postDetailMetaMode').innerText = post.mode || "SDXL";
+            document.getElementById('postDetailMetaType').innerText = post.videoUrl ? "Vídeo" : "cell";
+            
+            let dateStr = "Hoje";
+            if (post.createdAt) {
+                dateStr = post.createdAt.toDate ? post.createdAt.toDate().toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }) : String(post.createdAt).slice(0, 10);
+            }
+            document.getElementById('postDetailMetaDate').innerText = dateStr;
+
+            // Título e Likes
+            document.getElementById('postDetailTitleText').innerText = post.title || "Sem título";
+            document.getElementById('postDetailLikesNum').innerText = post.likes || 0;
+
+            // Renderizar as Tags Simples clicáveis (#Personagem, #Anime...)
+            const tagsBox = document.getElementById('postDetailTagsContainer');
+            tagsBox.innerHTML = '';
+            const tagsList = post.tags && post.tags.length > 0 ? post.tags : (post.tag ? [post.tag] : ["Anime", "Personagem", "Arte"]);
+            
+            tagsList.forEach(t => {
+                const tagLink = document.createElement('a');
+                tagLink.className = 'post-detail-tag-pill';
+                tagLink.innerText = `#${t}`;
+                tagLink.onclick = () => openOriginalTagPage(t, { image: post.image, author: post.author, likes: post.likes, tags: tagsList });
+                tagsBox.appendChild(tagLink);
+            });
+
+            // 2. Coluna da Esquerda: Banners das Tags Originais da foto (Circuladas em Branco)
+            const leftTagCol = document.getElementById('postDetailLeftTagCards');
+            leftTagCol.innerHTML = '';
+
+            tagsList.forEach(tagName => {
+                const tagCard = document.createElement('div');
+                tagCard.className = 'post-tag-banner-card';
+                tagCard.onclick = () => openOriginalTagPage(tagName, { image: post.image, author: post.author, likes: post.likes, tags: tagsList });
+                tagCard.innerHTML = `
+                    <img src="${post.image}" alt="${tagName}">
+                    <span>${tagName}</span>
+                `;
+                leftTagCol.appendChild(tagCard);
+            });
+
+            // 3. Coluna da Direita: Obras com tags parecidas (Circuladas em Vermelho)
+            const rightWorksCol = document.getElementById('postDetailRightWorksColumn');
+            rightWorksCol.innerHTML = '';
+
+            const relatedPool = allGlobalPosts.filter(p => p.id !== post.id);
+            relatedPool.slice(0, 4).forEach(relPost => {
+                const card = document.createElement('div');
+                card.className = 'main-feed-card';
+                card.style.cursor = 'pointer';
+                card.onclick = () => openPostDetail(relPost);
+                card.innerHTML = `
+                    <div class="main-feed-thumb-box ratio-9-16">
+                        <img src="${relPost.image}" alt="${relPost.title}" loading="lazy">
+                    </div>
+                    <div class="main-feed-card-body">
+                        <div class="main-feed-post-title">${relPost.title}</div>
+                        <div class="main-feed-author-row">
+                            <div class="main-feed-author-cluster">
+                                <div class="main-feed-author-avatar">${(relPost.author || "U")[0].toUpperCase()}</div>
+                                <span class="main-feed-author-name">${relPost.author || "Criador"}</span>
+                            </div>
+                            <div class="post-likes-badge">
+                                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3zM7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"></path></svg>
+                                <span>${relPost.likes || 0}</span>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                rightWorksCol.appendChild(card);
+            });
+        };
+
+        // Botão Voltar da tela de detalhes (Retorna para a Tag Original)
+        document.getElementById('btnBackFromPostDetail').onclick = () => {
+            switchNav('viewTagPage');
+        };
+
+        // Botão Desdobrar/Recolher Prompts
+        document.getElementById('btnTogglePromptExpand').onclick = function() {
+            const promptBox = document.getElementById('postDetailPromptText');
+            const isExp = promptBox.classList.toggle('expanded');
+            this.innerText = isExp ? "Recolher" : "Desdobrar";
+        };
+
+        // Botão Compartilhar: Copia a URL exata do post
+        document.getElementById('btnSharePostDetail').onclick = function() {
+            if (currentViewingPost && currentViewingPost.image) {
+                navigator.clipboard.writeText(currentViewingPost.image);
+                alert("Link da imagem copiado com sucesso para a área de transferência!");
+            }
+        };
+
+        // Curtir na tela de detalhes
+        document.getElementById('btnActionLikePost').onclick = function() {
+            if (currentViewingPost) {
+                const countSpan = document.getElementById('postDetailLikesNum');
+                let count = parseInt(countSpan.innerText) || 0;
+                count++;
+                countSpan.innerText = count;
+                this.classList.add('active');
+            }
+        };
+
+        // Botão Remix do Dock
+        document.getElementById('btnDockRemixAction').onclick = function() {
+            if (currentViewingPost) {
+                document.getElementById('quickGenInput').value = currentViewingPost.prompt || currentViewingPost.title;
+                switchNav('viewHome', document.getElementById('tabHome'));
             }
         };
 
