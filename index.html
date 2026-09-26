@@ -2781,22 +2781,30 @@ nav.app-bottom-navbar {
     box-sizing: border-box;
 }
 
-/* 1. Imagem Principal Fiel à SeaArt (Com bordas arredondadas e botão flutuante) */
+/* 1. Imagem Principal Fiel à SeaArt (Sem cortar a foto e com bordas arredondadas) */
 .post-detail-image-stage {
     position: relative;
-    margin: 10px 10px 0;
+    margin: 10px 12px 6px;
     border-radius: 16px;
     overflow: hidden;
-    background: #12141f;
+    background: #000000;
+    min-height: 380px;
+    max-height: 75vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.6);
 }
 
 .post-detail-image-stage img {
     width: 100%;
     height: auto;
+    min-height: 380px;
+    max-height: 75vh;
+    object-fit: contain;
     display: block;
     border-radius: 16px;
-    object-fit: cover;
+    margin: 0 auto;
 }
 
 /* Botão Voltar `<` Flutuante no Canto Superior Esquerdo da Foto */
@@ -2807,20 +2815,21 @@ nav.app-bottom-navbar {
     width: 36px;
     height: 36px;
     border-radius: 50%;
-    background: rgba(0, 0, 0, 0.45);
-    backdrop-filter: blur(6px);
-    border: 1px solid rgba(255, 255, 255, 0.15);
+    background: rgba(0, 0, 0, 0.55);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
     color: #ffffff;
     display: flex;
     align-items: center;
     justify-content: center;
     cursor: pointer;
-    z-index: 20;
+    z-index: 30;
     transition: background 0.2s ease;
 }
 
 .btn-floating-post-back:active {
-    background: rgba(0, 0, 0, 0.75);
+    background: rgba(0, 0, 0, 0.85);
 }
 
 /* 2. Barra do Autor */
@@ -3946,11 +3955,11 @@ nav.app-bottom-navbar {
             <div class="post-detail-viewport">
                 
                 <!-- 1. Imagem Principal em Alta Proporção com Botão Voltar Flutuante -->
-                <div class="post-detail-image-stage">
+                <div class="post-detail-image-stage" style="position: relative !important; margin: 10px 12px 6px !important; border-radius: 16px !important; overflow: hidden !important; background: #000000 !important; min-height: 380px !important; max-height: 75vh !important; display: flex !important; align-items: center !important; justify-content: center !important; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.6) !important;">
                     <button class="btn-floating-post-back" id="btnBackFromPostDetail" title="Voltar">
                         <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
                     </button>
-                    <img id="postDetailMainImg" src="" alt="Obra de Arte">
+                    <img id="postDetailMainImg" src="" alt="Obra de Arte" style="width: 100% !important; height: auto !important; min-height: 380px !important; max-height: 75vh !important; object-fit: contain !important; display: block !important; border-radius: 16px !important; margin: 0 auto !important;">
                 </div>
 
                 <!-- 2. Barra do Autor (Circulado em Amarelo) -->
@@ -5100,14 +5109,24 @@ const fbProvider = new FacebookAuthProvider(); // <--- INSTANCIADO AQUI
                 viewEl.scrollTo({ top: 0, behavior: 'smooth' });
             }
 
-            // Foto principal com proporção livre e sem corte
+            // Foto principal sem corte, com bordas arredondadas e trava de altura
             const mainImg = document.getElementById('postDetailMainImg');
             if (mainImg) {
                 mainImg.src = post.image || "";
                 mainImg.style.display = 'block';
                 mainImg.style.width = '100%';
                 mainImg.style.height = 'auto';
+                mainImg.style.minHeight = '380px';
+                mainImg.style.maxHeight = '75vh';
+                mainImg.style.objectFit = 'contain';
                 mainImg.style.borderRadius = '16px';
+            }
+
+            // Garante que o container permaneça aberto
+            const stageContainer = document.querySelector('.post-detail-image-stage');
+            if (stageContainer) {
+                stageContainer.style.display = 'flex';
+                stageContainer.style.minHeight = '380px';
             }
 
             // Autor
