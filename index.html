@@ -2228,6 +2228,7 @@ nav.app-bottom-navbar {
     flex-shrink: 0;
 }
 
+/* Botão [+] Perfeitamente Centralizado */
 .circle-tag-create-icon {
     width: 52px;
     height: 52px;
@@ -2238,9 +2239,33 @@ nav.app-bottom-navbar {
     align-items: center;
     justify-content: center;
     color: var(--purple-main);
-    font-size: 26px;
-    font-weight: 700;
+    font-size: 28px;
+    font-weight: 400;
+    line-height: 0; /* <--- Remove a altura de linha que empurrava o '+' para fora do centro */
+    padding-bottom: 2px;
     transition: all 0.2s ease;
+    box-sizing: border-box;
+}
+
+/* Área de Tags Simples dentro do Modal de Criação */
+.modal-simple-tags-box {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    max-height: 80px;
+    overflow-y: auto;
+}
+
+.modal-simple-tag-chip {
+    background: rgba(139, 92, 246, 0.2);
+    border: 1px solid rgba(139, 92, 246, 0.4);
+    color: #ddd6fe;
+    font-size: 11px;
+    padding: 3px 8px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    gap: 4px;
 }
 
 .circle-tag-create-btn:hover .circle-tag-create-icon {
@@ -3327,9 +3352,25 @@ nav.app-bottom-navbar {
                     <span class="tag-create-title">Criar Nova Tag Original</span>
                     <button class="btn-icon-plain" onclick="closeCreateTagModal()">✕</button>
                 </div>
-                <input type="text" class="tag-create-field" id="newOriginalTagName" placeholder="Nome do Objeto Central (Ex: Banana, Macaco, Yunyun)...">
+                
+                <!-- 1. Nome do Objeto Central (Tag Original) -->
+                <input type="text" class="tag-create-field" id="newOriginalTagName" placeholder="Nome do Objeto Central (Ex: Banana, Macaco)...">
+                
+                <!-- 2. Foto de Capa da Tag -->
                 <input type="url" class="tag-create-field" id="newOriginalTagCover" placeholder="Link da Foto de Capa (URL direta: https://...)">
+                
+                <!-- 3. Descrição -->
                 <input type="text" class="tag-create-field" id="newOriginalTagDesc" placeholder="Descrição da Tag (Opcional)...">
+                
+                <!-- 4. Campo de Tags Comuns com Botão [+] Roxo -->
+                <div style="display:flex; gap:6px;">
+                    <input type="text" class="tag-create-field" id="inputModalSimpleTag" placeholder="Adicionar tag comum (Ex: floresta, filhote)..." style="flex:1;">
+                    <button type="button" id="btnAddModalSimpleTag" style="width:38px; background:var(--purple-main); border:none; border-radius:8px; color:#fff; font-size:20px; font-weight:700; cursor:pointer; display:flex; align-items:center; justify-content:center; flex-shrink:0;">+</button>
+                </div>
+
+                <!-- Chips das tags simples adicionadas -->
+                <div class="modal-simple-tags-box" id="modalSimpleTagsContainer"></div>
+
                 <button class="btn-tag-publish-submit" id="btnSubmitNewTag">Criar e Publicar Tag</button>
             </div>
         </div>
@@ -3907,40 +3948,115 @@ const fbProvider = new FacebookAuthProvider(); // <--- INSTANCIADO AQUI
         let allGlobalPosts = [];
 
         // 1. Renderiza o carrossel circular com a foto mais curtida de cada tag + Botão [+] Criar Tag
-        function renderRecentTagsCircles(posts) {
+        // ================= GESTÃO DA TAG ORIGINAL E TAGS SIMPLES =================
+        let allGlobalPosts = [];
+        let modalCreatedSimpleTags = []; // Tags simples adicionadas no modal
+
+        // Adicionar tag comum pelo botão [+] do modal
+        const btnAddModalSimpleTag = document.getElementById('btnAddModalSimpleTag');
+        const inputModalSimpleTag = document.getElementById('inputModalSimpleTag');
+        const modalSimpleTagsContainer = document.getElementById('modalSimpleTagsContainer');
+
+        if (btnAddModalSimpleTag) {
+            btnAddModalSimpleTag.onclick = () => {
+                const val = inputModalSimpleTag.value.trim().replace(/^#/, '');
+                if (!val) return;
+                if (!modalCreatedSimpleTags.includes(val)) {
+                    modalCreatedSimpleTags.push(val);
+                    renderModalSimpleTags();
+                }
+                inputModalSimpleTag.value = '';
+                inputModalSimpleTag.focus();
+            };
+        }
+
+        function renderModalSimpleTags() {
+            if (!modalSimpleTagsContainer) return;
+            modalSimpleTagsContainer.innerHTML = '';
+            modalCreatedSimpleTags.forEach((t, i) => {
+                const chip = document.createElement('span');
+                chip.className = 'modal-simple-tag-chip';
+                chip.innerHTML = `<span>#${t}</span><span style="cursor:pointer; font-weight:800; color:#f87171;" onclick="removeModalSimpleTag(${i})">×</span>`;
+                modalSimpleTagsContainer.appendChild(chip);
+            });
+        }
+
+        window.removeModalSimpleTag = function(idx) {
+            modalCreatedSimpleTags.splice(idx, 1);
+            renderModalSimpleTags();
+        };
+
+        // 1. Renderiza o carrossel circular buscando TANTO as tags criadas no banco quanto as tags de posts
+        async function renderRecentTagsCircles(posts) {
             const container = document.getElementById('recentTagsContainer');
             if (!container) return;
             container.innerHTML = '';
             allGlobalPosts = posts;
 
-            // Agrupa as fotos pela Tag Original
             const tagGroups = {};
+
+            // A. Busca as Tags Originais salvas no Firestore na coleção original_tags
+            try {
+                const { collection, getDocs } = await import("https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js");
+                const tagSnap = await getDocs(collection(db, "original_tags"));
+                
+                tagSnap.forEach(tDoc => {
+                    const tData = tDoc.data();
+                    if (!tagGroups[tData.name]) {
+                        tagGroups[tData.name] = {
+                            name: tData.name,
+                            cover: tData.cover,
+                            author: tData.author || "Criador",
+                            likes: 0,
+                            tags: tData.simpleTags || []
+                        };
+                    }
+                });
+            } catch (err) {
+                console.warn("Aviso ao buscar original_tags:", err.message);
+            }
+
+            // B. Pega as tags dos posts e calcula a foto mais curtida de cada uma
             posts.forEach(p => {
                 const origTag = p.originalTag || (p.tags && p.tags.length > 0 ? p.tags[0] : (p.tag || "Geral"));
-                if (!tagGroups[origTag]) tagGroups[origTag] = [];
-                tagGroups[origTag].push(p);
+                if (!tagGroups[origTag]) {
+                    tagGroups[origTag] = {
+                        name: origTag,
+                        cover: p.image,
+                        author: p.author || "Criador",
+                        likes: p.likes || 0,
+                        tags: p.tags || []
+                    };
+                } else if ((p.likes || 0) > tagGroups[origTag].likes) {
+                    // Substitui pela foto com mais curtidas daquela pasta
+                    tagGroups[origTag].cover = p.image;
+                    tagGroups[origTag].likes = p.likes;
+                }
             });
 
-            // Cria os círculos com a foto mais curtida de cada Tag Original
+            // Cria os círculos na tela com o nome e a foto
             Object.keys(tagGroups).forEach(tagName => {
-                const group = tagGroups[tagName];
-                group.sort((a, b) => (b.likes || 0) - (a.likes || 0));
-                const topPost = group[0];
+                const tagData = tagGroups[tagName];
 
                 const circleNode = document.createElement('div');
                 circleNode.className = 'circle-tag-node';
-                circleNode.onclick = () => openOriginalTagPage(tagName, topPost);
+                circleNode.onclick = () => openOriginalTagPage(tagName, {
+                    image: tagData.cover,
+                    author: tagData.author,
+                    likes: tagData.likes,
+                    tags: tagData.tags
+                });
 
                 circleNode.innerHTML = `
                     <div class="circle-tag-thumb">
-                        <img src="${topPost.image}" alt="${tagName}">
+                        <img src="${tagData.cover}" alt="${tagName}">
                     </div>
                     <span class="circle-tag-label">${tagName}</span>
                 `;
                 container.appendChild(circleNode);
             });
 
-            // Adiciona o Botão Circular [+] Criar Tag ao final do carrossel
+            // Adiciona o Botão Circular [+] Criar Tag com o '+' perfeitamente centralizado
             const createTagBtn = document.createElement('div');
             createTagBtn.className = 'circle-tag-create-btn';
             createTagBtn.onclick = () => openCreateTagModal();
@@ -3951,15 +4067,7 @@ const fbProvider = new FacebookAuthProvider(); // <--- INSTANCIADO AQUI
             container.appendChild(createTagBtn);
         }
 
-        // 2. Modais de Criação de Tag
-        window.openCreateTagModal = function() {
-            document.getElementById('modalCreateTagBackdrop').classList.add('open');
-        };
-        window.closeCreateTagModal = function() {
-            document.getElementById('modalCreateTagBackdrop').classList.remove('open');
-        };
-
-        // Salvar Tag Original no Firestore
+        // Salvar Tag Original no Firestore incluindo as Tags Simples
         document.getElementById('btnSubmitNewTag').onclick = async () => {
             if (!auth.currentUser) {
                 alert("Faça login para registrar uma tag original!");
@@ -3977,10 +4085,13 @@ const fbProvider = new FacebookAuthProvider(); // <--- INSTANCIADO AQUI
             }
 
             try {
+                const { collection, addDoc, serverTimestamp } = await import("https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js");
+                
                 await addDoc(collection(db, "original_tags"), {
                     name: tagName,
                     cover: tagCover,
                     description: tagDesc || "",
+                    simpleTags: modalCreatedSimpleTags, // <--- Salva as tags comuns adicionadas
                     author: currentUserProfile?.name || auth.currentUser.displayName || "Criador",
                     authorId: auth.currentUser.uid,
                     createdAt: serverTimestamp()
@@ -3990,9 +4101,11 @@ const fbProvider = new FacebookAuthProvider(); // <--- INSTANCIADO AQUI
                 document.getElementById('newOriginalTagName').value = '';
                 document.getElementById('newOriginalTagCover').value = '';
                 document.getElementById('newOriginalTagDesc').value = '';
+                modalCreatedSimpleTags = [];
+                renderModalSimpleTags();
 
                 alert(`Tag Original "${tagName}" criada com sucesso!`);
-                renderDynamicHomeFeed();
+                renderDynamicHomeFeed(); // <--- Recarrega o carrossel imediatamente
             } catch (err) {
                 console.error("Erro ao salvar tag:", err);
                 alert("Erro ao criar tag: " + err.message);
