@@ -2217,6 +2217,413 @@ nav.app-bottom-navbar {
 .main-feed-like-action:hover, .main-feed-like-action.liked {
     color: var(--purple-main);
 }
+
+/* ================= BOTÃO CIRCULAR [+] CRIAR TAG NO CARROSSEL ================= */
+.circle-tag-create-btn {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    cursor: pointer;
+    flex-shrink: 0;
+}
+
+.circle-tag-create-icon {
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    background: #181a28;
+    border: 2px solid var(--purple-main);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--purple-main);
+    font-size: 26px;
+    font-weight: 700;
+    transition: all 0.2s ease;
+}
+
+.circle-tag-create-btn:hover .circle-tag-create-icon {
+    background: var(--purple-main);
+    color: #fff;
+    transform: scale(1.05);
+}
+
+/* ================= MODAL SEMITRANSPARENTE "CRIAR TAG" ================= */
+.tag-create-backdrop {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(8px);
+    z-index: 250;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 16px;
+}
+
+.tag-create-backdrop.open {
+    display: flex;
+}
+
+.tag-create-card {
+    background: rgba(18, 19, 26, 0.92);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 18px;
+    width: 100%;
+    max-width: 360px;
+    padding: 22px 18px;
+    position: relative;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.8);
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.tag-create-title {
+    font-size: 16px;
+    font-weight: 800;
+    color: #fff;
+    text-align: left;
+}
+
+.tag-create-field {
+    width: 100%;
+    background: #0d0f17;
+    border: 1px solid var(--border-subtle);
+    border-radius: 8px;
+    padding: 10px 12px;
+    font-size: 12px;
+    color: #fff;
+    outline: none;
+    font-family: inherit;
+    box-sizing: border-box;
+}
+
+.tag-create-field:focus {
+    border-color: var(--purple-main);
+}
+
+.btn-tag-publish-submit {
+    width: 100%;
+    background: var(--purple-gradient);
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    padding: 12px;
+    font-size: 13px;
+    font-weight: 700;
+    cursor: pointer;
+    margin-top: 4px;
+}
+
+/* ================= PÁGINA COMPLETA DA TAG ORIGINAL (YUNYUN) ================= */
+.tag-page-viewport {
+    background: #090a10;
+    min-height: 100%;
+    display: flex;
+    flex-direction: column;
+    padding-bottom: calc(var(--bottom-nav-h) + 70px);
+    position: relative;
+}
+
+.tag-page-header {
+    height: 48px;
+    background: #0e1017;
+    border-bottom: 1px solid var(--border-subtle);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 12px;
+    position: sticky;
+    top: 0;
+    z-index: 40;
+}
+
+.tag-author-cluster {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.tag-author-thumb {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: #0f766e;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    font-weight: 800;
+    overflow: hidden;
+}
+
+.tag-author-thumb img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.tag-author-meta {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+}
+
+.tag-author-name {
+    font-size: 12px;
+    font-weight: 700;
+    color: #fff;
+}
+
+.tag-author-followers {
+    font-size: 9px;
+    color: var(--text-dim);
+}
+
+.tag-btn-follow {
+    background: #1e2235;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: #fff;
+    font-size: 11px;
+    font-weight: 700;
+    padding: 4px 10px;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.tag-nav-tabs-bar {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    padding: 0 16px;
+    background: #0e1017;
+    border-bottom: 1px solid var(--border-subtle);
+}
+
+.tag-tab-item {
+    padding: 10px 0;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text-dim);
+    cursor: pointer;
+    position: relative;
+    white-space: nowrap;
+}
+
+.tag-tab-item.active {
+    color: #fff;
+    font-weight: 700;
+}
+
+.tag-tab-item.active::after {
+    content: '';
+    position: absolute;
+    bottom: -1px;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: var(--purple-main);
+}
+
+.tag-hero-preview {
+    width: 100%;
+    max-height: 420px;
+    background: #000;
+    position: relative;
+    overflow: hidden;
+}
+
+.tag-hero-preview img {
+    width: 100%;
+    height: 100%;
+    max-height: 420px;
+    object-fit: contain;
+    display: block;
+}
+
+.tag-meta-details-box {
+    padding: 14px 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    text-align: left;
+}
+
+.badge-version-pill {
+    background: #181b28;
+    border: 1px solid var(--border-subtle);
+    color: #fff;
+    font-size: 11px;
+    font-weight: 800;
+    padding: 3px 10px;
+    border-radius: 6px;
+    width: fit-content;
+}
+
+.tag-profile-card-horizontal {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: #141724;
+    border: 1px solid var(--border-subtle);
+    border-radius: 10px;
+    padding: 8px 10px;
+}
+
+.tag-mini-cover {
+    width: 44px;
+    height: 44px;
+    border-radius: 8px;
+    object-fit: cover;
+}
+
+.tag-card-content {
+    flex: 1;
+    min-width: 0;
+}
+
+.tag-title-h3 {
+    font-size: 13px;
+    font-weight: 800;
+    color: #fff;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.tag-specs-row {
+    font-size: 10px;
+    color: var(--text-dim);
+    margin-top: 2px;
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+}
+
+.tag-stats-indicators {
+    display: flex;
+    gap: 12px;
+    font-size: 10px;
+    color: var(--text-dim);
+    margin-top: 4px;
+}
+
+.tag-description-text {
+    font-size: 12px;
+    color: #cbd5e1;
+    line-height: 1.4;
+    font-style: italic;
+    margin-top: 4px;
+}
+
+.tag-simple-tags-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: 4px;
+}
+
+.simple-tag-pill-link {
+    font-size: 11px;
+    color: #38bdf8;
+    cursor: pointer;
+    background: rgba(56, 189, 248, 0.1);
+    padding: 2px 8px;
+    border-radius: 12px;
+    text-decoration: none;
+}
+
+.tag-rating-actions-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 16px;
+    border-top: 1px solid var(--border-subtle);
+    border-bottom: 1px solid var(--border-subtle);
+    margin-top: 8px;
+}
+
+.btn-tag-rating-action {
+    background: #181b28;
+    border: 1px solid var(--border-subtle);
+    color: #c084fc;
+    font-size: 11px;
+    font-weight: 700;
+    padding: 6px 12px;
+    border-radius: 8px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.tag-end-divider {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    padding: 30px 16px 16px;
+    color: var(--text-dim);
+    font-size: 11px;
+}
+
+.tag-end-divider::before,
+.tag-end-divider::after {
+    content: '';
+    height: 1px;
+    background: var(--border-subtle);
+    width: 60px;
+}
+
+.tag-page-bottom-dock {
+    position: fixed;
+    bottom: var(--bottom-nav-h);
+    left: 0;
+    right: 0;
+    background: #0e1017;
+    border-top: 1px solid var(--border-subtle);
+    padding: 8px 14px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    z-index: 45;
+}
+
+.btn-tag-dock-like {
+    background: #181b28;
+    border: 1px solid var(--border-subtle);
+    color: #fff;
+    padding: 9px 16px;
+    border-radius: 10px;
+    font-size: 12px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    cursor: pointer;
+}
+
+.btn-tag-dock-create {
+    flex: 1;
+    background: var(--purple-gradient);
+    border: none;
+    color: #fff;
+    padding: 10px;
+    border-radius: 10px;
+    font-size: 13px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    cursor: pointer;
+}
 .feed-chip-btn {
     background: #141724;
     border: 1px solid var(--border-subtle);
@@ -2806,6 +3213,127 @@ nav.app-bottom-navbar {
             </div>
         </section>
         
+        <!-- ================= 4. VIEW PÁGINA DA TAG ORIGINAL (YUNYUN / RECENTES) ================= -->
+        <section class="view-section" id="viewTagPage">
+            <div class="tag-page-viewport">
+                
+                <!-- Top Header da Tag -->
+                <div class="tag-page-header">
+                    <button class="btn-icon-plain" onclick="switchNav('viewHome', document.getElementById('tabHome'))">
+                        <svg class="svg-icon" viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"></polyline></svg>
+                    </button>
+
+                    <div class="tag-author-cluster">
+                        <div class="tag-author-thumb" id="tagPageAuthorAvatar">M</div>
+                        <div class="tag-author-meta">
+                            <span class="tag-author-name" id="tagPageAuthorName">MetalChromeX</span>
+                            <span class="tag-author-followers">👤 675 · 👁️ 78.3K</span>
+                        </div>
+                    </div>
+
+                    <div style="display:flex; align-items:center; gap:8px;">
+                        <button class="tag-btn-follow">+ Seguir</button>
+                        <button class="btn-icon-plain">
+                            <svg class="svg-icon" style="width:16px; height:16px;" viewBox="0 0 24 24"><circle cx="12" cy="12" r="1.5"></circle><circle cx="19" cy="12" r="1.5"></circle><circle cx="5" cy="12" r="1.5"></circle></svg>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Abas da Tag -->
+                <div class="tag-nav-tabs-bar">
+                    <div class="tag-tab-item active">Detalhes</div>
+                    <div class="tag-tab-item">Comentários</div>
+                    <div class="tag-tab-item">Trabalhos relacionados</div>
+                </div>
+
+                <!-- Banner Hero da Tag -->
+                <div class="tag-hero-preview">
+                    <img id="tagPageHeroImg" src="" alt="Tag Principal">
+                </div>
+
+                <!-- Bloco de Informações da Tag -->
+                <div class="tag-meta-details-box">
+                    <div class="badge-version-pill">V1</div>
+
+                    <div class="tag-profile-card-horizontal">
+                        <img id="tagPageCardMiniImg" src="" class="tag-mini-cover" alt="Mini">
+                        <div class="tag-card-content">
+                            <h3 class="tag-title-h3">
+                                <span id="tagPageTitle">Yunyun</span>
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="#a855f7"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                            </h3>
+                            <div class="tag-specs-row">
+                                <span>Tipo: <b>TAG</b></span>
+                                <span>Modelo básico: <b>Illustrious</b></span>
+                            </div>
+                            <div class="tag-stats-indicators">
+                                <span>▶ <span id="tagPageViews">555</span></span>
+                                <span>❤️ <span id="tagPageLikes">74</span></span>
+                                <span>⬇️ 12</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="tag-description-text" id="tagPageDesc">
+                        Objeto central indexado. As imagens abaixo são organizadas por similaridade de tags simples.
+                    </div>
+
+                    <!-- Tags Simples com Hashtag -->
+                    <div class="tag-simple-tags-row" id="tagPageSimpleTagsList"></div>
+                </div>
+
+                <!-- Classificação e Avaliação -->
+                <div class="tag-rating-actions-row">
+                    <span style="font-size:13px; font-weight:700;">Classificação e Avaliação</span>
+                    <div style="display:flex; gap:6px;">
+                        <button class="btn-tag-rating-action">+ Revisão</button>
+                        <button class="btn-tag-rating-action">★ Avaliação</button>
+                    </div>
+                </div>
+
+                <!-- Trabalhos Relacionados Organizados por Proximidade de Tags Simples -->
+                <div style="padding: 14px 16px 6px; display:flex; justify-content:space-between; align-items:center;">
+                    <span style="font-size:13px; font-weight:800;">Trabalhos relacionados</span>
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+                </div>
+
+                <!-- Grid de Obras Relacionadas por Afinidade de Tags -->
+                <div class="masonry-layout" style="padding: 0 10px;">
+                    <div class="masonry-column" id="tagRelatedColLeft"></div>
+                    <div class="masonry-column" id="tagRelatedColRight"></div>
+                </div>
+
+                <div class="tag-end-divider">Não há mais conteúdo</div>
+
+                <!-- Barra Inferior Fixa da Página da Tag -->
+                <div class="tag-page-bottom-dock">
+                    <button class="btn-tag-dock-like" id="btnTagPageLike">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"></path></svg>
+                        <span id="tagPageBottomLikeCount">74</span>
+                    </button>
+                    <button class="btn-tag-dock-create" id="btnTagPageCreateDirect">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                        <span>Criar</span>
+                    </button>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- ================= MODAL SEMITRANSPARENTE "CRIAR TAG" ================= -->
+        <div class="tag-create-backdrop" id="modalCreateTagBackdrop">
+            <div class="tag-create-card">
+                <div style="display:flex; justify-content:space-between; align-items:center;">
+                    <span class="tag-create-title">Criar Nova Tag Original</span>
+                    <button class="btn-icon-plain" onclick="closeCreateTagModal()">✕</button>
+                </div>
+                <input type="text" class="tag-create-field" id="newOriginalTagName" placeholder="Nome do Objeto Central (Ex: Banana, Macaco, Yunyun)...">
+                <input type="url" class="tag-create-field" id="newOriginalTagCover" placeholder="Link da Foto de Capa (URL direta: https://...)">
+                <input type="text" class="tag-create-field" id="newOriginalTagDesc" placeholder="Descrição da Tag (Opcional)...">
+                <button class="btn-tag-publish-submit" id="btnSubmitNewTag">Criar e Publicar Tag</button>
+            </div>
+        </div>
+
     </main>
 
     <!-- Drawer Lateral com Estados Logado e Deslogado -->
@@ -3375,21 +3903,25 @@ const fbProvider = new FacebookAuthProvider(); // <--- INSTANCIADO AQUI
         // ================= ALGORITMO DO FEED, TAGS E LIKES REAIS =================
         let preferredTag = localStorage.getItem('thyme_preferred_tag') || null;
 
-        // 1. Renderiza o carrossel redondo "Usado recentemente" com a foto mais curtida de cada tag/pasta
+        // ================= GESTÃO DA TAG ORIGINAL E TAGS SIMPLES (PROXIMIDADE) =================
+        let allGlobalPosts = [];
+
+        // 1. Renderiza o carrossel circular com a foto mais curtida de cada tag + Botão [+] Criar Tag
         function renderRecentTagsCircles(posts) {
             const container = document.getElementById('recentTagsContainer');
             if (!container) return;
             container.innerHTML = '';
+            allGlobalPosts = posts;
 
-            // Agrupa os posts por tag
+            // Agrupa as fotos pela Tag Original
             const tagGroups = {};
             posts.forEach(p => {
-                const primaryTag = (p.tags && p.tags.length > 0) ? p.tags[0] : (p.tag || "Geral");
-                if (!tagGroups[primaryTag]) tagGroups[primaryTag] = [];
-                tagGroups[primaryTag].push(p);
+                const origTag = p.originalTag || (p.tags && p.tags.length > 0 ? p.tags[0] : (p.tag || "Geral"));
+                if (!tagGroups[origTag]) tagGroups[origTag] = [];
+                tagGroups[origTag].push(p);
             });
 
-            // Para cada tag/pasta, escolhe a foto com mais curtidas
+            // Cria os círculos com a foto mais curtida de cada Tag Original
             Object.keys(tagGroups).forEach(tagName => {
                 const group = tagGroups[tagName];
                 group.sort((a, b) => (b.likes || 0) - (a.likes || 0));
@@ -3397,7 +3929,7 @@ const fbProvider = new FacebookAuthProvider(); // <--- INSTANCIADO AQUI
 
                 const circleNode = document.createElement('div');
                 circleNode.className = 'circle-tag-node';
-                circleNode.onclick = () => filterFeedByTagFolder(tagName);
+                circleNode.onclick = () => openOriginalTagPage(tagName, topPost);
 
                 circleNode.innerHTML = `
                     <div class="circle-tag-thumb">
@@ -3407,7 +3939,136 @@ const fbProvider = new FacebookAuthProvider(); // <--- INSTANCIADO AQUI
                 `;
                 container.appendChild(circleNode);
             });
+
+            // Adiciona o Botão Circular [+] Criar Tag ao final do carrossel
+            const createTagBtn = document.createElement('div');
+            createTagBtn.className = 'circle-tag-create-btn';
+            createTagBtn.onclick = () => openCreateTagModal();
+            createTagBtn.innerHTML = `
+                <div class="circle-tag-create-icon">+</div>
+                <span class="circle-tag-label">Criar</span>
+            `;
+            container.appendChild(createTagBtn);
         }
+
+        // 2. Modais de Criação de Tag
+        window.openCreateTagModal = function() {
+            document.getElementById('modalCreateTagBackdrop').classList.add('open');
+        };
+        window.closeCreateTagModal = function() {
+            document.getElementById('modalCreateTagBackdrop').classList.remove('open');
+        };
+
+        // Salvar Tag Original no Firestore
+        document.getElementById('btnSubmitNewTag').onclick = async () => {
+            if (!auth.currentUser) {
+                alert("Faça login para registrar uma tag original!");
+                openLoginModal();
+                return;
+            }
+
+            const tagName = document.getElementById('newOriginalTagName').value.trim();
+            const tagCover = document.getElementById('newOriginalTagCover').value.trim();
+            const tagDesc = document.getElementById('newOriginalTagDesc').value.trim();
+
+            if (!tagName || !tagCover) {
+                alert("Por favor, preencha o nome da tag e o link da foto de capa!");
+                return;
+            }
+
+            try {
+                await addDoc(collection(db, "original_tags"), {
+                    name: tagName,
+                    cover: tagCover,
+                    description: tagDesc || "",
+                    author: currentUserProfile?.name || auth.currentUser.displayName || "Criador",
+                    authorId: auth.currentUser.uid,
+                    createdAt: serverTimestamp()
+                });
+
+                closeCreateTagModal();
+                document.getElementById('newOriginalTagName').value = '';
+                document.getElementById('newOriginalTagCover').value = '';
+                document.getElementById('newOriginalTagDesc').value = '';
+
+                alert(`Tag Original "${tagName}" criada com sucesso!`);
+                renderDynamicHomeFeed();
+            } catch (err) {
+                console.error("Erro ao salvar tag:", err);
+                alert("Erro ao criar tag: " + err.message);
+            }
+        };
+
+        // 3. Abertura da Página Completa da Tag (Layout 1:1 com a Yunyun)
+        window.openOriginalTagPage = function(tagName, topPost) {
+            switchNav('viewTagPage');
+
+            document.getElementById('tagPageTitle').innerText = tagName;
+            document.getElementById('tagPageHeroImg').src = topPost.image;
+            document.getElementById('tagPageCardMiniImg').src = topPost.image;
+            document.getElementById('tagPageAuthorName').innerText = topPost.author || "Criador";
+            document.getElementById('tagPageLikes').innerText = topPost.likes || 0;
+            document.getElementById('tagPageBottomLikeCount').innerText = topPost.likes || 0;
+
+            const tagsContainer = document.getElementById('tagPageSimpleTagsList');
+            tagsContainer.innerHTML = '';
+            
+            const simpleTags = topPost.tags || (topPost.tag ? [topPost.tag] : [tagName]);
+            simpleTags.forEach(t => {
+                const pill = document.createElement('a');
+                pill.className = 'simple-tag-pill-link';
+                pill.innerText = `#${t}`;
+                pill.onclick = () => alert(`Filtrando obras similares com #${t}`);
+                tagsContainer.appendChild(pill);
+            });
+
+            // 4. ALGORITMO DE PROXIMIDADE DAS TAGS SIMPLES:
+            // Todas as fotos pertencem à mesma Tag Original (ex: Banana).
+            // A ordem abaixo calcula quem tem mais tags simples iguais à foto de topo!
+            const sameTagPosts = allGlobalPosts.filter(p => {
+                const pOrig = p.originalTag || (p.tags && p.tags[0]) || p.tag;
+                return pOrig === tagName;
+            });
+
+            const targetTags = topPost.tags || [];
+
+            sameTagPosts.sort((a, b) => {
+                const aCommon = (a.tags || []).filter(t => targetTags.includes(t)).length;
+                const bCommon = (b.tags || []).filter(t => targetTags.includes(t)).length;
+                return bCommon - aCommon; // Obras com mais tags simples em comum vêm primeiro
+            });
+
+            // Renderiza na grade dupla da página da tag
+            const leftCol = document.getElementById('tagRelatedColLeft');
+            const rightCol = document.getElementById('tagRelatedColRight');
+            leftCol.innerHTML = '';
+            rightCol.innerHTML = '';
+
+            sameTagPosts.forEach((post, idx) => {
+                const card = document.createElement('div');
+                card.className = 'main-feed-card';
+                card.innerHTML = `
+                    <div class="main-feed-thumb-box ratio-9-16">
+                        <img src="${post.image}" alt="${post.title}" loading="lazy">
+                    </div>
+                    <div class="main-feed-card-body">
+                        <div class="main-feed-post-title">${post.title}</div>
+                        <div class="main-feed-author-row">
+                            <div class="main-feed-author-cluster">
+                                <div class="main-feed-author-avatar">${(post.author || "U")[0].toUpperCase()}</div>
+                                <span class="main-feed-author-name">${post.author || "Criador"}</span>
+                            </div>
+                            <div class="post-likes-badge">
+                                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3zM7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"></path></svg>
+                                <span>${post.likes || 0}</span>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                if (idx % 2 === 0) leftCol.appendChild(card);
+                else rightCol.appendChild(card);
+            });
+        };
 
         // Filtra para abrir a "pasta" daquela tag
         window.filterFeedByTagFolder = function(selectedTag) {
@@ -4228,8 +4889,9 @@ document.getElementById('btnAuthFacebook').onclick = async () => {
                     authorId: auth.currentUser.uid,
                     image: finalImage,
                     videoUrl: videoUrl || null,
+                    originalTag: finalTags[0], // <--- OBJETO CENTRAL (Tag Original)
                     tag: finalTags[0],
-                    tags: finalTags,
+                    tags: finalTags,           // <--- TAGS SIMPLES DE APROXIMAÇÃO
                     isSensitive: isSensitive,
                     privacy: privacy, // 'publico', 'seguidores' ou 'privado'
                     likes: 0,
