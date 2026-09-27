@@ -3333,6 +3333,519 @@ nav.app-bottom-navbar {
     gap: 6px;
     cursor: pointer;
 }
+
+/* ================= ESTILOS DO SISTEMA DE GRUPOS (FIEL ÀS FOTOS) ================= */
+.groups-hub-viewport,
+.create-group-viewport,
+.group-detail-viewport {
+    background: #090a10;
+    width: 100%;
+    min-height: 100%;
+    padding-bottom: calc(var(--bottom-nav-h) + 80px);
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+}
+
+/* Header Superior de Grupos */
+.groups-header-top,
+.create-group-header,
+.group-page-top-nav {
+    height: 52px;
+    background: #0e1017;
+    border-bottom: 1px solid var(--border-subtle);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 14px;
+    position: sticky;
+    top: 0;
+    z-index: 50;
+}
+
+.btn-icon-circle-tool {
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    background: #1c2032;
+    border: 1px solid var(--border-subtle);
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+/* Barra de Abas Pílulas */
+.groups-nav-pills-bar {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 14px;
+    overflow-x: auto;
+    background: #090a10;
+    border-bottom: 1px solid var(--border-subtle);
+}
+
+.groups-pill-btn {
+    background: #151824;
+    border: 1px solid var(--border-subtle);
+    color: var(--text-dim);
+    font-size: 12px;
+    font-weight: 700;
+    padding: 6px 14px;
+    border-radius: 18px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    cursor: pointer;
+    white-space: nowrap;
+}
+
+.groups-pill-btn.active {
+    background: #2563eb;
+    border-color: #2563eb;
+    color: #fff;
+}
+
+.groups-tab-content-panel {
+    display: none;
+    flex-direction: column;
+}
+
+.groups-tab-content-panel.active {
+    display: flex;
+}
+
+/* Linha Crie um Grupo (Foto 3) */
+.action-create-group-row {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 10px 16px;
+    cursor: pointer;
+    transition: background 0.15s;
+}
+
+.action-create-group-row:hover {
+    background: #12141f;
+}
+
+.create-group-plus-icon {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: #1e2235;
+    border: 1px solid var(--border-subtle);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Lista de Grupos Criados */
+.user-groups-stack-list {
+    display: flex;
+    flex-direction: column;
+}
+
+.user-group-item-card {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 16px;
+    cursor: pointer;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+}
+
+.user-group-item-card img {
+    width: 48px;
+    height: 48px;
+    border-radius: 10px;
+    object-fit: cover;
+}
+
+.user-group-item-info {
+    flex: 1;
+    min-width: 0;
+}
+
+.user-group-item-title {
+    font-size: 13px;
+    font-weight: 700;
+    color: #fff;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.user-group-item-sub {
+    font-size: 11px;
+    color: var(--text-dim);
+    margin-top: 2px;
+}
+
+/* Formulário de Criação de Grupo (Foto 1) */
+.create-group-body {
+    padding: 24px 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.group-photo-uploader-circle {
+    width: 76px;
+    height: 76px;
+    border-radius: 50%;
+    background: #141724;
+    border: 2px dashed #282d42;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+    cursor: pointer;
+}
+
+.input-facebook-style {
+    width: 100%;
+    background: #12141f;
+    border: 1px solid var(--border-subtle);
+    border-radius: 8px;
+    padding: 12px 14px;
+    font-size: 13px;
+    color: #fff;
+    outline: none;
+    font-family: inherit;
+    box-sizing: border-box;
+}
+
+.input-facebook-style:focus {
+    border-color: #2563eb;
+}
+
+.select-privacy-fake-button {
+    width: 100%;
+    background: #12141f;
+    border: 1px solid var(--border-subtle);
+    border-radius: 8px;
+    padding: 12px 14px;
+    font-size: 13px;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    cursor: pointer;
+    box-sizing: border-box;
+}
+
+.create-group-footer-bar {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: #0e1017;
+    border-top: 1px solid var(--border-subtle);
+    padding: 12px 16px;
+    z-index: 40;
+}
+
+.btn-facebook-primary-action {
+    width: 100%;
+    background: #2563eb;
+    border: none;
+    color: #fff;
+    font-size: 14px;
+    font-weight: 700;
+    padding: 12px;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.btn-facebook-primary-action:hover {
+    background: #1d4ed8;
+}
+
+.btn-link-action-header {
+    background: none;
+    border: none;
+    color: #38bdf8;
+    font-size: 13px;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.btn-share-group-pill {
+    background: #1a1e30;
+    border: 1px solid var(--border-subtle);
+    color: #fff;
+    font-size: 13px;
+    font-weight: 700;
+    padding: 10px 18px;
+    border-radius: 20px;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+}
+
+.group-search-bar-input {
+    background: #141724;
+    border: 1px solid var(--border-subtle);
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    padding: 6px 12px;
+    gap: 8px;
+}
+
+.group-search-bar-input input {
+    flex: 1;
+    background: none;
+    border: none;
+    outline: none;
+    color: #fff;
+    font-size: 12px;
+}
+
+/* Página Oficial do Grupo (Foto 4 e 5) */
+.group-cover-stage {
+    position: relative;
+    width: 100%;
+    height: 180px;
+    background: #141724;
+    overflow: hidden;
+}
+
+.group-cover-stage img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.btn-edit-group-cover {
+    position: absolute;
+    bottom: 10px;
+    right: 12px;
+    background: rgba(0, 0, 0, 0.65);
+    backdrop-filter: blur(4px);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    color: #fff;
+    font-size: 10px;
+    font-weight: 800;
+    padding: 4px 10px;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    cursor: pointer;
+}
+
+.group-author-avatar-node {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: #1e3a8a;
+    color: #fff;
+    font-weight: 800;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid #ef4444;
+}
+
+.btn-facebook-invite-primary {
+    flex: 1;
+    background: #2563eb;
+    border: none;
+    color: #fff;
+    font-size: 13px;
+    font-weight: 700;
+    padding: 9px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    cursor: pointer;
+}
+
+.btn-group-pill-outline {
+    flex: 1;
+    background: #181b28;
+    border: 1px solid var(--border-subtle);
+    color: #e2e8f0;
+    font-size: 12px;
+    font-weight: 700;
+    padding: 8px;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.group-create-post-box {
+    background: #12141f;
+    border: 1px solid var(--border-subtle);
+    border-radius: 12px;
+    padding: 12px;
+    margin-bottom: 14px;
+}
+
+.btn-group-action-chip {
+    background: #1c2032;
+    border: 1px solid var(--border-subtle);
+    color: #cbd5e1;
+    font-size: 11px;
+    font-weight: 600;
+    padding: 5px 10px;
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    cursor: pointer;
+    white-space: nowrap;
+}
+
+/* Checklist de Configuração (Foto 5) */
+.group-checklist-card {
+    background: #12141f;
+    border: 1px solid var(--border-subtle);
+    border-radius: 12px;
+    padding: 12px;
+}
+
+.checklist-items-stack {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 12px;
+}
+
+.checklist-row-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.btn-checklist-plus {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: #2563eb;
+    border: none;
+    color: #fff;
+    font-size: 16px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+/* Bottom Sheets (Foto 2 e Foto da Seta Azul) */
+.bottom-sheet-backdrop {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(4px);
+    z-index: 300;
+    display: none;
+    align-items: flex-end;
+}
+
+.bottom-sheet-backdrop.open {
+    display: flex;
+}
+
+.bottom-sheet-modal {
+    width: 100%;
+    background: #12141f;
+    border-top: 1px solid var(--border-subtle);
+    border-radius: 16px 16px 0 0;
+    padding-bottom: 24px;
+    max-height: 80vh;
+    overflow-y: auto;
+}
+
+.bottom-sheet-header {
+    height: 50px;
+    border-bottom: 1px solid var(--border-subtle);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 14px;
+}
+
+.bottom-sheet-options-list {
+    padding: 10px 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.privacy-choice-radio-card {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 12px;
+    border-radius: 10px;
+    background: #171a28;
+    cursor: pointer;
+}
+
+.privacy-choice-icon-wrap {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: #2563eb;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.privacy-choice-info-text {
+    flex: 1;
+}
+
+.privacy-choice-info-text .choice-title {
+    font-size: 13px;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 2px;
+}
+
+.privacy-choice-info-text .choice-sub {
+    font-size: 11px;
+    color: var(--text-dim);
+    line-height: 1.4;
+}
+
+.share-sheet-icons-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    padding: 10px 16px;
+}
+
+.share-icon-btn {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    font-size: 11px;
+    color: #cbd5e1;
+    cursor: pointer;
+}
+
+.share-round-icon-box {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: #1e2235;
+    border: 1px solid var(--border-subtle);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
     </style>
 </head>
 <body>
@@ -4147,21 +4660,381 @@ nav.app-bottom-navbar {
                 </div>
 
                 <!-- 9. Dock Inferior Flutuante Oficial (Geração de Vídeos + Remix) -->
-                <div class="post-detail-bottom-dock">
-                    <button class="btn-dock-video-gen" onclick="alert('Geração de vídeos iniciada a partir deste post!')">
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="23 7 16 12 23 17 23 7"></polygon><rect x="1" y="5" width="15" height="14" rx="2" ry="2"></rect></svg>
-                        <span>Geração de vídeos</span>
-                    </button>
-                    <button class="btn-dock-remix" id="btnDockRemixAction">
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m15 4-2 4 2 4 4-2-4-2z"></path><path d="M11.5 12.5 4 20"></path><path d="m18 15 1.5 3 3 1.5-3 1.5L18 24l-1.5-3-3-1.5 3-1.5L18 15z"></path></svg>
-                        <span>Remix</span>
-                    </button>
+                    <div class="post-detail-bottom-dock">
+                        <button class="btn-dock-video-gen" onclick="alert('Geração de vídeos iniciada a partir deste post!')">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="23 7 16 12 23 17 23 7"></polygon><rect x="1" y="5" width="15" height="14" rx="2" ry="2"></rect></svg>
+                            <span>Geração de vídeos</span>
+                        </button>
+                        <button class="btn-dock-remix" id="btnDockRemixAction">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m15 4-2 4 2 4 4-2-4-2z"></path><path d="M11.5 12.5 4 20"></path><path d="m18 15 1.5 3 3 1.5-3 1.5L18 24l-1.5-3-3-1.5 3-1.5L18 15z"></path></svg>
+                            <span>Remix</span>
+                        </button>
+                    </div>
+
                 </div>
+            </section>
 
+            <!-- ================= 6. VIEW HUB DE GRUPOS ================= -->
+            <section class="view-section" id="viewGroupsHub">
+                <div class="groups-hub-viewport">
+                    
+                    <!-- Header Superior dos Grupos -->
+                    <div class="groups-header-top">
+                        <div style="display:flex; align-items:center; gap:12px;">
+                            <button class="btn-icon-plain" onclick="switchNav('viewHome', document.getElementById('tabHome'))">
+                                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"></polyline></svg>
+                            </button>
+                            <span style="font-size:17px; font-weight:800; color:#fff;">Grupos</span>
+                        </div>
+
+                        <div style="display:flex; align-items:center; gap:12px;">
+                            <button class="btn-icon-circle-tool" onclick="openCreateGroupView()">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                            </button>
+                            <button class="btn-icon-circle-tool" onclick="alert('Pesquisar grupos...')">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Barra de Abas (Seus grupos, Posts, Descobrir, Convites) -->
+                    <div class="groups-nav-pills-bar">
+                        <button class="groups-pill-btn active" id="tabBtnMyGroups" onclick="switchGroupsTab('myGroups', this)">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path></svg>
+                            <span>Seus grupos</span>
+                        </button>
+                        <button class="groups-pill-btn" onclick="switchGroupsTab('groupPosts', this)">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+                            <span>Posts</span>
+                        </button>
+                        <button class="groups-pill-btn" onclick="switchGroupsTab('discoverGroups', this)">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"></polygon></svg>
+                            <span>Descobrir</span>
+                        </button>
+                        <button class="groups-pill-btn" onclick="switchGroupsTab('invitesGroups', this)">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+                            <span>Convites</span>
+                        </button>
+                    </div>
+
+                    <!-- Conteúdo Aba 1: Seus Grupos -->
+                    <div class="groups-tab-content-panel active" id="panelMyGroups">
+                        <div style="padding: 12px 16px 6px; display:flex; justify-content:space-between; align-items:center;">
+                            <span style="font-size:14px; font-weight:800; color:#fff;">Mais visitados</span>
+                            <span style="font-size:12px; color:#38bdf8; font-weight:600; cursor:pointer;">Classificar</span>
+                        </div>
+
+                        <!-- Botão Crie um Grupo (Circulado na Foto) -->
+                        <div class="action-create-group-row" onclick="openCreateGroupView()">
+                            <div class="create-group-plus-icon">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                            </div>
+                            <span style="font-size:14px; font-weight:700; color:#fff;">Crie um grupo</span>
+                        </div>
+
+                        <!-- Lista de Grupos do Usuário -->
+                        <div class="user-groups-stack-list" id="userGroupsContainerList"></div>
+                    </div>
+
+                    <!-- Conteúdo Aba 2: Posts de Grupos -->
+                    <div class="groups-tab-content-panel" id="panelGroupPosts">
+                        <div style="padding: 12px 16px; font-size:12px; color:var(--text-dim);">Post sugerido de um grupo público</div>
+                        <div id="groupFeedPostsList"></div>
+                    </div>
+
+                    <!-- Conteúdo Aba 3: Descobrir Grupos -->
+                    <div class="groups-tab-content-panel" id="panelDiscoverGroups">
+                        <div style="padding: 12px 16px 6px; font-size:15px; font-weight:800; color:#fff;">Sugestões para você</div>
+                        <div class="discover-groups-grid" id="discoverGroupsContainerGrid"></div>
+                    </div>
+
+                    <!-- Conteúdo Aba 4: Convites -->
+                    <div class="groups-tab-content-panel" id="panelInvitesGroups">
+                        <div class="empty-invites-wrap">
+                            <svg width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="#475569" stroke-width="1.5"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path></svg>
+                            <span style="font-size:13px; font-weight:700; color:#cbd5e1;">Não há convites pendentes</span>
+                        </div>
+                    </div>
+
+                </div>
+            </section>
+
+            <!-- ================= 7. VIEW CRIAR GRUPO (ETAPA 1 E 2) ================= -->
+            <section class="view-section" id="viewCreateGroup">
+                <div class="create-group-viewport">
+                    
+                    <div class="create-group-header">
+                        <button class="btn-icon-plain" onclick="switchNav('viewGroupsHub')">
+                            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"></polyline></svg>
+                        </button>
+                        <span style="font-size:15px; font-weight:800; color:#fff;">Criar grupo</span>
+                        <div style="width:22px;"></div>
+                    </div>
+
+                    <div class="create-group-body">
+                        <!-- Foto de Perfil / Capa do Grupo com Câmera -->
+                        <div class="group-photo-uploader-circle" onclick="document.getElementById('inputGroupCoverFile').click()">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#94a3b8" stroke-width="2"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path><circle cx="12" cy="13" r="4"></circle></svg>
+                            <input type="text" id="inputGroupCoverFile" placeholder="Link da foto de capa (URL)" style="display:none;">
+                        </div>
+
+                        <!-- Input Nome do Grupo -->
+                        <div class="form-group-field-box">
+                            <input type="text" id="inputNewGroupName" class="input-facebook-style" placeholder="Dê um nome ao seu grupo">
+                        </div>
+
+                        <!-- Campo Privacidade (Abre a gaveta inferior / Foto 2) -->
+                        <div class="form-group-field-box">
+                            <label style="display:block; font-size:12px; font-weight:700; color:#94a3b8; margin-bottom:6px;">Privacidade</label>
+                            <div class="select-privacy-fake-button" id="btnOpenPrivacyModal">
+                                <span id="labelSelectedPrivacy">Escolha a privacidade</span>
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                            </div>
+                        </div>
+
+                        <div style="font-size:11px; color:var(--text-dim); line-height:1.4; padding: 0 4px;" id="privacyHelpDescription">
+                            Qualquer pessoa pode ver quem está no grupo e o que postam. Você pode alterar para privado mais tarde.
+                        </div>
+                    </div>
+
+                    <!-- Botão Criar Fixo na Base -->
+                    <div class="create-group-footer-bar">
+                        <button class="btn-facebook-primary-action" id="btnExecuteCreateGroup">Criar</button>
+                    </div>
+
+                </div>
+            </section>
+
+            <!-- ================= 8. VIEW CONCLUIR E CONVIDAR (FOTO 3) ================= -->
+            <section class="view-section" id="viewGroupInvite">
+                <div class="create-group-viewport">
+                    
+                    <div class="create-group-header" style="justify-content:space-between;">
+                        <div style="display:flex; align-items:center; gap:8px;">
+                            <button class="btn-icon-plain" onclick="switchNav('viewGroupsHub')">
+                                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"></polyline></svg>
+                            </button>
+                            <span style="font-size:14px; font-weight:800; color:#fff;">Convidar membros</span>
+                        </div>
+                        <button class="btn-link-action-header" id="btnFinishGroupCreation">Concluir</button>
+                    </div>
+
+                    <div style="padding: 20px 16px;">
+                        <h2 style="font-size:20px; font-weight:800; color:#fff; margin-bottom:4px;">Seu grupo foi criado</h2>
+                        <p style="font-size:12px; color:var(--text-dim); margin-bottom:20px;">Reúna pessoas que pensam como você convidando amigos para seu grupo.</p>
+
+                        <!-- Botão Compartilhar Grupo -->
+                        <button class="btn-share-group-pill" id="btnOpenShareSheet">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"></path><polyline points="16 6 12 2 8 6"></polyline><line x1="12" y1="2" x2="12" y2="15"></line></svg>
+                            <span>Compartilhar grupo</span>
+                        </button>
+
+                        <div style="margin-top:24px;">
+                            <span style="font-size:13px; font-weight:700; color:#fff;">Sugestões</span>
+                            <div class="group-search-bar-input" style="margin-top:8px;">
+                                <input type="text" placeholder="Procurar amigos">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                            </div>
+                            <div style="color:var(--text-dim); font-size:12px; padding:24px 0; text-align:center;">Não foi possível encontrar uma correspondência para a pesquisa.</div>
+                        </div>
+                    </div>
+
+                </div>
+            </section>
+
+            <!-- ================= 9. VIEW PÁGINA DO GRUPO (FOTO 4 E 5) ================= -->
+            <section class="view-section" id="viewGroupDetail">
+                <div class="group-detail-viewport">
+                    
+                    <!-- Top Nav do Grupo -->
+                    <div class="group-page-top-nav">
+                        <button class="btn-icon-plain" onclick="switchNav('viewGroupsHub')">
+                            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"></polyline></svg>
+                        </button>
+                        <span style="font-size:15px; font-weight:800; color:#fff;" id="groupPageNavTitle">Nome do Grupo</span>
+                        <div style="display:flex; align-items:center; gap:8px;">
+                            <button class="btn-icon-plain">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="1.5"></circle><circle cx="19" cy="12" r="1.5"></circle><circle cx="5" cy="12" r="1.5"></circle></svg>
+                            </button>
+                            <button class="btn-icon-plain">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Capa do Grupo com Botão EDITAR -->
+                    <div class="group-cover-stage">
+                        <img id="groupPageCoverImg" src="https://picsum.photos/seed/groupbanner/800/350" alt="Capa">
+                        <button class="btn-edit-group-cover" onclick="changeGroupCoverPrompt()">
+                            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9"></path><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path></svg>
+                            <span>EDITAR</span>
+                        </button>
+                    </div>
+
+                    <!-- Informações e Ações do Grupo -->
+                    <div style="padding: 14px 16px;">
+                        <h1 style="font-size:20px; font-weight:800; color:#fff;" id="groupPageMainTitle">Wai</h1>
+                        <div style="font-size:12px; color:var(--text-dim); display:flex; align-items:center; gap:6px; margin: 4px 0 14px;">
+                            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
+                            <span id="groupPagePrivacyBadge">Grupo Público</span>
+                            <span>·</span>
+                            <span id="groupPageMemberCount">1 membro</span>
+                        </div>
+
+                        <!-- Botão Azul Convidar + Botões Gerenciar e Eventos -->
+                        <div style="display:flex; align-items:center; gap:8px; margin-bottom:14px;">
+                            <div class="group-author-avatar-node" id="groupPageAuthorMiniAvatar">E</div>
+                            <button class="btn-facebook-invite-primary" id="btnGroupPageInvite">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><line x1="20" y1="8" x2="20" y2="14"></line><line x1="23" y1="11" x2="17" y2="11"></line></svg>
+                                <span>Convidar</span>
+                            </button>
+                        </div>
+
+                        <div style="display:flex; gap:8px; margin-bottom:16px;">
+                            <button class="btn-group-pill-outline">Gerenciar</button>
+                            <button class="btn-group-pill-outline">Eventos</button>
+                        </div>
+
+                        <!-- Caixa de Publicar no Grupo -->
+                        <div class="group-create-post-box">
+                            <div style="display:flex; align-items:center; gap:10px; margin-bottom:10px;">
+                                <div class="group-author-avatar-node" style="width:34px; height:34px; font-size:13px;" id="groupPostInputAvatar">E</div>
+                                <input type="text" id="inputGroupFeedPost" placeholder="Escreva algo..." style="flex:1; background:#0d0e17; border:1px solid var(--border-subtle); border-radius:20px; padding:8px 14px; color:#fff; font-size:12px; outline:none;">
+                                <button class="btn-icon-plain" style="color:#22c55e;" onclick="publishPostInsideGroup()">
+                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"></rect><circle cx="8.5" cy="8.5" r="1.5"></circle><polyline points="21 15 16 10 5 21"></polyline></svg>
+                                </button>
+                            </div>
+                            <div style="display:flex; gap:8px; overflow-x:auto;">
+                                <button class="btn-group-action-chip">
+                                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#38bdf8" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+                                    <span>Post anônimo</span>
+                                </button>
+                                <button class="btn-group-action-chip">
+                                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><path d="M8 14s1.5 2 4 2 4-2 4-2"></path><line x1="9" y1="9" x2="9.01" y2="9"></line><line x1="15" y1="9" x2="15.01" y2="9"></line></svg>
+                                    <span>Sentimento</span>
+                                </button>
+                                <button class="btn-group-action-chip">
+                                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#ef4444" stroke-width="2"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg>
+                                    <span>Enquete</span>
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Checklist de Configuração do Grupo (Foto 5) -->
+                        <div class="group-checklist-card">
+                            <div style="display:flex; justify-content:space-between; align-items:center;">
+                                <span style="font-size:13px; font-weight:800; color:#fff;">Conclua a configuração do seu grupo</span>
+                                <button class="btn-icon-plain" onclick="this.parentElement.parentElement.style.display='none'">✕</button>
+                            </div>
+                            <p style="font-size:11px; color:var(--text-dim); margin-top:2px;">Continue adicionando detalhes importantes e comece a interagir com sua comunidade.</p>
+                            
+                            <div class="checklist-items-stack">
+                                <div class="checklist-row-item">
+                                    <div style="display:flex; align-items:center; gap:8px;">
+                                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><line x1="20" y1="8" x2="20" y2="14"></line><line x1="23" y1="11" x2="17" y2="11"></line></svg>
+                                        <span style="font-size:12px; font-weight:600; color:#fff;">Convidar pessoas para participar</span>
+                                    </div>
+                                    <button class="btn-checklist-plus">+</button>
+                                </div>
+                                <div class="checklist-row-item">
+                                    <div style="display:flex; align-items:center; gap:8px;">
+                                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"></rect><circle cx="8.5" cy="8.5" r="1.5"></circle><polyline points="21 15 16 10 5 21"></polyline></svg>
+                                        <span style="font-size:12px; font-weight:600; color:#fff;">Adicionar uma foto da capa</span>
+                                    </div>
+                                    <button class="btn-checklist-plus">+</button>
+                                </div>
+                                <div class="checklist-row-item">
+                                    <div style="display:flex; align-items:center; gap:8px;">
+                                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9"></path><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path></svg>
+                                        <span style="font-size:12px; font-weight:600; color:#fff;">Adicionar uma descrição</span>
+                                    </div>
+                                    <button class="btn-checklist-plus">+</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Feed de Postagens do Grupo -->
+                        <div id="groupPostsFeedContainer" style="margin-top:14px; display:flex; flex-direction:column; gap:12px;"></div>
+
+                    </div>
+
+                </div>
+            </section>
+
+            <!-- ================= MODAIS FLUTUANTES (PRIVACIDADE E COMPARTILHAR) ================= -->
+            <!-- 1. Bottom Sheet: Escolha a Privacidade (Foto 2) -->
+            <div class="bottom-sheet-backdrop" id="modalPrivacySheetBackdrop">
+                <div class="bottom-sheet-modal">
+                    <div class="bottom-sheet-header">
+                        <button class="btn-icon-plain" onclick="closePrivacySheet()">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"></polyline></svg>
+                        </button>
+                        <span style="font-size:15px; font-weight:800; color:#fff;">Escolha a privacidade</span>
+                        <button class="btn-link-action-header" onclick="confirmPrivacyChoice()">Concluir</button>
+                    </div>
+
+                    <div class="bottom-sheet-options-list">
+                        <!-- Opção Público -->
+                        <label class="privacy-choice-radio-card" onclick="selectPrivacyRadio('publico')">
+                            <div class="privacy-choice-icon-wrap">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
+                            </div>
+                            <div class="privacy-choice-info-text">
+                                <div class="choice-title">Público</div>
+                                <div class="choice-sub">Qualquer pessoa pode ver os membros e os posts do grupo. Dependendo da idade e tamanho, você pode torná-lo privado mais tarde.</div>
+                            </div>
+                            <input type="radio" name="groupPrivacyOpt" value="publico" checked>
+                        </label>
+
+                        <!-- Opção Privado -->
+                        <label class="privacy-choice-radio-card" onclick="selectPrivacyRadio('privado')">
+                            <div class="privacy-choice-icon-wrap">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+                            </div>
+                            <div class="privacy-choice-info-text">
+                                <div class="choice-title">Privado</div>
+                                <div class="choice-sub">Somente os membros podem ver quem está no grupo e o que postam nele. Você pode alterar para público mais tarde.</div>
+                            </div>
+                            <input type="radio" name="groupPrivacyOpt" value="privado">
+                        </label>
+                    </div>
+                </div>
             </div>
-        </section>
 
-        <!-- ================= MODAL SEMITRANSPARENTE "CRIAR TAG" ================= -->
+            <!-- 2. Bottom Sheet: Compartilhar Grupo (Foto da seta azul) -->
+            <div class="bottom-sheet-backdrop" id="modalShareGroupBackdrop">
+                <div class="bottom-sheet-modal">
+                    <div style="padding: 16px; font-size:15px; font-weight:800; color:#fff;">Compartilhar em</div>
+                    <div class="share-sheet-icons-row">
+                        <div class="share-icon-btn" onclick="alert('Compartilhar no Feed')">
+                            <div class="share-round-icon-box">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9"></path><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path></svg>
+                            </div>
+                            <span>Postar</span>
+                        </div>
+                        <div class="share-icon-btn" onclick="alert('Compartilhar via WhatsApp')">
+                            <div class="share-round-icon-box">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg>
+                            </div>
+                            <span>WhatsApp</span>
+                        </div>
+                        <div class="share-icon-btn" onclick="alert('Compartilhar em Mensagens')">
+                            <div class="share-round-icon-box">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+                            </div>
+                            <span>Mensagens</span>
+                        </div>
+                        <div class="share-icon-btn" onclick="copyGroupShareLink()">
+                            <div class="share-round-icon-box">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg>
+                            </div>
+                            <span>Copiar link</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ================= MODAL SEMITRANSPARENTE "CRIAR TAG" ================= -->
         <div class="tag-create-backdrop" id="modalCreateTagBackdrop">
             <div class="tag-create-card">
                 <div style="display:flex; justify-content:space-between; align-items:center;">
@@ -6214,6 +7087,254 @@ document.getElementById('btnAuthFacebook').onclick = async () => {
             }
         };
         window.addEventListener('DOMContentLoaded', () => renderDynamicHomeFeed());
+
+    // ================= GESTÃO DE GRUPOS DA COMUNIDADE (FIEL AO FACEBOOK) =================
+        let userCreatedGroupsList = [];
+        let selectedGroupPrivacy = "publico";
+        let activeOpenGroup = null;
+
+        // 1. Sanfona de Comunidade no Drawer Lateral
+        const btnToggleComunidade = document.getElementById('btnToggleComunidade');
+        const subComunidadeList = document.getElementById('subComunidadeList');
+        const chevronComunidade = document.getElementById('chevronComunidade');
+
+        if (btnToggleComunidade) {
+            btnToggleComunidade.onclick = () => {
+                const isOpen = subComunidadeList.classList.toggle('open');
+                if (chevronComunidade) {
+                    chevronComunidade.style.transform = isOpen ? 'rotate(180deg)' : 'rotate(0deg)';
+                }
+            };
+        }
+
+        // 2. Abrir o Hub de Grupos a partir do Menu
+        window.openGroupsHub = function() {
+            closeDrawer();
+            switchNav('viewGroupsHub');
+            loadAndRenderUserGroups();
+        };
+
+        // 3. Alternar Abas no Hub de Grupos (Seus Grupos, Posts, Descobrir, Convites)
+        window.switchGroupsTab = function(tabName, btnEl) {
+            document.querySelectorAll('.groups-pill-btn').forEach(b => b.classList.remove('active'));
+            if (btnEl) btnEl.classList.add('active');
+
+            document.querySelectorAll('.groups-tab-content-panel').forEach(p => p.classList.remove('active'));
+
+            if (tabName === 'myGroups') {
+                document.getElementById('panelMyGroups').classList.add('active');
+            } else if (tabName === 'groupPosts') {
+                document.getElementById('panelGroupPosts').classList.add('active');
+            } else if (tabName === 'discoverGroups') {
+                document.getElementById('panelDiscoverGroups').classList.add('active');
+            } else if (tabName === 'invitesGroups') {
+                document.getElementById('panelInvitesGroups').classList.add('active');
+            }
+        };
+
+        // 4. Abrir Tela de Criação de Grupo
+        window.openCreateGroupView = function() {
+            if (!auth.currentUser) {
+                alert("Faça login para criar um grupo!");
+                openLoginModal();
+                return;
+            }
+            switchNav('viewCreateGroup');
+            document.getElementById('inputNewGroupName').value = '';
+            document.getElementById('inputGroupCoverFile').value = '';
+            selectedGroupPrivacy = "publico";
+            document.getElementById('labelSelectedPrivacy').innerText = "Público";
+            document.getElementById('privacyHelpDescription').innerText = "Qualquer pessoa pode ver quem está no grupo e o que postam. Você pode alterar para privado mais tarde.";
+        };
+
+        // 5. Controle do Bottom Sheet de Privacidade
+        const modalPrivacySheetBackdrop = document.getElementById('modalPrivacySheetBackdrop');
+        document.getElementById('btnOpenPrivacyModal').onclick = () => {
+            modalPrivacySheetBackdrop.classList.add('open');
+        };
+
+        window.closePrivacySheet = () => {
+            modalPrivacySheetBackdrop.classList.remove('open');
+        };
+
+        window.selectPrivacyRadio = function(priv) {
+            selectedGroupPrivacy = priv;
+        };
+
+        window.confirmPrivacyChoice = function() {
+            closePrivacySheet();
+            const labelEl = document.getElementById('labelSelectedPrivacy');
+            const descEl = document.getElementById('privacyHelpDescription');
+            if (selectedGroupPrivacy === 'publico') {
+                labelEl.innerText = "Público";
+                descEl.innerText = "Qualquer pessoa pode ver os membros e os posts do grupo. Você pode alterar para privado mais tarde.";
+            } else {
+                labelEl.innerText = "Privado";
+                descEl.innerText = "Somente os membros podem ver quem está no grupo e o que postam nele. Você pode alterar para público mais tarde.";
+            }
+        };
+
+        // 6. Criar e Gravar Grupo no Firestore
+        document.getElementById('btnExecuteCreateGroup').onclick = async () => {
+            const groupName = document.getElementById('inputNewGroupName').value.trim();
+            const coverUrl = document.getElementById('inputGroupCoverFile').value.trim() || "https://picsum.photos/seed/" + encodeURIComponent(groupName) + "/800/350";
+
+            if (!groupName) {
+                alert("Por favor, digite um nome para o seu grupo.");
+                return;
+            }
+
+            const newGroupData = {
+                name: groupName,
+                cover: coverUrl,
+                privacy: selectedGroupPrivacy,
+                creatorId: auth.currentUser.uid,
+                creatorName: currentUserProfile?.name || auth.currentUser.displayName || "Criador",
+                membersCount: 1,
+                members: [auth.currentUser.uid],
+                createdAt: new Date().toISOString()
+            };
+
+            try {
+                const { collection, addDoc } = await import("https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js");
+                const docRef = await addDoc(collection(db, "community_groups"), newGroupData);
+                activeOpenGroup = { id: docRef.id, ...newGroupData };
+
+                // Abre a tela de Convidar / Seu grupo foi criado (Foto 3)
+                switchNav('viewGroupInvite');
+                loadAndRenderUserGroups();
+            } catch (err) {
+                console.error("Erro ao criar grupo:", err);
+                activeOpenGroup = { id: "local_" + Date.now(), ...newGroupData };
+                switchNav('viewGroupInvite');
+            }
+        };
+
+        // 7. Tela de Convite e Compartilhamento
+        const modalShareGroupBackdrop = document.getElementById('modalShareGroupBackdrop');
+        document.getElementById('btnOpenShareSheet').onclick = () => {
+            modalShareGroupBackdrop.classList.add('open');
+        };
+
+        window.copyGroupShareLink = () => {
+            navigator.clipboard.writeText(window.location.href);
+            modalShareGroupBackdrop.classList.remove('open');
+            alert("Link do grupo copiado para a área de transferência!");
+        };
+
+        // Clicar em "Concluir" leva para a Página Oficial do Grupo
+        document.getElementById('btnFinishGroupCreation').onclick = () => {
+            if (activeOpenGroup) {
+                openGroupDetailPage(activeOpenGroup);
+            } else {
+                switchNav('viewGroupsHub');
+            }
+        };
+
+        // 8. Abrir a Página Oficial do Grupo (Fotos 4 e 5)
+        window.openGroupDetailPage = function(group) {
+            activeOpenGroup = group;
+            switchNav('viewGroupDetail');
+
+            document.getElementById('groupPageNavTitle').innerText = group.name;
+            document.getElementById('groupPageMainTitle').innerText = group.name;
+            document.getElementById('groupPageCoverImg').src = group.cover;
+            document.getElementById('groupPagePrivacyBadge').innerText = group.privacy === 'publico' ? 'Grupo Público' : 'Grupo Privado';
+            document.getElementById('groupPageMemberCount').innerText = `${group.membersCount || 1} membro(s)`;
+
+            const authorInitial = (group.creatorName || "U")[0].toUpperCase();
+            document.getElementById('groupPageAuthorMiniAvatar').innerText = authorInitial;
+            document.getElementById('groupPostInputAvatar').innerText = authorInitial;
+
+            renderGroupPostsFeed(group.id);
+        };
+
+        // 9. Publicar Post dentro do Grupo
+        window.publishPostInsideGroup = async function() {
+            const inputEl = document.getElementById('inputGroupFeedPost');
+            const content = inputEl.value.trim();
+            if (!content) return;
+
+            const postObj = {
+                groupId: activeOpenGroup.id,
+                author: currentUserProfile?.name || auth.currentUser?.displayName || "Você",
+                text: content,
+                date: "Agora mesmo"
+            };
+
+            try {
+                const { collection, addDoc } = await import("https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js");
+                await addDoc(collection(db, "group_posts"), postObj);
+            } catch (err) {
+                console.warn("Post gravado localmente:", err.message);
+            }
+
+            inputEl.value = '';
+            renderGroupPostsFeed(activeOpenGroup.id);
+        };
+
+        // Renderiza o feed interno do grupo
+        async function renderGroupPostsFeed(groupId) {
+            const container = document.getElementById('groupPostsFeedContainer');
+            container.innerHTML = '';
+
+            const mockCard = document.createElement('div');
+            mockCard.style.cssText = "background:#12141f; border:1px solid var(--border-subtle); border-radius:12px; padding:12px; display:flex; flex-direction:column; gap:8px;";
+            mockCard.innerHTML = `
+                <div style="display:flex; align-items:center; gap:8px;">
+                    <div class="group-author-avatar-node" style="width:32px; height:32px; font-size:12px;">E</div>
+                    <div>
+                        <div style="font-size:12px; font-weight:700; color:#fff;">${activeOpenGroup.creatorName || "Criador"}</div>
+                        <div style="font-size:10px; color:var(--text-dim);">Administrador · Criou o grupo</div>
+                    </div>
+                </div>
+                <div style="font-size:13px; color:#e2e8f0; line-height:1.4;">Bem-vindos ao grupo oficial ${activeOpenGroup.name}! Comece a postar e a convidar membros.</div>
+                <div style="display:flex; justify-content:space-around; border-top:1px solid rgba(255,255,255,0.06); padding-top:8px; font-size:12px; color:var(--text-dim);">
+                    <span style="cursor:pointer;">Curtir</span>
+                    <span style="cursor:pointer;">Comentar</span>
+                    <span style="cursor:pointer;">Compartilhar</span>
+                </div>
+            `;
+            container.appendChild(mockCard);
+        }
+
+        // Carrega os grupos do usuário
+        async function loadAndRenderUserGroups() {
+            const listEl = document.getElementById('userGroupsContainerList');
+            if (!listEl) return;
+            listEl.innerHTML = '';
+
+            try {
+                const { collection, getDocs } = await import("https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js");
+                const snap = await getDocs(collection(db, "community_groups"));
+                userCreatedGroupsList = [];
+                snap.forEach(d => userCreatedGroupsList.push({ id: d.id, ...d.data() }));
+            } catch (err) {
+                userCreatedGroupsList = [];
+            }
+
+            if (userCreatedGroupsList.length === 0) {
+                userCreatedGroupsList = [
+                    { id: "g1", name: "Waifus radish group", cover: "https://picsum.photos/seed/waifugroup/100/100", membersCount: "12 mil", privacy: "publico" },
+                    { id: "g2", name: "Construção Civil | Dicas e Soluções", cover: "https://picsum.photos/seed/civilgroup/100/100", membersCount: "25 mil", privacy: "publico" }
+                ];
+            }
+
+            userCreatedGroupsList.forEach(g => {
+                const item = document.createElement('div');
+                item.className = 'user-group-item-card';
+                item.onclick = () => openGroupDetailPage(g);
+                item.innerHTML = `
+                    <img src="${g.cover}" alt="${g.name}">
+                    <div class="user-group-item-info">
+                        <div class="user-group-item-title">${g.name}</div>
+                        <div class="user-group-item-sub">${g.membersCount || 1} membros · Atualizado recentemente</div>
+                    </div>
+                `;
+                listEl.appendChild(item);
+            });
+        }
+    
     </script>
 </body>
 </html>
