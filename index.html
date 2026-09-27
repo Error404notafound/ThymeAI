@@ -5196,37 +5196,93 @@ const fbProvider = new FacebookAuthProvider(); // <--- INSTANCIADO AQUI
                 leftTagCol.appendChild(tagCard);
             });
 
-            // 3. Coluna da Direita: Obras com tags parecidas (Circuladas em Vermelho)
+            // 3. Coluna da Direita: Obras com pelo menos 1 tag semelhante (Cruzamento Real)
             const rightWorksCol = document.getElementById('postDetailRightWorksColumn');
             rightWorksCol.innerHTML = '';
 
-            const relatedPool = allGlobalPosts.filter(p => p.id !== post.id);
-            relatedPool.slice(0, 4).forEach(relPost => {
-                const card = document.createElement('div');
-                card.className = 'main-feed-card';
-                card.style.cursor = 'pointer';
-                card.onclick = () => openPostDetail(relPost);
-                card.innerHTML = `
-                    <div class="main-feed-thumb-box ratio-9-16">
-                        <img src="${relPost.image}" alt="${relPost.title}" loading="lazy">
-                    </div>
-                    <div class="main-feed-card-body">
-                        <div class="main-feed-post-title">${relPost.title}</div>
-                        <div class="main-feed-author-row">
-                            <div class="main-feed-author-cluster">
-                                <div class="main-feed-author-avatar">${(relPost.author || "U")[0].toUpperCase()}</div>
-                                <span class="main-feed-author-name">${relPost.author || "Criador"}</span>
-                            </div>
-                            <div class="post-likes-badge">
-                                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3zM7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"></path></svg>
-                                <span>${relPost.likes || 0}</span>
+            // Lista das tags do post atual em minúsculas (Ex: ["macaco", "floresta"])
+            const currentPostTags = tagsList.map(t => String(t).trim().toLowerCase());
+
+            // Busca os posts mais recentes do Firestore para cruzar com as tags
+            (async () => {
+                let poolOfPosts = [];
+                try {
+                    const { collection, getDocs, query, where } = await import("https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js");
+                    
+                    let q;
+                    if (auth.currentUser) {
+                        q = query(collection(db, "community_posts"), where("privacy", "==", "publico"));
+                    } else {
+                        q = query(collection(db, "community_posts"), where("privacy", "==", "publico"), where("isSensitive", "==", false));
+                    }
+
+                    const snap = await getDocs(q);
+                    snap.forEach(d => {
+                        poolOfPosts.push({ id: d.id, ...d.data() });
+                    });
+                } catch (err) {
+                    poolOfPosts = allGlobalPosts;
+                }
+
+                if (poolOfPosts.length === 0) {
+                    poolOfPosts = allGlobalPosts;
+                }
+
+                // 1. FILTRO REAL: Só aceita posts que tenham PELO MENOS 1 tag em comum (e não seja a própria foto)
+                const matchingRelatedPosts = poolOfPosts.filter(item => {
+                    if (item.id === post.id) return false;
+
+                    const itemTags = (item.tags && item.tags.length > 0 ? item.tags : (item.tag ? [item.tag] : []))
+                        .map(t => String(t).trim().toLowerCase());
+
+                    // Retorna verdadeiro se tiver pelo menos 1 tag igual (ex: macaco OU floresta)
+                    return itemTags.some(t => currentPostTags.includes(t));
+                });
+
+                // 2. ORDENAÇÃO: Quem tiver mais tags em comum aparece primeiro
+                matchingRelatedPosts.sort((a, b) => {
+                    const aTags = (a.tags && a.tags.length > 0 ? a.tags : [a.tag || ""]).map(t => String(t).trim().toLowerCase());
+                    const bTags = (b.tags && b.tags.length > 0 ? b.tags : [b.tag || ""]).map(t => String(t).trim().toLowerCase());
+
+                    const aMatches = aTags.filter(t => currentPostTags.includes(t)).length;
+                    const bMatches = bTags.filter(t => currentPostTags.includes(t)).length;
+
+                    return bMatches - aMatches;
+                });
+
+                // 3. Se não houver nenhum post com tags semelhantes ainda
+                if (matchingRelatedPosts.length === 0) {
+                    rightWorksCol.innerHTML = '<div style="color:var(--text-dim); font-size:11px; padding:16px 4px; line-height: 1.4;">Nenhuma outra obra encontrada com as tags correspondentes.</div>';
+                    return;
+                }
+
+                // 4. Renderiza os posts relacionados que deram "match" de tags
+                matchingRelatedPosts.slice(0, 6).forEach(relPost => {
+                    const card = document.createElement('div');
+                    card.className = 'main-feed-card';
+                    card.style.cursor = 'pointer';
+                    card.onclick = () => openPostDetail(relPost);
+                    card.innerHTML = `
+                        <div class="main-feed-thumb-box ratio-9-16">
+                            <img src="${relPost.image}" alt="${relPost.title}" loading="lazy">
+                        </div>
+                        <div class="main-feed-card-body">
+                            <div class="main-feed-post-title">${relPost.title}</div>
+                            <div class="main-feed-author-row">
+                                <div class="main-feed-author-cluster">
+                                    <div class="main-feed-author-avatar">${(relPost.author || "U")[0].toUpperCase()}</div>
+                                    <span class="main-feed-author-name">${relPost.author || "Criador"}</span>
+                                </div>
+                                <div class="post-likes-badge">
+                                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3zM7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"></path></svg>
+                                    <span>${relPost.likes || 0}</span>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                `;
-                rightWorksCol.appendChild(card);
-            });
-        };
+                    `;
+                    rightWorksCol.appendChild(card);
+                });
+            })();
 
         // Botão Voltar da tela de detalhes (Retorna para a Tag Original)
         document.getElementById('btnBackFromPostDetail').onclick = () => {
