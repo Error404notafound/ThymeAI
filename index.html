@@ -5181,34 +5181,31 @@ const fbProvider = new FacebookAuthProvider(); // <--- INSTANCIADO AQUI
                 tagsBox.appendChild(tagLink);
             });
 
-            // 2. Coluna da Esquerda: Banners das Tags Originais da foto (Circuladas em Branco)
-            const leftTagCol = document.getElementById('postDetailLeftTagCards');
-            leftTagCol.innerHTML = '';
+            // 2 e 3. Grade Híbrida: Capas Reais das Tags na Esquerda + Fotos preenchendo os dois lados (X Vermelho e X Azul resolvidos)
+            const leftCol = document.getElementById('postDetailLeftTagCards');
+            const rightCol = document.getElementById('postDetailRightWorksColumn');
+            leftCol.innerHTML = '';
+            rightCol.innerHTML = '';
 
-            tagsList.forEach(tagName => {
-                const tagCard = document.createElement('div');
-                tagCard.className = 'post-tag-banner-card';
-                tagCard.onclick = () => openOriginalTagPage(tagName, { image: post.image, author: post.author, likes: post.likes, tags: tagsList });
-                tagCard.innerHTML = `
-                    <img src="${post.image}" alt="${tagName}">
-                    <span>${tagName}</span>
-                `;
-                leftTagCol.appendChild(tagCard);
-            });
-
-            // 3. Coluna da Direita: Obras com pelo menos 1 tag semelhante (Cruzamento Real)
-            const rightWorksCol = document.getElementById('postDetailRightWorksColumn');
-            rightWorksCol.innerHTML = '';
-
-            // Lista das tags do post atual em minúsculas (Ex: ["macaco", "floresta"])
             const currentPostTags = tagsList.map(t => String(t).trim().toLowerCase());
 
-            // Busca os posts mais recentes do Firestore para cruzar com as tags
             (async () => {
                 let poolOfPosts = [];
+                let originalTagsMap = {};
+
                 try {
                     const { collection, getDocs, query, where } = await import("https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js");
                     
+                    // 1. Busca as fotos de capa REAIS das Tags Originais no banco (Resolve o X Vermelho)
+                    const tagsSnap = await getDocs(collection(db, "original_tags"));
+                    tagsSnap.forEach(tDoc => {
+                        const tData = tDoc.data();
+                        if (tData.name && tData.cover) {
+                            originalTagsMap[tData.name.trim().toLowerCase()] = tData.cover;
+                        }
+                    });
+
+                    // 2. Busca os posts públicos da comunidade
                     let q;
                     if (auth.currentUser) {
                         q = query(collection(db, "community_posts"), where("privacy", "==", "publico"));
@@ -5228,18 +5225,41 @@ const fbProvider = new FacebookAuthProvider(); // <--- INSTANCIADO AQUI
                     poolOfPosts = allGlobalPosts;
                 }
 
-                // 1. FILTRO REAL: Só aceita posts que tenham PELO MENOS 1 tag em comum (e não seja a própria foto)
+                // Renderiza os Banners de Tags com a CAPA OFICIAL DA TAG (Foto do chimpanzé no Macaco, etc.)
+                tagsList.forEach(tagName => {
+                    const lowerTag = tagName.trim().toLowerCase();
+                    
+                    // Se achar a capa oficial na coleção original_tags, usa ela. Senão pega a melhor foto do banco.
+                    let officialCover = originalTagsMap[lowerTag];
+                    if (!officialCover) {
+                        const postWithTag = poolOfPosts.find(p => {
+                            const pTags = (p.tags || [p.tag || ""]).map(t => String(t).trim().toLowerCase());
+                            return pTags.includes(lowerTag);
+                        });
+                        officialCover = postWithTag?.image || post.image;
+                    }
+
+                    const tagCard = document.createElement('div');
+                    tagCard.className = 'post-tag-banner-card';
+                    tagCard.onclick = () => openOriginalTagPage(tagName, { image: officialCover, author: post.author, likes: post.likes, tags: tagsList });
+                    tagCard.innerHTML = `
+                        <img src="${officialCover}" alt="${tagName}">
+                        <span>${tagName}</span>
+                    `;
+                    leftCol.appendChild(tagCard);
+                });
+
+                // 3. Filtra posts relacionados (pelo menos 1 tag semelhante e não seja o post atual)
                 const matchingRelatedPosts = poolOfPosts.filter(item => {
                     if (item.id === post.id) return false;
 
                     const itemTags = (item.tags && item.tags.length > 0 ? item.tags : (item.tag ? [item.tag] : []))
                         .map(t => String(t).trim().toLowerCase());
 
-                    // Retorna verdadeiro se tiver pelo menos 1 tag igual (ex: macaco OU floresta)
                     return itemTags.some(t => currentPostTags.includes(t));
                 });
 
-                // 2. ORDENAÇÃO: Quem tiver mais tags em comum aparece primeiro
+                // Ordena por relevância (mais tags em comum primeiro)
                 matchingRelatedPosts.sort((a, b) => {
                     const aTags = (a.tags && a.tags.length > 0 ? a.tags : [a.tag || ""]).map(t => String(t).trim().toLowerCase());
                     const bTags = (b.tags && b.tags.length > 0 ? b.tags : [b.tag || ""]).map(t => String(t).trim().toLowerCase());
@@ -5250,14 +5270,13 @@ const fbProvider = new FacebookAuthProvider(); // <--- INSTANCIADO AQUI
                     return bMatches - aMatches;
                 });
 
-                // 3. Se não houver nenhum post com tags semelhantes ainda
                 if (matchingRelatedPosts.length === 0) {
-                    rightWorksCol.innerHTML = '<div style="color:var(--text-dim); font-size:11px; padding:16px 4px; line-height: 1.4;">Nenhuma outra obra encontrada com as tags correspondentes.</div>';
+                    rightCol.innerHTML = '<div style="color:var(--text-dim); font-size:11px; padding:16px 4px; line-height: 1.4;">Nenhuma outra obra encontrada com as tags correspondentes.</div>';
                     return;
                 }
 
-                // 4. Renderiza os posts relacionados que deram "match" de tags
-                matchingRelatedPosts.slice(0, 6).forEach(relPost => {
+                // 4. DISTRIBUIÇÃO DAS FOTOS: Preenche a Direita E a Esquerda (Resolve o X Azul)
+                matchingRelatedPosts.slice(0, 10).forEach((relPost, index) => {
                     const card = document.createElement('div');
                     card.className = 'main-feed-card';
                     card.style.cursor = 'pointer';
@@ -5280,7 +5299,16 @@ const fbProvider = new FacebookAuthProvider(); // <--- INSTANCIADO AQUI
                             </div>
                         </div>
                     `;
-                    rightWorksCol.appendChild(card);
+
+                    // O 1º post vai para a direita (ao lado dos cards de tags)
+                    // A partir daí, os posts alternam entre a Esquerda (preenchendo o X azul) e a Direita
+                    if (index === 0) {
+                        rightCol.appendChild(card);
+                    } else if (index % 2 === 1) {
+                        leftCol.appendChild(card);  // <- Preenche exatamente o espaço do X Azul!
+                    } else {
+                        rightCol.appendChild(card);
+                    }
                 });
             })();
         };
