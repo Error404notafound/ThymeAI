@@ -2135,8 +2135,7 @@ nav.app-bottom-navbar {
 
 .main-feed-thumb-box img {
     width: 100%;
-    height: 100%;
-    object-fit: cover;
+    height: auto;
     display: block;
 }
 
@@ -5963,7 +5962,7 @@ const fbProvider = new FacebookAuthProvider(); // <--- INSTANCIADO AQUI
                         card.onclick = () => openPostDetail(post);
 
                         card.innerHTML = `
-                            <div class="main-feed-thumb-box ratio-9-16">
+                            <div class="main-feed-thumb-box">
                                 <img src="${post.image}" alt="${post.title}" loading="lazy">
                             </div>
                             <div class="main-feed-card-body">
@@ -6175,14 +6174,14 @@ const fbProvider = new FacebookAuthProvider(); // <--- INSTANCIADO AQUI
                     return;
                 }
 
-                // 4. DISTRIBUIÇÃO DAS FOTOS: Preenche a Direita E a Esquerda (Resolve o X Azul)
+                // 4. DISTRIBUIÇÃO DAS FOTOS: Preenche a Direita E a Esquerda com proporções reais
                 matchingRelatedPosts.slice(0, 10).forEach((relPost, index) => {
                     const card = document.createElement('div');
                     card.className = 'main-feed-card';
                     card.style.cursor = 'pointer';
                     card.onclick = () => openPostDetail(relPost);
                     card.innerHTML = `
-                        <div class="main-feed-thumb-box ratio-9-16">
+                        <div class="main-feed-thumb-box">
                             <img src="${relPost.image}" alt="${relPost.title}" loading="lazy">
                         </div>
                         <div class="main-feed-card-body">
