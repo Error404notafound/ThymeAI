@@ -2776,12 +2776,11 @@ nav.app-bottom-navbar {
     width: 100%;
     min-height: 100%;
     padding-bottom: calc(var(--bottom-nav-h) + 120px);
-    display: flex;
-    flex-direction: column;
+    display: block;
     box-sizing: border-box;
 }
 
-/* 1. Imagem Principal que se adapta 100% ao formato real (9:16, 16:9, 1:1, etc.) */
+/* 1. Imagem Principal com Proporção Real Dinâmica (Nunca colapsa para 0) */
 .post-detail-image-stage {
     position: relative;
     margin: 10px 12px 6px;
@@ -2790,7 +2789,9 @@ nav.app-bottom-navbar {
     background: #141724;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.6);
     display: block;
-    height: auto;
+    width: auto;
+    min-height: 240px;
+    transition: aspect-ratio 0.2s ease;
 }
 
 .post-detail-image-stage img {
@@ -3948,8 +3949,8 @@ nav.app-bottom-navbar {
         <section class="view-section" id="viewPostDetail">
             <div class="post-detail-viewport">
                 
-                <!-- 1. Imagem Principal com Proporção Natural da Foto Postada -->
-                <div class="post-detail-image-stage" style="position: relative !important; margin: 10px 12px 6px !important; border-radius: 16px !important; overflow: hidden !important; background: #141724 !important; display: block !important; height: auto !important; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.6) !important;">
+                <!-- 1. Imagem Principal com Proporção Real Dinâmica -->
+                <div class="post-detail-image-stage" style="position: relative !important; margin: 10px 12px 6px !important; border-radius: 16px !important; overflow: hidden !important; background: #141724 !important; display: block !important; min-height: 240px !important; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.6) !important;">
                     <button class="btn-floating-post-back" id="btnBackFromPostDetail" title="Voltar">
                         <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
                     </button>
@@ -5103,24 +5104,35 @@ const fbProvider = new FacebookAuthProvider(); // <--- INSTANCIADO AQUI
                 viewEl.scrollTo({ top: 0, behavior: 'smooth' });
             }
 
-            // Foto principal que se adapta 100% à proporção real da foto (9:16, 16:9, 1:1, etc.)
+            // Foto principal com detecção automática do formato real da foto
             const mainImg = document.getElementById('postDetailMainImg');
+            const stageContainer = document.querySelector('.post-detail-image-stage');
+
             if (mainImg) {
                 mainImg.src = post.image || "";
                 mainImg.style.display = 'block';
                 mainImg.style.width = '100%';
                 mainImg.style.height = 'auto';
-                mainImg.style.minHeight = 'unset';
-                mainImg.style.maxHeight = 'none';
                 mainImg.style.borderRadius = '16px';
-            }
 
-            const stageContainer = document.querySelector('.post-detail-image-stage');
-            if (stageContainer) {
-                stageContainer.style.display = 'block';
-                stageContainer.style.minHeight = 'unset';
-                stageContainer.style.maxHeight = 'none';
-                stageContainer.style.height = 'auto';
+                // Função que aplica a proporção exata da foto (9:16, 16:9, 1:1, etc.)
+                const applyRealAspectRatio = function() {
+                    if (mainImg.naturalWidth && mainImg.naturalHeight) {
+                        const ratioStr = `${mainImg.naturalWidth} / ${mainImg.naturalHeight}`;
+                        mainImg.style.aspectRatio = ratioStr;
+                        if (stageContainer) {
+                            stageContainer.style.aspectRatio = ratioStr;
+                            stageContainer.style.minHeight = 'unset';
+                        }
+                    }
+                };
+
+                // Se a imagem já estiver em cache, aplica na hora; senão aguarda o carregamento
+                if (mainImg.complete && mainImg.naturalWidth > 0) {
+                    applyRealAspectRatio();
+                } else {
+                    mainImg.onload = applyRealAspectRatio;
+                }
             }
 
             // Autor
