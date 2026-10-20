@@ -5628,21 +5628,21 @@ nav.app-bottom-navbar {
             serverTimestamp
         } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 
-        // Configuração Oficial do seu projeto
+        // Configuração Oficial do seu projeto ThymeAI
         const firebaseConfig = {
-            apiKey: "AIzaSyCiqgGY0ufivG7jMWfNaC3mfZSyKgpM_cs",
-            authDomain: "cronosartai.firebaseapp.com",
-            projectId: "cronosartai",
-            storageBucket: "cronosartai.firebasestorage.app",
-            messagingSenderId: "85541618478",
-            appId: "1:85541618478:web:004c6d71cf6f82d18b30bf"
+            apiKey: "AIzaSyDLSuDRKjBASVl4-mkpOYpi7TUft4YbuuY",
+            authDomain: "thymeai.firebaseapp.com",
+            projectId: "thymeai",
+            storageBucket: "thymeai.firebasestorage.app",
+            messagingSenderId: "413205129689",
+            appId: "1:85541618478:web:8a2e9a7fe3b94c0e2f91c8"
         };
 
         const app = initializeApp(firebaseConfig);
-const auth = getAuth(app);
-const db = getFirestore(app);
-const provider = new GoogleAuthProvider();
-const fbProvider = new FacebookAuthProvider(); // <--- INSTANCIADO AQUI
+        const auth = getAuth(app);
+        const db = getFirestore(app);
+        const provider = new GoogleAuthProvider();
+        const fbProvider = new FacebookAuthProvider();
 
         // Obras Mock da Comunidade com Tags Específicas (Usuário B)
         const COMMUNITY_POSTS = [
